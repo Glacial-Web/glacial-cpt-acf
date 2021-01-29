@@ -1,0 +1,93 @@
+.cpt-doctor-image-link {
+    width: 20%;
+    padding: 1.5em;
+    background: none;
+}
+
+.cpt-doctor-image-link > a {
+    display: block;
+    text-align: center;
+    width: 100%;
+    text-decoration: none;
+    color: #333;
+}
+
+.cpt-doctor-image-link > a:hover {
+    color: blue;
+}
+
+.cpt-doctor-image-link img {
+    width: 100%;
+    box-shadow: 0 8px 11px rgba(41, 48, 55, 17);
+    transition: all 0.2s ease-in-out;
+    border: 1px solid #d8d8d8;
+}
+
+.cpt-doctor-image-link a:hover img {
+    box-shadow: 0 2px 3px rgba(41, 48, 55, 17);
+}
+
+.flex-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flex-start {
+    justify-content: flex-start;
+
+}
+
+.doc-name {
+    margin-top: 0.5em;
+    margin-bottom: 10px;
+}
+
+.cpt-location-info a {
+    text-decoration: none;
+}
+
+.cpt-location-info .flex-wrapper > div:first-child {
+    width: 33%;
+    padding-right: 2em;
+}
+
+.cpt-location-info .flex-wrapper > div:nth-child(2) {
+    flex: 1;
+}
+
+.cpt-location-info iframe {
+    width: 100%;
+}
+
+.cpt-location-info h2 {
+margin-bottom: 0.7em;
+}
+
+.location-phone-list {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+@media (max-width: 767px) {
+
+
+    .cpt-doctor-image-link {
+        width: 33%;
+    }
+    .cpt-location-info .flex-wrapper > div:first-child {
+        width: 100%;
+        padding-right: 0;
+    }
+
+    .cpt-location-info .flex-wrapper > div:nth-child(2) {
+        flex: auto;
+    }
+}
+
+@media (max-width: 479px) {
+
+    .cpt-doctor-image-link {
+        width: 50%;
+    }
+}
