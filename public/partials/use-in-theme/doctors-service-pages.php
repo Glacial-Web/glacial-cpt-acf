@@ -42,7 +42,6 @@ if ( $doctors ): ?>
         <div class="wrapper_div-2">
             <h2 class="inner_docs_headline"><?php the_title(); ?> Doctors </h2>
             <div class="docs_side_div">
-
 				<?php foreach ( $doctors as $doctor ):
 					$degree = get_field( 'degree', $doctor->ID );
 					$img = get_field( 'headshot', $doctor->ID );
@@ -51,7 +50,8 @@ if ( $doctors ): ?>
                     <a href="<?php echo get_permalink( $doctor->ID ); ?>"
                        class="doctor_btn_inner-2 w-inline-block"
                        title="<?php echo get_the_title( $doctor->ID ); ?>">
-                        <div class="doc_btn_text"><b><?php echo get_the_title( $doctor->ID ) . ' ' . $degree; ?></b></div>
+                        <div class="doc_btn_text"><b><?php echo get_the_title( $doctor->ID ) . ' ' . $degree; ?></b>
+                        </div>
                         <img src="<?php echo $img['url']; ?>" alt="<?php echo $img['alt']; ?>" class="doc_btn_img">
                     </a>
 
