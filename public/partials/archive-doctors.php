@@ -1,13 +1,11 @@
 <?php
 /**
+ *  Displays doctor filtering on the doctors archive page.
  *
- *
- * The template part for displaying the doctor filtering on the doctors page.
- *
- *
+ * @package Glacial_Cpt_Acf
  */
 
-// get all locations
+// Get all locations
 $location_type_query = new WP_Query(
 	array(
 		'post_type'      => 'locations',
@@ -16,12 +14,12 @@ $location_type_query = new WP_Query(
 		'order'          => 'asc',
 	)
 );
-// array of posts
+// Array of locations
 $locations = $location_type_query->posts;
 
 wp_reset_postdata();
 
-//Get Services pages by tag
+// Get Services pages by tag
 $services_tag_query = new WP_Query(
 	array(
 		'post_type' => 'page',
@@ -31,6 +29,7 @@ $services_tag_query = new WP_Query(
 	)
 );
 
+// Array of service pages
 $services = $services_tag_query->posts;
 
 wp_reset_postdata();
@@ -84,9 +83,9 @@ $doctor_query = new WP_Query( $args ); ?>
             <div class="flex-wrapper flex-start">
 
 				<?php while ( $doctor_query->have_posts() ) : $doctor_query->the_post();
-					$image  = get_field( 'headshot' );
-					$degree = get_field( 'degree' );
-
+					// ACF Vars
+					$image          = get_field( 'headshot' );
+					$degree         = get_field( 'degree' );
 					$doc_locations  = get_field( 'location' );
 					$doc_services   = get_field( 'specialties' );
 					$doc_procedures = get_field( 'surgical_procedures' );

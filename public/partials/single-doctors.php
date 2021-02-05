@@ -1,6 +1,6 @@
 <?php
 /**
- * The template for displaying single Doctor pages
+ * Displays single doctor
  *
  *
  *
@@ -15,10 +15,7 @@ get_header();
 <?php if ( have_posts() ) : ?>
 
 	<?php while ( have_posts() ) : the_post();
-		//ACF Vars
-		$thumbnail_id           = get_post_thumbnail_id( $post->ID );
-		$alt                    = get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true );
-		$url                    = wp_get_attachment_url( get_post_thumbnail_id( $post->ID ) );
+		// ACF Vars
 		$additional_specialties = get_field( 'additional_specialties' ); ?>
 
 		<?php if ( $additional_specialties ): ?>
@@ -27,7 +24,7 @@ get_header();
             </div>
 		<?php endif; ?>
 
-        <img src="<?php echo $url; ?>" alt="<?php echo $alt; ?>" class="inner_img">
+		<?php the_post_thumbnail( 'large', array( 'class' => 'doctor-featured-image' ) ); ?>
 
 		<?php the_content(); ?>
 
@@ -38,33 +35,39 @@ get_header();
 		$surgical    = get_field( 'surgical_procedures' );
 		$locations   = get_field( 'location' ); ?>
 
-        <div class="specialties_div">
+        <div class="doctor-specialties-locations flex-wrapper">
 
 			<?php if ( $specialties ): ?>
-                <div class="specialties_wrapper">
-                    <h3 class="inner_docs_headline _2">Specialties</h3>
+                <div class="specialties-wrapper">
+                    <h3>Specialties</h3>
+                    <ul>
+						<?php foreach ( $specialties as $post ): ?>
+                            <li>
+                                <a href="<?php the_permalink(); ?>"
+                                   class="page_link"><?php the_title(); ?></a>
+                            </li>
+						<?php endforeach; ?>
 
-					<?php foreach ( $specialties as $post ): ?>
-                        <a href="<?php the_permalink(); ?>"
-                           class="page_link"><?php the_title(); ?></a>
-					<?php endforeach; ?>
+						<?php wp_reset_postdata(); ?>
 
+                    </ul>
                 </div>
-
-				<?php wp_reset_postdata(); ?>
-
 			<?php endif; ?>
 
 			<?php if ( $locations ): ?>
-                <div class="specialties_wrapper">
-                    <h3 class="inner_docs_headline _2">Locations</h3>
-					<?php foreach ( $locations as $post ): ?>
-                        <a href="<?php the_permalink(); ?>" class="page_link"><?php the_title(); ?></a>
-					<?php endforeach; ?>
+                <div class="specialties-wrapper">
+                    <h3>Locations</h3>
+                    <ul>
+						<?php foreach ( $locations as $post ): ?>
+                            <li>
+                                <a href="<?php the_permalink(); ?>" class="page_link"><?php the_title(); ?></a>
+                            </li>
+						<?php endforeach; ?>
+
+                        <?php wp_reset_postdata(); ?>
+
+                    </ul>
                 </div>
-
-				<?php wp_reset_postdata(); ?>
-
 			<?php endif; ?>
 
         </div>

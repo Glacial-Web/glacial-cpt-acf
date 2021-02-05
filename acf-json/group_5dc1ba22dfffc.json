@@ -7,7 +7,7 @@
             "label": "Headshot",
             "name": "headshot",
             "type": "image",
-            "instructions": "This is the image that will be displayed on the homepage slider and on the main doctors page",
+            "instructions": "This image will show up on the Doctors filter page. Featured image will show up on single Doctors pages.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -50,7 +50,7 @@
             "label": "Additional Specialties",
             "name": "additional_specialties",
             "type": "text",
-            "instructions": "",
+            "instructions": "This will appear above the featured image.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -136,5 +136,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1612488640
+    "modified": 1612499138
 }

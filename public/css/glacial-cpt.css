@@ -74,8 +74,10 @@ margin-bottom: 0.7em;
     margin-top: -0.5em;
     display: block;
     font-style: italic;
+}
 
-
+.doctor-specialties-locations {
+    width: 30%;
 }
 
 @media (max-width: 767px) {

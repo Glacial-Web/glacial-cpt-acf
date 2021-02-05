@@ -1,13 +1,9 @@
 <?php
 /**
  *
- * The template for displaying Glaucoma page
+ * Displays single locations
  *
- *
- * @package WordPress
- * @subpackage glacial
- * Author: Glacial Multimedia, Inc.
- * Author URL: https://www.glacial.com/
+ * @package Glacial_Cpt_Acf
  */
 ?>
 
