@@ -34,12 +34,16 @@
 
 .flex-start {
     justify-content: flex-start;
-
 }
 
-.doc-name {
+.flex-between {
+    justify-content: space-between;
+}
+
+.doctor-name {
     margin-top: 0.5em;
     margin-bottom: 10px;
+    line-height: 1;
 }
 
 .cpt-location-info a {
@@ -76,13 +80,16 @@ margin-bottom: 0.7em;
     font-style: italic;
 }
 
-.doctor-specialties-locations {
-    width: 30%;
+.location-services, .doctor-specialties-locations {
+    margin: 3em auto;
+}
+
+.doctor-featured-image {
+    margin-bottom: 1em;
 }
 
 @media (max-width: 767px) {
-
-
+    
     .cpt-doctor-image-link {
         width: 33%;
     }

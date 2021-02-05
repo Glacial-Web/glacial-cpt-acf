@@ -125,7 +125,7 @@ $doctor_query = new WP_Query( $args ); ?>
 					} ?>">
                         <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
                             <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>">
-                            <p class="text-center doc-name"><b><?php the_title(); ?></b>
+                            <p class="doctor-name"><b><?php the_title(); ?></b>
 
 								<?php if ( $degree ): ?>
                                     <br>

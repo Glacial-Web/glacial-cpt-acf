@@ -35,7 +35,7 @@ get_header();
 		$surgical    = get_field( 'surgical_procedures' );
 		$locations   = get_field( 'location' ); ?>
 
-        <div class="doctor-specialties-locations flex-wrapper">
+        <div class="doctor-specialties-locations flex-wrapper flex-between">
 
 			<?php if ( $specialties ): ?>
                 <div class="specialties-wrapper">
