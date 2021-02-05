@@ -36,9 +36,6 @@ $services = $services_tag_query->posts;
 wp_reset_postdata();
 ?>
 
-
-<h1 class="inner_main_headline"><?php post_type_archive_title(); ?></h1>
-
 <form class="controls" id="Filters">
     <div class="search-field-div">
         <fieldset>

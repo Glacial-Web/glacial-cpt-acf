@@ -65,8 +65,17 @@ margin-bottom: 0.7em;
 
 .location-phone-list {
     list-style: none;
-    margin-left: 0;
     padding-left: 0;
+    margin: 1em 0;
+}
+
+.phone-note {
+    font-size: 0.9em;
+    margin-top: -0.5em;
+    display: block;
+    font-style: italic;
+
+
 }
 
 @media (max-width: 767px) {
