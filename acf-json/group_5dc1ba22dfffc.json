@@ -31,7 +31,7 @@
             "label": "Degree",
             "name": "degree",
             "type": "text",
-            "instructions": "",
+            "instructions": "Used for cleaner permalinks and formatting on doctor images. No need to put M.D., etc in the title of the page. Put it here instead.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -136,5 +136,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1612499138
+    "modified": 1612532842
 }
