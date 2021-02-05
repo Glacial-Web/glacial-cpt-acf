@@ -75,15 +75,15 @@ $args = array(
 	'order'          => 'asc'
 );
 
-$the_query = new WP_Query( $args ); ?>
+$doctor_query = new WP_Query( $args ); ?>
 
-<?php if ( $the_query->have_posts() ) : ?>
+<?php if ( $doctor_query->have_posts() ) : ?>
 
     <div class="mix-holder">
         <div id="Container" class="container">
             <div class="flex-wrapper flex-start">
 
-				<?php while ( $the_query->have_posts() ) : $the_query->the_post();
+				<?php while ( $doctor_query->have_posts() ) : $doctor_query->the_post();
 					$image  = get_field( 'headshot' );
 					$degree = get_field( 'degree' );
 

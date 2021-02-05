@@ -21,7 +21,9 @@ $args = array(
 $the_query = new WP_Query( $args ); ?>
 
 <?php if ( $the_query->have_posts() ) :
-	$counter = 1;
+	// We will compare these two at the end of each iteration and
+    // add a <hr> tag to all but the last iteration
+    $counter = 1;
 	$found_posts = $the_query->found_posts;
 	?>
 
