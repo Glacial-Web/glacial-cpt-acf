@@ -5,7 +5,8 @@ field as well as others. You MUST have ACF Pro installed to use all the features
 
 ## Usage
 
-The plugin will create the post types Doctors and Locations on install. The ACF fields will be available for syncing in Field Groups in ACF.
+The plugin will create the post types Doctors and Locations on install. The ACF fields will be available for syncing in
+Field Groups in ACF.
 
 The main template file, doctor-location-wrapper.php, is in public/templates. This template serves as a wrapper. You
 should change the outer div and h1 elements to match your design.
@@ -18,6 +19,10 @@ To make use of the Doctor filter, you need to add the service tag to service pag
 the "Services" dropdown menu. The plugin adds tag support for pages and creates the service tag on activation so it's
 ready for use.
 
+## Other Notes
 
-That's basically it. 
+There is a template partial in public/partials/use-in-theme called doctors-service-pages.php. You can use this file as a
+template part on service pages and it will pull in all doctors who have that service in their profile. Just copy it to your theme. I put it there for ease of copying
+
+That's basically it.
 
