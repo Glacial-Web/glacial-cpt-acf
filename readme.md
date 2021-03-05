@@ -19,7 +19,11 @@ To make use of the Doctor filter, you need to add the service tag to service pag
 the "Services" dropdown menu. The plugin adds tag support for pages and creates the service tag on activation so it's
 ready for use.
 
+## Styling
+There is base styling on this but you will need to add styling to match design of site.
+
 ## Other Notes
+
 
 There is a template partial in public/partials/use-in-theme called doctors-service-pages.php. You can use this file as a
 template part on service pages and it will pull in all doctors who have that service in their profile. Just copy it to your theme. I put it there for ease of copying

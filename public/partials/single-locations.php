@@ -7,8 +7,6 @@
  */
 ?>
 
-<?php get_header(); ?>
-
 <?php if ( have_posts() ): ?>
 
 	<?php while ( have_posts() ): the_post();
@@ -38,11 +36,11 @@
                     </div>
                 </div>
                 <div>
-                    <div class="embed-container location-page">
-
-						<?php echo $iframe; ?>
-
-                    </div>
+					<?php if ( $iframe ): ?>
+                        <div class="embed-container location-page">
+							<?php echo $iframe; ?>
+                        </div>
+					<?php endif; ?>
                 </div>
             </div>
 
@@ -127,6 +125,4 @@
 	<?php endwhile; // end of our query loop ?>
 
 <?php endif; ?>
-
-<?php get_footer(); ?>
 

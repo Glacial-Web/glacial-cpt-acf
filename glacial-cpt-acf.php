@@ -70,7 +70,7 @@ function glacial_cpt_plugin_templates( $template ): string {
 	return $template;
 }
 add_filter( 'template_include', 'glacial_cpt_plugin_templates' );
-
+/*
 // Save ACF in new location
 function glacial_cpt_json_save_point( $acf_json_path ): string {
 	// update path
@@ -79,7 +79,7 @@ function glacial_cpt_json_save_point( $acf_json_path ): string {
 	// return
 	return $acf_json_path;
 }
-add_filter( 'acf/settings/save_json', 'glacial_cpt_json_save_point' );
+add_filter( 'acf/settings/save_json', 'glacial_cpt_json_save_point' );*/
 
 // Load ACF
 function glacial_cpt_json_load_point( $acf_json_path ) {
