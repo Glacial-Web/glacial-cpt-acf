@@ -27,25 +27,6 @@
             "mime_types": ""
         },
         {
-            "key": "field_5dc1bf32d6e7d",
-            "label": "Degree",
-            "name": "degree",
-            "type": "text",
-            "instructions": "Used for cleaner permalinks and formatting on doctor images. No need to put M.D., etc in the title of the page. Put it here instead.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "33",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
-        },
-        {
             "key": "field_5df10e2e756cb",
             "label": "Additional Specialties",
             "name": "additional_specialties",
@@ -82,9 +63,7 @@
             ],
             "taxonomy": "",
             "filters": [
-                "search",
-                "post_type",
-                "taxonomy"
+                "search"
             ],
             "elements": "",
             "min": "",
@@ -107,11 +86,9 @@
             "post_type": [
                 "locations"
             ],
-            "taxonomy": [],
+            "taxonomy": "",
             "filters": [
-                "search",
-                "post_type",
-                "taxonomy"
+                "search"
             ],
             "elements": "",
             "min": "",
@@ -129,12 +106,13 @@
         ]
     ],
     "menu_order": 0,
-    "position": "normal",
+    "position": "acf_after_title",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1614970985
+    "show_in_rest": 0,
+    "modified": 1652929086
 }

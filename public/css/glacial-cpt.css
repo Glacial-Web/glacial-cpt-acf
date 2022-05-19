@@ -1,3 +1,15 @@
+
+.doctors-section {
+    background-color: #929191;
+}
+
+.doctors-container {
+    padding: 2em 0;
+    margin: 0 auto;
+    max-width: 1300px;
+    width: 90%;
+}
+
 .cpt-doctor-image-link {
     width: 20%;
     padding: 1.5em;
@@ -27,16 +39,11 @@
     box-shadow: 0 2px 3px rgba(41, 48, 55, 17);
 }
 
-.flex-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.flex-start {
+.flex-wrapper.flex-start {
     justify-content: flex-start;
 }
 
-.flex-between {
+.flex-wrapper.flex-between {
     justify-content: space-between;
 }
 
@@ -64,7 +71,7 @@
 }
 
 .cpt-location-info h2 {
-margin-bottom: 0.7em;
+    margin-bottom: 0.7em;
 }
 
 .location-phone-list {
@@ -88,11 +95,29 @@ margin-bottom: 0.7em;
     margin-bottom: 1em;
 }
 
-@media (max-width: 767px) {
+.doctor-specialties-locations > div {
+    width: 50%;
+}
+
+@media (max-width: 991px) {
 
     .cpt-doctor-image-link {
         width: 33%;
     }
+
+}
+
+@media (max-width: 767px) {
+
+    .doctor-specialties-locations > div {
+        width: 100%;
+    }
+
+    .cpt-doctor-image-link {
+        width: 50%;
+    }
+
+
     .cpt-location-info .flex-wrapper > div:first-child {
         width: 100%;
         padding-right: 0;
@@ -106,6 +131,6 @@ margin-bottom: 0.7em;
 @media (max-width: 479px) {
 
     .cpt-doctor-image-link {
-        width: 50%;
+        width: 100%;
     }
 }

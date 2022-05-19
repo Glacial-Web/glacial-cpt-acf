@@ -28,13 +28,11 @@
 		<?php the_content(); ?>
 
 		<?php
-		//This section is for getting the post object of the related pages using ACF Relationship field
-		//Vars using ACF Relationship fields
-		$specialties = get_field( 'specialties' );
+        $specialties = get_field( 'specialties' );
 		$locations   = get_field( 'location' ); ?>
 
 		<?php if ( $specialties || $locations ): ?>
-            <div class="doctor-specialties-locations flex-wrapper flex-between">
+            <div class="doctor-specialties-locations flex-wrapper flex-start">
 
 				<?php if ( $specialties ): ?>
                     <div class="specialties-wrapper">

@@ -110,11 +110,11 @@
     margin: 2em auto 0 auto;
     display: block;
     width: 200px;
-    background: #007ca5;
+    background: var(--main-button-background-color);
     border-radius: 0;
     outline: none;
     border: none;
-    color: white;
+    color: var(--main-button-color);
     padding: 8px;
     text-transform: uppercase;
     transition: 0.1s;
@@ -122,12 +122,13 @@
 }
 
 .dr-clear-btn:hover {
-    background: #01465e;
+    background: var(--main-button-background-color-hover);
     color: #fff;
 }
 
 #errorMessage {
     margin-top: 2em;
     text-align: center;
+    height: 1em;
 }
 

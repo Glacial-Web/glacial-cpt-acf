@@ -5,35 +5,25 @@
  * @package Glacial_Cpt_Acf
  */
 
-// Get all locations
-$location_type_query = new WP_Query(
-	array(
-		'post_type'      => 'locations',
-		'posts_per_page' => - 1,
-		'orderby'        => 'title',
-		'order'          => 'asc',
-	)
-);
-// Array of locations
-$locations = $location_type_query->posts;
-
-wp_reset_postdata();
-
-// Get Services pages by tag
-$services_tag_query = new WP_Query(
-	array(
-		'post_type' => 'page',
-		'tag'       => 'service',
-		'orderby'   => 'title',
-		'order'     => 'asc'
-	)
+$locations = get_posts(
+  array(
+	'post_type'      => 'locations',
+	'posts_per_page' => - 1,
+	'orderby'        => 'title',
+	'order'          => 'asc',
+  )
 );
 
-// Array of service pages
-$services = $services_tag_query->posts;
-
-wp_reset_postdata();
-?>
+$services = get_posts(
+  array(
+	'post_type'      => 'page',
+	'orderby'        => 'title',
+	'order'          => 'ASC',
+	'posts_per_page' => - 1,
+	'meta_key'       => 'glacial_page_type',
+	'meta_value'     => 'service-page'
+  )
+); ?>
 
 <form class="controls" id="Filters">
     <div class="search-field-div">
@@ -60,7 +50,7 @@ wp_reset_postdata();
 
     </div>
 
-    <button id="Reset" class="dr-clear-btn ui-button">Clear Filters</button>
+    <button id="Reset" class="dr-clear-btn">Clear Filters</button>
 </form>
 <div id="errorMessage"></div>
 
@@ -68,10 +58,10 @@ wp_reset_postdata();
 <?php
 //Get the Doctors
 $args = array(
-	'post_type'      => 'doctors',
-	'posts_per_page' => '-1',
-	'orderby'        => 'menu_order',
-	'order'          => 'asc'
+  'post_type'      => 'doctors',
+  'posts_per_page' => '-1',
+  'orderby'        => 'menu_order',
+  'order'          => 'asc'
 );
 
 $doctor_query = new WP_Query( $args ); ?>
@@ -83,57 +73,29 @@ $doctor_query = new WP_Query( $args ); ?>
             <div class="flex-wrapper flex-start">
 
 				<?php while ( $doctor_query->have_posts() ) : $doctor_query->the_post();
-					// ACF Vars
-					$image          = get_field( 'headshot' );
-					$degree         = get_field( 'degree' );
-					$doc_locations  = get_field( 'location' );
-					$doc_services   = get_field( 'specialties' );
-					$doc_procedures = get_field( 'surgical_procedures' );
 
-					?>
+					$image            = get_field( 'headshot' );
+					$doc_locations    = get_field( 'location' );
+					$doc_services     = get_field( 'specialties' );
+					$location_classes = '';
+					$service_classes  = '';
 
-                    <div class="mix cpt-doctor-image-link doctor-individual <?php if ( $doc_locations ) {
-						if ( is_array( $doc_locations ) ) {
-							foreach ( $doc_locations as $location ) {
-								echo ' ' . $location->post_name;
-							}
-						} else {
-							echo ' ' . $doc_locations->post_name;
-						}
+					if ( $doc_locations ) {
+						$location_names   = wp_list_pluck( $doc_locations, 'post_name' );
+						$location_classes = implode( ' ', $location_names );
 					}
 
 					if ( $doc_services ) {
-						if ( is_array( $doc_services ) ) {
-							foreach ( $doc_services as $service ) {
-								echo ' ' . $service->post_name;
-							}
-
-						} else {
-							echo ' ' . $doc_services->post_name;
-						}
+						$service_names   = wp_list_pluck( $doc_services, 'post_name' );
+						$service_classes = implode( ' ', $service_names );
 					}
 
-					if ( $doc_procedures ) {
-						if ( is_array( $doc_procedures ) ) {
-							foreach ( $doc_procedures as $procedure ) {
-								echo ' ' . $procedure->post_name;
-							}
-						} else {
-							echo ' ' . $doc_procedures->post_name;
-						}
+					$doctor_classes = $location_classes . ' ' . $service_classes; ?>
 
-					} ?>">
-                        <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-                            <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>">
-                            <p class="doctor-name"><b><?php the_title(); ?></b>
+                    <div class="mix cpt-doctor-image-link <?php echo $doctor_classes; ?>">
 
-								<?php if ( $degree ): ?>
-                                    <br>
-									<?php echo $degree;
-								endif;
-								?>
-                            </p>
-                        </a>
+						<?php include plugin_dir_path( __DIR__ ) . 'partials/doctor-headshot-link.php'; ?>
+
                     </div>
 
 				<?php endwhile; ?>

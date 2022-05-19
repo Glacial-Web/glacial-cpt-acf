@@ -8,10 +8,10 @@
 
 
 $args = array(
-	'post_type'      => 'locations',
-	'posts_per_page' => - 1,
-	'orderby'        => 'menu_order',
-	'order'          => 'asc'
+  'post_type'      => 'locations',
+  'posts_per_page' => - 1,
+  'orderby'        => 'menu_order',
+  'order'          => 'ASC'
 );
 
 $locations_query = new WP_Query( $args ); ?>
@@ -19,7 +19,7 @@ $locations_query = new WP_Query( $args ); ?>
 <?php if ( $locations_query->have_posts() ): ?>
 
 	<?php
-	// Compare these at the end of each iteration, add an <hr> tag to all but the last iteration
+// Compare these at the end of each iteration, add an <hr> tag to all but the last iteration
 	$counter     = 1;
 	$found_posts = $locations_query->found_posts;
 	?>
@@ -28,8 +28,7 @@ $locations_query = new WP_Query( $args ); ?>
 		// ACF vars
 		$address = get_field( 'address' );
 		$hours   = get_field( 'hours' );
-		$iframe  = get_field( 'map_iframe' );
-		?>
+		$iframe  = get_field( 'map_iframe' ); ?>
 
         <div class="cpt-location-info">
             <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
@@ -73,9 +72,7 @@ $locations_query = new WP_Query( $args ); ?>
 			echo '<hr>';
 		}
 
-		$counter ++;
-		?>
-
+		$counter ++; ?>
 
 	<?php endwhile; ?>
 
