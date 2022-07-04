@@ -1,36 +1,52 @@
 <?php
 /**
  * Plugin Name:     Glacial Custom Post Types with ACF
- * Plugin URI:
  * Description:     Contains Custom Post Types for Doctors and Locations with ACF.
  * Author:          Glacial Multimedia
  * Author URI:      https://glacial.com
  * Text Domain:     glacial-cpt-acf
  * Domain Path:     /languages
- * Version:         0.1.0
+ * Version:         1.0.0
  *
  * @package         Glacial_Cpt_Acf
  */
 
-// If this file is called directly, DIE!
+/*
+ * If this file is called directly, DIE!
+ * */
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
+/*
+ * Admin notice if ACF is not installed
+ * */
 function glacial_cpt_acf_notice() { ?>
     <div class="notice notice-error">
-        <p>Please install and activate Advanced Custom Fields Pro, it is required <b>Glacial Custom Post Types with
+        <h2>Glacial CPT Plugin</h2>
+        <p>Please install and activate Advanced Custom Fields Pro, it is required by <b>Glacial Custom Post Types with
                 ACF</b> plugin to work.</p>
     </div>
 <?php }
 
+/*
+ * if ACF is not installed, show notice and don't load anything else
+ * */
 if ( ! function_exists( 'the_field' ) ) {
-	add_action( 'admin_notices', 'glacial_cpt_acf_notice' );
+	if ( ! function_exists( 'the_field' ) ) {
+		add_action( 'admin_notices', 'glacial_cpt_acf_notice' );
+	}
 
 } else {
 
+	/**
+	 * Register Custom Post Types: Doctors and Locations
+	 * */
 	include ( plugin_dir_path( __FILE__ ) ) . 'includes/post-types.php';
 
+	/**
+	 * Plugin activation hook
+	 * */
 	function glacial_cpt_plugin_activate() {
 		// Add a flag that will allow to flush the rewrite rules when needed.
 		if ( ! get_option( 'glacial_flush_rewrite_rules_flag' ) ) {
@@ -41,75 +57,65 @@ if ( ! function_exists( 'the_field' ) ) {
 
 	register_activation_hook( __FILE__, 'glacial_cpt_plugin_activate' );
 
+	/**
+	 * Plugin deactivate hook
+	 *
+	 * Currently not in use
+	 *
+	 * */
 	function glacial_cpt_plugin_deactivate() {
-// Do some stuff when deactivating the plugin
 	}
 
 	register_deactivation_hook( __FILE__, 'glacial_cpt_plugin_deactivate' );
 
-
-// Rewrite permalinks with our new CPTs
-	function glacial_cpt_lush_rewrite_rules() {
+	/**
+	 * Flush the rewrite rules. Uses option set above to prevent flush on every activation.
+	 * */
+	function glacial_cpt_flush_rewrite_rules() {
 		if ( get_option( 'glacial_flush_rewrite_rules_flag' ) ) {
 			flush_rewrite_rules();
 			delete_option( 'glacial_flush_rewrite_rules_flag' );
 		}
 	}
 
-	add_action( 'init', 'glacial_cpt_lush_rewrite_rules', 20 );
+	add_action( 'init', 'glacial_cpt_flush_rewrite_rules', 20 );
 
-// Change hierarchy to use template in this plugin
-	function glacial_cpt_plugin_templates( $template ): string {
-		$post_types = array( 'doctors', 'locations' );
-		if ( is_post_type_archive( $post_types ) || is_singular( $post_types ) ) {
-			$template = plugin_dir_path( __FILE__ ) . 'public/templates/doctor-location-wrapper.php';
-		}
-
-		return $template;
-	}
-
-	//add_filter( 'template_include', 'glacial_cpt_plugin_templates' );
-
-	// Save ACF in new location
+	/**
+	 * ACF JSON save point
+	 * */
 	function glacial_cpt_json_save_point( $acf_json_path ): string {
-		// update path
 		$acf_json_path = plugin_dir_path( __FILE__ ) . '/acf-json';
 
-		// return
 		return $acf_json_path;
 	}
 
 	add_filter( 'acf/settings/save_json', 'glacial_cpt_json_save_point' );
 
-// Load ACF
+	/**
+	 * ACF JSON load point
+	 * */
 	function glacial_cpt_json_load_point( $acf_json_path ) {
-		// remove original path (optional)
-		unset( $acf_json_path[0] );
-		// append path
 		$acf_json_path[] = plugin_dir_path( __FILE__ ) . '/acf-json';
 
-		// return
 		return $acf_json_path;
 	}
 
 	add_filter( 'acf/settings/load_json', 'glacial_cpt_json_load_point' );
 
-// Our styles
+	/**
+	 * Enqueue styles
+	 * */
 	function glacial_cpt_register_styles() {
-		wp_register_style( 'glacial-cpt', plugin_dir_url( __FILE__ ) . 'public/css/glacial-cpt.css', false, null, 'all' );
+		wp_register_style( 'glacial-cpt', plugin_dir_url( __FILE__ ) . 'public/css/glacial-cpt.css', false, time(), 'all' );
 		wp_enqueue_style( 'glacial-cpt' );
-
-		if ( is_post_type_archive( 'doctors' ) ) {
-			wp_register_style( 'mixitup', plugin_dir_url( __FILE__ ) . 'public/css/doc-mix-it-up.css', false, null, 'all' );
-			wp_enqueue_style( 'mixitup' );
-		}
 	}
 
 	add_action( 'wp_enqueue_scripts', 'glacial_cpt_register_styles' );
 
-// Our JS
+	/**
+	 * Enqueue scripts
+	 * */
 	function glacial_cpt_register_scripts() {
-		// Register only if post type archive is Doctors
 		if ( is_post_type_archive( 'doctors' ) ) {
 
 			wp_register_script( 'mixup', plugin_dir_url( __FILE__ ) . 'public/js/doc-mix-it-up.js', array( 'jquery' ), null, true );
@@ -123,7 +129,7 @@ if ( ! function_exists( 'the_field' ) ) {
 
 	add_action( 'wp_enqueue_scripts', 'glacial_cpt_register_scripts' );
 
-	/*
+	/**
 	 * This will populate our ACF field with service pages from our theme
 	 * */
 	function service_pages_relationship_field( $args, $field, $post_id ) {
@@ -139,18 +145,61 @@ if ( ! function_exists( 'the_field' ) ) {
 	}
 
 	add_filter( 'acf/fields/relationship/query/name=specialties', 'service_pages_relationship_field', 10, 3 );
-}
 
+	/**
+	 * Theme Hook: glacial_theme_template_parts
+	 *
+	 * Hook is in Glacial Theme index.php
+	 * */
+	function glacial_cpt_templates() {
+		if ( in_array( get_post_type(), array( 'locations', 'doctors' ) ) ) {
+			include ( plugin_dir_path( __FILE__ ) ) . 'public/templates/doctor-location-wrapper.php';
+		}
+	}
 
-function glacial_cpt_templates() {
-	include ( plugin_dir_path( __FILE__ ) ) . 'public/templates/doctor-location-wrapper.php';
-}
+	add_action( 'glacial_theme_template_parts', 'glacial_cpt_templates' );
 
-add_action( 'glacial_theme_template_parts', 'glacial_cpt_templates' );
-
-function glacial_cpt_theme_after_content() {
+	/**
+	 * Theme Hook: glacial_theme_before_footer
+	 *
+	 * Hook is in Glacial Theme footer.php
+	 * */
+	function glacial_cpt_theme_before_footer() {
 		include ( plugin_dir_path( __FILE__ ) ) . 'public/partials/doctors-service-pages.php';
-}
+	}
 
-add_action( 'glacial_theme_before_footer', 'glacial_cpt_theme_after_content' );
+	add_action( 'glacial_theme_before_footer', 'glacial_cpt_theme_before_footer' );
+
+	function glacial_cpt_archive_titles() {
+		if ( is_post_type_archive( 'doctors' ) ) {
+			$title = 'Doctors';
+		} elseif ( is_post_type_archive( 'locations' ) ) {
+			$title = 'Locations';
+		} else {
+			$title = '';
+		}
+
+		return $title;
+	}
+
+	add_filter( 'get_the_archive_title', 'glacial_cpt_archive_titles' );
+
+	/**
+	 * Alter the query for the locations and doctors archive page
+	 */
+	function glacial_cpt_change_queries( $query ) {
+		if ( ! is_admin() && $query->is_main_query() ) {
+			if ( is_post_type_archive( array( 'doctors', 'locations' ) ) ) {
+				$query->set( 'posts_per_page', - 1 );
+				$query->set( 'orderby', 'menu_order' );
+				$query->set( 'order', 'ASC' );
+			}
+		}
+
+		return $query;
+	}
+
+	add_action( 'pre_get_posts', 'glacial_cpt_change_queries' );
+
+}
 

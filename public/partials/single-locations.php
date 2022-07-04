@@ -36,11 +36,13 @@
                     </div>
                 </div>
                 <div>
+
 					<?php if ( $iframe ): ?>
                         <div class="embed-container location-page">
 							<?php echo $iframe; ?>
                         </div>
 					<?php endif; ?>
+
                 </div>
             </div>
 

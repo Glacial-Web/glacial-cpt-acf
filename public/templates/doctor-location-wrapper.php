@@ -5,7 +5,6 @@
  * @package Glacial_Cpt_Acf
  */
 
-
 if ( is_post_type_archive( array( 'locations', 'doctors' ) ) ) {
 	include( plugin_dir_path( __DIR__ ) . 'partials/archive-' . get_post_type() . '.php' );
 }

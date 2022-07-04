@@ -41,7 +41,6 @@ if ( $doctors->have_posts() ): ?>
                     </div>
 				<?php endwhile; ?>
 
-
 				<?php wp_reset_postdata(); ?>
 
             </div>

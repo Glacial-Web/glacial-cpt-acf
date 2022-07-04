@@ -1,7 +1,7 @@
 # Glacial Custom Post Types with ACF
 
 This plugin will create custom post types for doctors and locations. It uses ACF Pro and makes use of the relationship
-field as well as others. You MUST have ACF Pro installed to use all the features.
+field as well as others. You MUST have ACF Pro installed to use this plugin.
 
 ## Usage
 

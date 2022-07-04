@@ -6,25 +6,16 @@
  * @package Glacial_Cpt_Acf
  */
 
-
-$args = array(
-  'post_type'      => 'locations',
-  'posts_per_page' => - 1,
-  'orderby'        => 'menu_order',
-  'order'          => 'ASC'
-);
-
-$locations_query = new WP_Query( $args ); ?>
-
-<?php if ( $locations_query->have_posts() ): ?>
+if ( have_posts() ): ?>
 
 	<?php
-// Compare these at the end of each iteration, add an <hr> tag to all but the last iteration
+	// Compare these at the end of each iteration,
+	// add an <hr> tag to all but the last iteration
+	global $wp_query;
 	$counter     = 1;
-	$found_posts = $locations_query->found_posts;
-	?>
+	$found_posts = $wp_query->found_posts; ?>
 
-	<?php while ( $locations_query->have_posts() ): $locations_query->the_post();
+	<?php while ( have_posts() ): the_post();
 		// ACF vars
 		$address = get_field( 'address' );
 		$hours   = get_field( 'hours' );
@@ -75,7 +66,5 @@ $locations_query = new WP_Query( $args ); ?>
 		$counter ++; ?>
 
 	<?php endwhile; ?>
-
-	<?php wp_reset_postdata(); ?>
 
 <?php endif; ?>

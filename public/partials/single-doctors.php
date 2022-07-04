@@ -13,64 +13,78 @@
 
 <?php if ( have_posts() ) : ?>
 
-	<?php while ( have_posts() ) : the_post();
-		// ACF Vars
-		$additional_specialties = get_field( 'additional_specialties' ); ?>
+    <div class="single-doctor-wrapper flex-wrapper">
 
-		<?php if ( $additional_specialties ): ?>
-            <div class="doctor-additional-specialties">
-				<?php echo $additional_specialties; ?>
-            </div>
-		<?php endif; ?>
+		<?php while ( have_posts() ): the_post();
 
-		<?php the_post_thumbnail( 'large', array( 'class' => 'doctor-featured-image' ) ); ?>
+			$additional_specialties = get_field( 'additional_specialties' );
+			$specialties            = get_field( 'specialties' );
+			$locations              = get_field( 'location' ); ?>
 
-		<?php the_content(); ?>
+            <div class="single-doctor-img-info">
 
-		<?php
-        $specialties = get_field( 'specialties' );
-		$locations   = get_field( 'location' ); ?>
+				<?php
+				if ( has_post_thumbnail() ) {
+					the_post_thumbnail( 'large', array( 'class' => 'doctor-featured-image' ) );
+				} else {
+					echo '<img src="' . plugin_dir_url( __DIR__ ) . 'images/doc-placeholder.jpg" alt="' . get_the_title() . '" class="doctor-featured-image">';
+				} ?>
 
-		<?php if ( $specialties || $locations ): ?>
-            <div class="doctor-specialties-locations flex-wrapper flex-start">
+				<?php if ( $additional_specialties ): ?>
+                    <h3 class="doctor-additional-specialties"><?php echo $additional_specialties; ?></h3>
+				<?php endif; ?>
 
-				<?php if ( $specialties ): ?>
-                    <div class="specialties-wrapper">
-                        <h3>Specialties</h3>
-                        <ul>
-							<?php foreach ( $specialties as $post ): ?>
-                                <li>
-                                    <a href="<?php the_permalink(); ?>"
-                                       class="page_link"><?php the_title(); ?></a>
-                                </li>
-							<?php endforeach; ?>
+				<?php if ( $specialties || $locations ): ?>
 
-							<?php wp_reset_postdata(); ?>
+                    <div class="doctor-specialties-locations">
 
-                        </ul>
+						<?php if ( $specialties ): ?>
+
+                            <div>
+                                <h3>Specialties</h3>
+                                <ul>
+
+									<?php foreach ( $specialties as $specialty ): ?>
+                                        <li>
+                                            <a href="<?php echo get_the_permalink( $specialty->ID ); ?>"
+                                               class="page_link"><?php echo get_the_title( $specialty->ID ) ?></a>
+                                        </li>
+									<?php endforeach; ?>
+
+                                </ul>
+                            </div>
+
+						<?php endif; ?>
+
+						<?php if ( $locations ): ?>
+
+                            <div>
+                                <h3>Locations</h3>
+                                <ul>
+
+									<?php foreach ( $locations as $location ): ?>
+                                        <li>
+                                            <a href="<?php echo get_the_permalink( $location->ID ) ?>"
+                                               class="page_link"><?php echo get_the_title( $location->ID ) ?></a>
+                                        </li>
+									<?php endforeach; ?>
+
+                                </ul>
+                            </div>
+
+						<?php endif; ?>
                     </div>
 				<?php endif; ?>
 
-				<?php if ( $locations ): ?>
-                    <div class="specialties-wrapper">
-                        <h3>Locations</h3>
-                        <ul>
-							<?php foreach ( $locations as $post ): ?>
-                                <li>
-                                    <a href="<?php the_permalink(); ?>" class="page_link"><?php the_title(); ?></a>
-                                </li>
-							<?php endforeach; ?>
+            </div>
+            <div class="single-doctor-bio">
 
-							<?php wp_reset_postdata(); ?>
-
-                        </ul>
-                    </div>
-				<?php endif; ?>
+				<?php the_content(); ?>
 
             </div>
 
-		<?php endif; ?>
+		<?php endwhile; ?>
 
-	<?php endwhile; //End of loop ?>
+    </div>
 
 <?php endif; ?>
