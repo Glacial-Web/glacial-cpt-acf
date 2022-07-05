@@ -9,22 +9,21 @@
 if ( have_posts() ): ?>
 
 	<?php
-	// Compare these at the end of each iteration,
-	// add an <hr> tag to all but the last iteration
+	/*
+	 * Compare these at the end of each iteration
+	 * add an <hr> tag to all but the last one
+	 * */
 	global $wp_query;
 	$counter     = 1;
 	$found_posts = $wp_query->found_posts; ?>
 
 	<?php while ( have_posts() ): the_post();
-		// ACF vars
 		$address = get_field( 'address' );
 		$hours   = get_field( 'hours' );
 		$iframe  = get_field( 'map_iframe' ); ?>
 
         <div class="cpt-location-info">
-            <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-                <h2><?php the_title(); ?></h2>
-            </a>
+            <h2><?php the_title(); ?></h2>
             <div class="flex-wrapper">
                 <div>
 
@@ -58,7 +57,9 @@ if ( have_posts() ): ?>
         </div>
 
 		<?php
-		// no <hr> on last location
+		/*
+		 * no <hr> on last location
+		 * */
 		if ( $counter != $found_posts ) {
 			echo '<hr>';
 		}

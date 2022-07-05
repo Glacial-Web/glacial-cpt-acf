@@ -112,7 +112,7 @@ $(function(){
 
     $('#Container').mixItUp({
         controls: {
-            enable: false // we won't be needing these
+            enable: true // we won't be needing these
         },
         callbacks: {
             onMixFail: function(){

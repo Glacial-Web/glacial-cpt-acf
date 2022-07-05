@@ -40,9 +40,9 @@ if ( have_rows( 'phone_numbers' ) ): ?>
                 <li><?php if ( $label ) {
 						echo $label . ': ';
 					} ?>
-                    <span class="nowrap fax_text">' . $number . '</span>'
+                    <span class="nowrap fax_text"><?php echo $number; ?></span>
 					<?php if ( $note ) {
-						echo '<br><em>' . $note . '</em>';
+						echo '<br><span class="phone-note">' . $note . '</span>';
 					} ?>
                 </li>
 

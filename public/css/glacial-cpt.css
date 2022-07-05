@@ -1,6 +1,13 @@
 
+:root {
+    --cpt-border-color: #c5c5c5;
+}
+
 .doctors-section {
     background-color: #929191;
+}
+.doctors-section h2 {
+    margin-bottom: 30px;
 }
 
 .doctors-container {
@@ -11,32 +18,46 @@
 }
 
 .cpt-doctor-image-link {
-    width: 20%;
-    padding: 1.5em;
+    width: 19%;
+    margin-right: 1%;
     background: none;
+    border: 1px solid var(--cpt-border-color);
+    box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2em;
+    background: #fff;
 }
 
-.cpt-doctor-image-link > a {
+.single-location-doctors .cpt-doctor-image-link {
+    width: 32%;
+}
+
+.cpt-doctor-image-link > a.doctor-headshot-link {
     display: block;
     text-align: center;
     width: 100%;
+    height: 100%;
     text-decoration: none;
     color: #333;
+    padding: 1.5em;
+    transition: 100ms;
 }
 
-.cpt-doctor-image-link > a:hover {
-    color: blue;
-}
-
-.cpt-doctor-image-link img {
+.cpt-doctor-image-link .doctor-headshot-link img {
     width: 100%;
-    box-shadow: 0 8px 11px rgba(41, 48, 55, 17);
-    transition: all 0.2s ease-in-out;
-    border: 1px solid #d8d8d8;
+    object-fit: cover;
+    height: 240px;
+    object-position: center;
+    display: block;
+    margin: 0 auto 20px auto;
+    border: 1px solid var(--cpt-border-color);
 }
 
-.cpt-doctor-image-link a:hover img {
-    box-shadow: 0 2px 3px rgba(41, 48, 55, 17);
+.cpt-doctor-image-link a:hover {
+    background: var(--main-button-background-color);
+}
+
+.cpt-doctor-image-link:hover a.doctor-headshot-link {
+    color: #fff;
 }
 
 .flex-wrapper.flex-start {
@@ -48,9 +69,10 @@
 }
 
 .doctor-name {
-    margin-top: 0.5em;
-    margin-bottom: 10px;
-    line-height: 1;
+    margin-bottom: 9px;
+    font-size: 1.1em;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
 .cpt-location-info a {
@@ -87,16 +109,12 @@
     font-style: italic;
 }
 
-.location-services {
-    margin: 3em auto;
-}
-
 .doctor-featured-image {
     margin-bottom: 1em;
 }
 
-/* Single Doctors */
-.single-doctor-wrapper {
+/* Single Doctors and Locations */
+.single-cpt-wrapper {
     display: flex;
     display: -webkit-box;
     display: -webkit-flex;
@@ -105,21 +123,37 @@
     justify-content: space-between;
 }
 
-.single-doctor-wrapper > div:first-child {
-    width: 20%;
-    border-right: 1px solid #d8d8d8;
+.single-cpt-wrapper > div:first-child {
+    width: 30%;
+    border-right: 1px solid var(--cpt-border-color);
     padding-right: 2em;
 }
 
-.single-doctor-wrapper > div:nth-child(2) {
+.single-cpt-wrapper > div:nth-child(2) {
     padding-left: 2em;
-    width: 80%;
+    width: 70%;
 }
 
-.doctor-specialties-locations ul {
+.single-cpt-wrapper .embed-container {
+    padding-bottom: 80%;
+    max-width: 100%;
+}
+
+.doctor-specialties-locations ul,
+.single-location-info ul {
     list-style: none;
     padding-left: 0;
     margin: 1em 0;
+}
+
+.single-location-buttons {
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    flex-direction: column;
+    align-items: flex-start;
+
 }
 
 .single-doctors .doctor-specialties-locations h3 {
@@ -143,6 +177,12 @@ h3.doctor-additional-specialties {
     display: none;
 }
 
+form.controls {
+    margin-top: 2em;
+    padding-bottom: 2em;
+    border-bottom: 1px solid var(--cpt-border-color);
+}
+
 .search-field-div {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -150,87 +190,44 @@ h3.doctor-additional-specialties {
     flex-wrap: wrap;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
-    justify-content: space-around;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
+    justify-content: center;
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+    align-items: flex-end;
 }
 
 .search-field-div fieldset {
     width: 33%;
+    max-width: 250px;
     text-align: center;
     display: inline-block;
     vertical-align: top;
     margin: 0;
     background: transparent;
-    padding: .5em;
     border-radius: 3px;
+
 }
 
-.search-field-div fieldset select {
+.search-field-div select {
     width: 90%;
+    padding: 6px;
+    border: 1px solid var(--cpt-border-color);
 }
 
 .search-field-div fieldset h2 {
     font-family: inherit;
     color: #333;
     display: inline-block;
+    font-size: 1.5em;
     margin-bottom: 5px;
     margin-top: 1em;
 }
 
-.search-field-div label {
-    font-weight: 300;
-}
-
-.search-field-div button.dr-clear-btn {
-    display: inline-block;
-    padding: .4em .8em;
-    background: #666;
-    border: 0;
-    margin: 0 .2em;
-    color: #ddd;
-    font-size: 16px;
-    font-weight: 300;
-    border-radius: .25em;
-    cursor: pointer;
-}
-
-.search-field-div button.active {
-    background: #68b8c4;
-}
-
-.search-field-div button:focus {
-    outline: 0 none;
-}
-
-.search-field-div button:first-of-type {
-    margin-left: 0;
-}
-
-.search-field-div button:last-of-type {
-    margin-right: 0;
-}
-
-.search-field-div button:focus {
-    outline: 0 none;
-}
-
-.search-field-div .controls {
-    background: #ffffff;
-    padding: 2%;
-}
-
-.search-field-div .checkbox {
-    display: flex;
-    flex-wrap: wrap;
-    cursor: pointer;
-    margin-bottom: 8px;
-    width: 100%;
+.dr-clear-btn {
+    margin: 0;
 }
 
 .dr-clear-btn, .dr-clear-btn:active, button.dr-clear-btn:focus {
-    margin: 2em auto 0 auto;
     display: block;
     width: 200px;
     background: var(--main-button-background-color);
@@ -238,7 +235,7 @@ h3.doctor-additional-specialties {
     outline: none;
     border: none;
     color: var(--main-button-color);
-    padding: 8px;
+    padding: 6px 12px;
     text-transform: uppercase;
     transition: 0.1s;
     font-weight: 300;
@@ -271,16 +268,16 @@ h3.doctor-additional-specialties {
     }
 
     .cpt-doctor-image-link {
-        width: 33%;
+        width: 32%;
     }
 
-    .single-doctor-wrapper > div:first-child {
+    .single-cpt-wrapper > div:first-child {
         width: 100%;
         border-right: none;
         padding-right: 0;
     }
 
-    .single-doctor-wrapper > div:nth-child(2) {
+    .single-cpt-wrapper > div:nth-child(2) {
         padding-left: 0;
         width: 100%;
     }
@@ -289,8 +286,13 @@ h3.doctor-additional-specialties {
 
 @media (max-width: 767px) {
 
+    .cpt-doctor-image-link,
+    .single-location-doctors .cpt-doctor-image-link {
+        width: 49%;
+    }
+
     .cpt-doctor-image-link {
-        width: 50%;
+        padding: 0.5em;
     }
 
     .cpt-location-info .flex-wrapper > div:first-child {
@@ -300,6 +302,14 @@ h3.doctor-additional-specialties {
 
     .cpt-location-info .flex-wrapper > div:nth-child(2) {
         flex: auto;
+    }
+
+    .search-field-div fieldset {
+        width: 50%;
+    }
+
+    .dr-clear-btn {
+        margin-top: 1em;
     }
 }
 

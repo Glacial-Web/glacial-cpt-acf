@@ -1,18 +1,13 @@
 <?php
 /**
  *
- * Template part for displaying doctors by chosen category
+ * Template part for displaying doctors related to a service page.
  *
- *
- * @package WordPress
- * @subpackage glacial
- * Author: Glacial Multimedia, Inc.
- * Author URL: https://www.glacial.com/
+ * @package Glacial_Cpt_Acf
  */
 
-//Query the Doctors custom post type to see if any doctors are related to the page
 $args = array(
-  'numberposts' => - 1,
+  'posts_per_page' => - 1,
   'post_type'   => 'doctors',
   'orderby'     => 'menu_order',
   'order'       => 'ASC',
@@ -36,9 +31,11 @@ if ( $doctors->have_posts() ): ?>
             <div class="flex-wrapper flex-start">
 
 				<?php while ( $doctors->have_posts() ): $doctors->the_post(); ?>
+
                     <div class="cpt-doctor-image-link">
 						<?php include plugin_dir_path( __DIR__ ) . 'partials/doctor-headshot-link.php'; ?>
                     </div>
+
 				<?php endwhile; ?>
 
 				<?php wp_reset_postdata(); ?>

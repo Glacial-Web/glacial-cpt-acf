@@ -145,6 +145,7 @@ if ( ! function_exists( 'the_field' ) ) {
 	}
 
 	add_filter( 'acf/fields/relationship/query/name=specialties', 'service_pages_relationship_field', 10, 3 );
+	add_filter( 'acf/fields/relationship/query/name=location_specialties', 'service_pages_relationship_field', 10, 3 );
 
 	/**
 	 * Theme Hook: glacial_theme_template_parts
@@ -165,7 +166,12 @@ if ( ! function_exists( 'the_field' ) ) {
 	 * Hook is in Glacial Theme footer.php
 	 * */
 	function glacial_cpt_theme_before_footer() {
+
 		include ( plugin_dir_path( __FILE__ ) ) . 'public/partials/doctors-service-pages.php';
+
+		if ( is_singular( 'doctors' ) ) {
+			include ( plugin_dir_path( __FILE__ ) ) . 'public/partials/all-doctors.php';
+		}
 	}
 
 	add_action( 'glacial_theme_before_footer', 'glacial_cpt_theme_before_footer' );

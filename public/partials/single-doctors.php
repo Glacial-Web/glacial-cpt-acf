@@ -2,18 +2,12 @@
 /**
  * Displays single doctor
  *
- *
- *
- * @package WordPress
- * @subpackage glacial
- * Author: Glacial Multimedia, Inc.
- * Author URL: https://www.glacial.com/
+ * @package Glacial_Cpt_Acf
  */
-?>
 
-<?php if ( have_posts() ) : ?>
+if ( have_posts() ): ?>
 
-    <div class="single-doctor-wrapper flex-wrapper">
+    <div class="single-cpt-wrapper">
 
 		<?php while ( have_posts() ): the_post();
 
@@ -73,7 +67,9 @@
                             </div>
 
 						<?php endif; ?>
+
                     </div>
+
 				<?php endif; ?>
 
             </div>
