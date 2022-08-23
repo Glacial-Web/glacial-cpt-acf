@@ -51,8 +51,6 @@ if ( have_posts() ):
             </fieldset>
             <button id="Reset" class="dr-clear-btn">Clear Filters</button>
         </div>
-
-
     </form>
     <div id="errorMessage"></div>
 
@@ -91,5 +89,7 @@ if ( have_posts() ):
             </div>
         </div>
     </div>
+<?php else: ?>
+<h2>No Doctors Found</h2>
 
 <?php endif; ?>

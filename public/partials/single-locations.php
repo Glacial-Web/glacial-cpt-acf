@@ -5,7 +5,6 @@
  * @package Glacial_Cpt_Acf
  */
 
-
 if ( have_posts() ):
 
 	while ( have_posts() ): the_post();

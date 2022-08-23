@@ -52,7 +52,6 @@ if ( ! function_exists( 'the_field' ) ) {
 		if ( ! get_option( 'glacial_flush_rewrite_rules_flag' ) ) {
 			add_option( 'glacial_flush_rewrite_rules_flag', true );
 		}
-
 	}
 
 	register_activation_hook( __FILE__, 'glacial_cpt_plugin_activate' );

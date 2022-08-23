@@ -27,11 +27,9 @@ if ( have_posts() ): ?>
             <div class="flex-wrapper">
                 <div>
 
-                    <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-						<?php if ( $address ) : ?>
-                            <p><?php echo $address; ?></p>
-						<?php endif; ?>
-                    </a>
+					<?php if ( $address ) : ?>
+                        <p><?php echo $address; ?></p>
+					<?php endif; ?>
 
 					<?php include( plugin_dir_path( __FILE__ ) . 'phone-numbers.php' ); ?>
 

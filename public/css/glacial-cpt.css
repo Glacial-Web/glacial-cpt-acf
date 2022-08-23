@@ -6,6 +6,7 @@
 .doctors-section {
     background-color: #929191;
 }
+
 .doctors-section h2 {
     margin-bottom: 30px;
 }
@@ -137,6 +138,11 @@
 .single-cpt-wrapper .embed-container {
     padding-bottom: 80%;
     max-width: 100%;
+}
+
+.embed-container.location-page {
+    padding-bottom: 50%;
+    max-width:100%;
 }
 
 .doctor-specialties-locations ul,
