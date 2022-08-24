@@ -19,7 +19,11 @@ if ( have_posts() ):
                     <p><?php echo $address; ?></p>
 				<?php endif; ?>
 
-				<?php include( plugin_dir_path( __FILE__ ) . 'phone-numbers.php' ); ?>
+				<?php
+				/*
+				 * If you copy everything to your theme, change this is get_template_part().
+				 * */
+				include( plugin_dir_path( __FILE__ ) . 'phone-numbers.php' ); ?>
 
 				<?php if ( $iframe ): ?>
                     <div class="embed-container location-page">
@@ -106,7 +110,12 @@ if ( have_posts() ):
 							<?php while ( $doctors->have_posts() ): $doctors->the_post(); ?>
 
                                 <div class="cpt-doctor-image-link">
-									<?php include plugin_dir_path( __DIR__ ) . 'partials/doctor-headshot-link.php'; ?>
+
+									<?php
+									/*
+				                     * If you copy everything to your theme, change this is get_template_part().
+				                     * */
+									include plugin_dir_path( __DIR__ ) . 'partials/doctor-headshot-link.php'; ?>
                                 </div>
 
 							<?php endwhile; ?>

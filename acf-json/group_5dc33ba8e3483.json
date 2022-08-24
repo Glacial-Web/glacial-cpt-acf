@@ -173,7 +173,9 @@
                 "page"
             ],
             "taxonomy": "",
-            "filters": "",
+            "filters": [
+                "search"
+            ],
             "elements": "",
             "min": "",
             "max": "",
@@ -234,5 +236,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1656991939
+    "modified": 1661348080
 }

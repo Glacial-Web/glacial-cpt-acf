@@ -80,7 +80,11 @@ if ( have_posts() ):
 
                     <div class="mix cpt-doctor-image-link <?php echo $doctor_classes; ?>">
 
-						<?php include plugin_dir_path( __DIR__ ) . 'partials/doctor-headshot-link.php'; ?>
+						<?php
+						/*
+						 * If you copy everything to your theme, change this is get_template_part().
+						 * */
+                        include plugin_dir_path( __DIR__ ) . 'partials/doctor-headshot-link.php'; ?>
 
                     </div>
 

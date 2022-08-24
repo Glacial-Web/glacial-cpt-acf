@@ -1,32 +1,24 @@
 # Glacial Custom Post Types with ACF
 
-This plugin will create custom post types for doctors and locations. It uses ACF Pro and makes use of the relationship
-field as well as others. You MUST have ACF Pro installed to use this plugin.
+This plugin will create custom post types for doctors and locations. You MUST have ACF Pro installed to use this plugin
+and the glacial theme v2.2 or later.
 
 ## Usage
 
-The plugin will create the post types Doctors and Locations on install. The ACF fields will be available for syncing in
-Field Groups in ACF.
+Download and install the plugin.
 
-The main template file, doctor-location-wrapper.php, is in public/templates. This template serves as a wrapper. You
-should change the outer div and h1 elements to match your design.
+This will create everything you need to use the Doctors and Locations custom post types.
+
+The ACF fields will available immediately in the Doctor and Location pages. To change the fields just sync them in ACF
+admin.
+
+The main template file, doctor-location-wrapper.php, is in public/templates. To change these you can either edit the
+plugin or copy all templates to your theme. There are a couple of place you'll need to change to get_template_part() if
+you copy the files over to your theme (working on changing this is subsequent releases. Might be easiest to edit the
+plugin files right now.
 
 All locations and doctors on the archive pages are ordered according to menu order.
 
-### Doctors
-
-To make use of the Doctor filter, you need to add the service tag to service pages. Any page with that tag will populate
-the "Services" dropdown menu. The plugin adds tag support for pages and creates the service tag on activation so it's
-ready for use.
-
 ## Styling
+
 There is base styling on this but you will need to add styling to match design of site.
-
-## Other Notes
-
-
-There is a template partial in public/partials/use-in-theme called doctors-service-pages.php. You can use this file as a
-template part on service pages and it will pull in all doctors who have that service in their profile. Just copy it to your theme. I put it there for ease of copying
-
-That's basically it.
-

@@ -129,24 +129,6 @@ if ( ! function_exists( 'the_field' ) ) {
 	add_action( 'wp_enqueue_scripts', 'glacial_cpt_register_scripts' );
 
 	/**
-	 * This will populate our ACF field with service pages from our theme
-	 * */
-	function service_pages_relationship_field( $args, $field, $post_id ) {
-
-		$args['meta_query'] = array(
-		  array(
-			'key'   => 'glacial_page_type',
-			'value' => 'service-page',
-		  )
-		);
-
-		return $args;
-	}
-
-	add_filter( 'acf/fields/relationship/query/name=specialties', 'service_pages_relationship_field', 10, 3 );
-	add_filter( 'acf/fields/relationship/query/name=location_specialties', 'service_pages_relationship_field', 10, 3 );
-
-	/**
 	 * Theme Hook: glacial_theme_template_parts
 	 *
 	 * Hook is in Glacial Theme index.php
@@ -175,6 +157,9 @@ if ( ! function_exists( 'the_field' ) ) {
 
 	add_action( 'glacial_theme_before_footer', 'glacial_cpt_theme_before_footer' );
 
+	/*
+	 * The titles on the archive pages
+	 * */
 	function glacial_cpt_archive_titles() {
 		if ( is_post_type_archive( 'doctors' ) ) {
 			$title = 'Doctors';

@@ -21,6 +21,9 @@ if ( have_posts() ): ?>
 				if ( has_post_thumbnail() ) {
 					the_post_thumbnail( 'large', array( 'class' => 'doctor-featured-image' ) );
 				} else {
+					/*
+					 * If you copy everything to your theme, change this is get_template_part().
+					 * */
 					echo '<img src="' . plugin_dir_url( __DIR__ ) . 'images/doc-placeholder.jpg" alt="' . get_the_title() . '" class="doctor-featured-image">';
 				} ?>
 
