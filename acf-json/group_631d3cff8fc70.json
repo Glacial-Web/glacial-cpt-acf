@@ -1,0 +1,139 @@
+{
+    "key": "group_631d3cff8fc70",
+    "title": "Doctors CPT Options",
+    "fields": [
+        {
+            "key": "field_631d3d310365f",
+            "label": "Doctors CPT Name",
+            "name": "doctors_cpt_name",
+            "type": "text",
+            "instructions": "Change the name of the Doctors CPT. This will change all menu titles as well as the archive page title.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Doctors",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_631d3d7d03660",
+            "label": "Doctors CPT Slug",
+            "name": "doctors_cpt_slug",
+            "type": "text",
+            "instructions": "This will change the base url (slug) of Doctors CPT.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "doctors",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_631e7df1d4d17",
+            "label": "Add Related Doctors to Service Pages",
+            "name": "add_doctors_to_service_pages",
+            "type": "true_false",
+            "instructions": "Add related doctors on service pages above footer.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 1,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_631e7e71d25b4",
+            "label": "Add all doctors to single doctor pages",
+            "name": "add_all_doctors_to_single_doctor_pages",
+            "type": "true_false",
+            "instructions": "Add all doctors, excluding current doctor, to single doctor pages above footer.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 1,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_631f3cc98c568",
+            "label": "Use Doctor Services Filter",
+            "name": "use_doctor_services_filter",
+            "type": "true_false",
+            "instructions": "Use the doctor Services filter on the doctors archive page.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 1,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_631f3d4a8c569",
+            "label": "Use Doctor Locations Filter",
+            "name": "use_doctor_locations_filter",
+            "type": "true_false",
+            "instructions": "Use the doctor Locations filter on the doctors archive page.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 1,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "doctors-locations-options"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "field",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1662992471
+}

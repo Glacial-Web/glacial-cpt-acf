@@ -35,7 +35,7 @@ if ( $doctors->have_posts() ): ?>
                     <div class="cpt-doctor-image-link">
 						<?php
 						/*
-						 * If you copy everything to your theme, change this is get_template_part().
+						 * If you copy everything to your theme, change this to get_template_part().
 						 * */
                         include plugin_dir_path( __DIR__ ) . 'partials/doctor-headshot-link.php'; ?>
                     </div>
