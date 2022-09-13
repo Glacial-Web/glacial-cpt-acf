@@ -61,7 +61,7 @@
         },
         {
             "key": "field_631e7e71d25b4",
-            "label": "Add all doctors to single doctor pages",
+            "label": "Add All Doctors to Single Doctor Pages",
             "name": "add_all_doctors_to_single_doctor_pages",
             "type": "true_false",
             "instructions": "Add all doctors, excluding current doctor, to single doctor pages above footer.",
@@ -135,5 +135,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1662992471
+    "modified": 1663035394
 }

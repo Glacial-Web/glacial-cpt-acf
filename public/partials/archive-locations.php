@@ -31,7 +31,7 @@ if ( have_posts() ): ?>
                         <p><?php echo $address; ?></p>
 					<?php endif; ?>
 
-					<?php include( plugin_dir_path( __FILE__ ) . 'phone-numbers.php' ); ?>
+					<?php include( GLACIAL_CPT_PLUGIN_DIR . 'public/partials/phone-numbers.php' ); ?>
 
 					<?php if ( $hours ): ?>
                         <p><?php echo $hours; ?></p>

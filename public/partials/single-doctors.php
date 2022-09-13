@@ -21,11 +21,13 @@ if ( have_posts() ): ?>
 				if ( has_post_thumbnail() ) {
 					the_post_thumbnail( 'large', array( 'class' => 'doctor-featured-image' ) );
 				} else {
-					echo '<img src="' . plugin_dir_url( __DIR__ ) . 'images/doc-placeholder.jpg" alt="' . get_the_title() . '" class="doctor-featured-image">';
+					echo '<img src="' . GLACIAL_CPT_PLUGIN_URL . 'public/images/doc-placeholder.jpg" alt="' . get_the_title() . '" class="doctor-featured-image">';
 				} ?>
 
 				<?php if ( $additional_specialties ): ?>
+
                     <h3 class="doctor-additional-specialties"><?php echo $additional_specialties; ?></h3>
+
 				<?php endif; ?>
 
 				<?php if ( $specialties || $locations ): ?>

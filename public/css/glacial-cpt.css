@@ -142,7 +142,7 @@
 
 .embed-container.location-page {
     padding-bottom: 50%;
-    max-width:100%;
+    max-width: 100%;
 }
 
 .doctor-specialties-locations ul,
@@ -177,6 +177,7 @@ h3.doctor-additional-specialties {
 .mix-holder .container {
     background: none;
     text-align: justify;
+    min-height: 381px;
 }
 
 .mix-holder .container .mix {

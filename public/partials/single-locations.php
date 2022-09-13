@@ -23,7 +23,7 @@ if ( have_posts() ):
 				/*
 				 * If you copy everything to your theme, change this is get_template_part().
 				 * */
-				include( plugin_dir_path( __FILE__ ) . 'phone-numbers.php' ); ?>
+				include( GLACIAL_CPT_PLUGIN_DIR . 'public/partials/phone-numbers.php' ); ?>
 
 				<?php if ( $iframe ): ?>
                     <div class="embed-container location-page">
@@ -83,7 +83,8 @@ if ( have_posts() ):
 				<?php the_content();
 
 				/*
-				 * Query the Doctors custom post type to see if any doctors are related to this location
+				 * Query the Doctors custom post type to see if any doctors are
+				 * related to this location
 				 * */
 				$args = array(
 				  'posts_per_page' => - 1,
@@ -115,7 +116,7 @@ if ( have_posts() ):
 									/*
 				                     * If you copy everything to your theme, change this to get_template_part().
 				                     * */
-									include plugin_dir_path( __DIR__ ) . 'partials/doctor-headshot-link.php'; ?>
+									include( GLACIAL_CPT_PLUGIN_DIR . 'public/partials/doctor-headshot-link.php' ); ?>
                                 </div>
 
 							<?php endwhile; ?>

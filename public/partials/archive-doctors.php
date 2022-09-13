@@ -7,6 +7,9 @@
 
 if ( have_posts() ):
 
+	$use_doctor_services_filter = get_field( 'use_doctor_services_filter', 'options' ) ?? true;
+	$use_doctor_locations_filter = get_field( 'use_doctor_locations_filter', 'options' ) ?? true;
+
 	$locations = get_posts(
 	  array(
 		'post_type'      => 'locations',
@@ -25,36 +28,57 @@ if ( have_posts() ):
 		'meta_key'       => 'glacial_page_type',
 		'meta_value'     => 'service-page'
 	  )
-	); ?>
+	);
 
-    <form class="controls" id="Filters">
-        <div class="search-field-div">
-            <fieldset>
-                <h2>Services</h2><br>
-                <select aria-label="Doctor Services Filter">
-                    <option value="">All</option>
+	$container_class     = 'filters-off';
+	$mix_it_up_class     = 'mix-it-up-off';
 
-					<?php foreach ( $services as $service ): ?>
-                        <option value="<?php echo '.' . $service->post_name; ?>"><?php echo $service->post_title; ?></option>
-					<?php endforeach; ?>
+	if ( $use_doctor_services_filter || $use_doctor_locations_filter ):
+		$container_class = 'filters-on';
+		$mix_it_up_class = 'mix';
+		?>
 
-                </select>
-            </fieldset>
-            <fieldset>
-                <h2>Locations</h2>
-                <select aria-label="Doctor Location Filter">
-                    <option value="">All</option>
-					<?php foreach ( $locations as $location ): ?>
-                        <option value="<?php echo '.' . $location->post_name; ?>"><?php echo $location->post_title; ?></option>
-					<?php endforeach; ?>
-                </select>
-            </fieldset>
-            <button id="Reset" class="dr-clear-btn">Clear Filters</button>
-        </div>
-    </form>
-    <div id="errorMessage"></div>
+        <form class="controls" id="Filters">
+            <div class="search-field-div">
 
-    <div class="mix-holder">
+				<?php if ( $use_doctor_services_filter ): ?>
+
+                    <fieldset>
+                        <h2>Services</h2><br>
+                        <select aria-label="Doctor Services Filter">
+                            <option value="">All</option>
+
+							<?php foreach ( $services as $service ): ?>
+                                <option value="<?php echo '.' . $service->post_name; ?>"><?php echo $service->post_title; ?></option>
+							<?php endforeach; ?>
+
+                        </select>
+                    </fieldset>
+
+				<?php endif; ?>
+
+				<?php if ( $use_doctor_locations_filter ): ?>
+
+                    <fieldset>
+                        <h2>Locations</h2>
+                        <select aria-label="Doctor Location Filter">
+                            <option value="">All</option>
+							<?php foreach ( $locations as $location ): ?>
+                                <option value="<?php echo '.' . $location->post_name; ?>"><?php echo $location->post_title; ?></option>
+							<?php endforeach; ?>
+                        </select>
+                    </fieldset>
+
+				<?php endif; ?>
+
+                <button id="Reset" class="dr-clear-btn">Clear Filters</button>
+            </div>
+        </form>
+        <div id="errorMessage"></div>
+
+	<?php endif; ?>
+
+    <div class="mix-holder <?php echo $container_class; ?>">
         <div id="Container" class="container">
             <div class="flex-wrapper flex-start">
 
@@ -76,15 +100,15 @@ if ( have_posts() ):
 						$service_classes = implode( ' ', $service_names );
 					}
 
-					$doctor_classes = $location_classes . ' ' . $service_classes; ?>
+					$doctor_classes = $location_classes . ' ' . $service_classes . ' ' . $mix_it_up_class; ?>
 
-                    <div class="mix cpt-doctor-image-link <?php echo $doctor_classes; ?>">
+                    <div class="cpt-doctor-image-link <?php echo $doctor_classes; ?>">
 
 						<?php
 						/*
 						 * If you copy everything to your theme, change this to get_template_part().
 						 * */
-                        include plugin_dir_path( __DIR__ ) . 'partials/doctor-headshot-link.php'; ?>
+						include( GLACIAL_CPT_PLUGIN_DIR . 'public/partials/doctor-headshot-link.php' ); ?>
 
                     </div>
 
@@ -93,7 +117,9 @@ if ( have_posts() ):
             </div>
         </div>
     </div>
+
 <?php else: ?>
-<h2>No Doctors Found</h2>
+
+    <h2>No Doctors Found</h2>
 
 <?php endif; ?>

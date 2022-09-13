@@ -8,10 +8,10 @@
 
 $args = array(
   'posts_per_page' => - 1,
-  'post_type'   => 'doctors',
-  'orderby'     => 'menu_order',
-  'order'       => 'ASC',
-  'meta_query'  => array(
+  'post_type'      => 'doctors',
+  'orderby'        => 'menu_order',
+  'order'          => 'ASC',
+  'meta_query'     => array(
 	'relation' => 'or',
 	array(
 	  'key'     => 'specialties',
@@ -37,7 +37,7 @@ if ( $doctors->have_posts() ): ?>
 						/*
 						 * If you copy everything to your theme, change this to get_template_part().
 						 * */
-                        include plugin_dir_path( __DIR__ ) . 'partials/doctor-headshot-link.php'; ?>
+						include( GLACIAL_CPT_PLUGIN_DIR . 'public/partials/doctor-headshot-link.php' ); ?>
                     </div>
 
 				<?php endwhile; ?>

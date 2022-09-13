@@ -6,10 +6,10 @@
  */
 
 if ( is_post_type_archive( array( 'locations', 'doctors' ) ) ) {
-	include( plugin_dir_path( __DIR__ ) . 'partials/archive-' . get_post_type() . '.php' );
+	include( GLACIAL_CPT_PLUGIN_DIR . 'public/partials/archive-' . get_post_type() . '.php' );
 }
 
 if ( is_singular( array( 'locations', 'doctors' ) ) ) {
-	include( plugin_dir_path( __DIR__ ) . 'partials/single-' . get_post_type() . '.php' );
+	include( GLACIAL_CPT_PLUGIN_DIR . 'public/partials/single-' . get_post_type() . '.php' );
 }
 
