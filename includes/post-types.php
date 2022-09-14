@@ -20,15 +20,15 @@ function doctor_post_type_register() {
 	$doctors_cpt_slug = get_field( 'doctors_cpt_slug', 'option' ) ?? 'doctors';
 
 	$labels = array(
-	  'name'              => $doctors_cpt_name,
-	  'menu_name'         => $doctors_cpt_name,
-	  'all_items'         => 'All ' . $doctors_cpt_name,
-	  'view_item'         => 'View ' . $doctors_cpt_name,
-	  'add_new_item'      => 'Add New ' . $doctors_cpt_name,
-	  'add_new'           => 'Add New ' . $doctors_cpt_name,
-	  'edit_item'         => 'Edit ' . $doctors_cpt_name,
-	  'update_item'       => 'Update ' . $doctors_cpt_name,
-	  'search_items'      => 'Search ' . $doctors_cpt_name,
+	  'name'         => $doctors_cpt_name,
+	  'menu_name'    => $doctors_cpt_name,
+	  'all_items'    => 'All ' . $doctors_cpt_name,
+	  'view_item'    => 'View ' . $doctors_cpt_name,
+	  'add_new_item' => 'Add New ' . $doctors_cpt_name,
+	  'add_new'      => 'Add New ' . $doctors_cpt_name,
+	  'edit_item'    => 'Edit ' . $doctors_cpt_name,
+	  'update_item'  => 'Update ' . $doctors_cpt_name,
+	  'search_items' => 'Search ' . $doctors_cpt_name,
 	);
 
 	$args = array(
@@ -58,7 +58,7 @@ function doctor_post_type_register() {
 	  'menu_icon'           => 'dashicons-buddicons-buddypress-logo',
 	  'show_in_rest'        => true,
 	  'rewrite'             => array(
-		'slug'       => $doctors_cpt_slug, // Change this to change the doctors slug
+		'slug'       => $doctors_cpt_slug,
 		'with_front' => false
 	  )
 	);
@@ -70,7 +70,7 @@ function doctor_post_type_register() {
 add_action( 'init', 'doctor_post_type_register', 0 );
 
 /*
- * Location CPT
+ * Locations CPT
  * */
 function location_post_type_register() {
 
@@ -83,16 +83,16 @@ function location_post_type_register() {
 	$locations_cpt_slug = get_field( 'locations_cpt_slug', 'option' ) ?? 'locations';
 
 	$labels = array(
-	  'name'               => $locations_cpt_name,
-	  'singular_name'      => $locations_cpt_name,
-	  'menu_name'          => $locations_cpt_name,
-	  'all_items'          => 'All ' . $locations_cpt_name,
-	  'view_item'          => 'View ' . $locations_cpt_name,
-	  'add_new_item'       => 'Add New ' . $locations_cpt_name,
-	  'add_new'            => 'Add New ' . $locations_cpt_name,
-	  'edit_item'          => 'Edit '. $locations_cpt_name,
-	  'update_item'        => 'Update ' . $locations_cpt_name,
-	  'search_items'       => 'Search ' . $locations_cpt_name,
+	  'name'          => $locations_cpt_name,
+	  'singular_name' => $locations_cpt_name,
+	  'menu_name'     => $locations_cpt_name,
+	  'all_items'     => 'All ' . $locations_cpt_name,
+	  'view_item'     => 'View ' . $locations_cpt_name,
+	  'add_new_item'  => 'Add New ' . $locations_cpt_name,
+	  'add_new'       => 'Add New ' . $locations_cpt_name,
+	  'edit_item'     => 'Edit ' . $locations_cpt_name,
+	  'update_item'   => 'Update ' . $locations_cpt_name,
+	  'search_items'  => 'Search ' . $locations_cpt_name,
 	);
 
 	$args = array(
@@ -123,7 +123,7 @@ function location_post_type_register() {
 	  'capability_type'     => 'page',
 	  'show_in_rest'        => true,
 	  'rewrite'             => array(
-		'slug'       => $locations_cpt_slug, // Change this to change the locations slug
+		'slug'       => $locations_cpt_slug,
 		'with_front' => false
 	  )
 	);

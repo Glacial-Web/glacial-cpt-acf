@@ -128,6 +128,12 @@ if ( have_posts() ):
 
 				<?php endif; ?>
 
+	            <?php
+	            /*
+				 * If you copy everything to your theme, change this is get_template_part().
+				 * */
+	            include( GLACIAL_CPT_PLUGIN_DIR . 'public/partials/location-related-posts.php' ); ?>
+
             </div>
         </div>
 

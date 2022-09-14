@@ -18,7 +18,7 @@
             "default_value": "",
             "placeholder": "",
             "maxlength": "",
-            "rows": "",
+            "rows": 4,
             "new_lines": "br"
         },
         {
@@ -134,7 +134,7 @@
             "default_value": "",
             "placeholder": "",
             "maxlength": "",
-            "rows": 4,
+            "rows": 6,
             "new_lines": "br"
         },
         {
@@ -153,7 +153,7 @@
             "default_value": "",
             "placeholder": "",
             "maxlength": "",
-            "rows": "",
+            "rows": 6,
             "new_lines": ""
         },
         {
@@ -180,6 +180,34 @@
             "min": "",
             "max": "",
             "return_format": "object"
+        },
+        {
+            "key": "field_63212130e60d2",
+            "label": "Related Blog Posts",
+            "name": "related_blog_posts",
+            "type": "relationship",
+            "instructions": "Choose related blog posts to appear on the location page.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "post"
+            ],
+            "taxonomy": "",
+            "filters": [
+                "search",
+                "taxonomy"
+            ],
+            "elements": [
+                "featured_image"
+            ],
+            "min": "",
+            "max": "",
+            "return_format": "id"
         },
         {
             "key": "field_62c3992d94c96",
@@ -236,5 +264,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1662859214
+    "modified": 1663115829
 }
