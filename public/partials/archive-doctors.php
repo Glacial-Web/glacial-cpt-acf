@@ -35,8 +35,7 @@ if ( have_posts() ):
 
 	if ( $use_doctor_services_filter || $use_doctor_locations_filter ):
 		$container_class = 'filters-on';
-		$mix_it_up_class = 'mix';
-		?>
+		$mix_it_up_class = 'mix'; ?>
 
         <form class="controls" id="Filters">
             <div class="search-field-div">
@@ -80,41 +79,70 @@ if ( have_posts() ):
 
     <div class="mix-holder <?php echo $container_class; ?>">
         <div id="Container" class="container">
-            <div class="flex-wrapper flex-start">
 
-				<?php while ( have_posts() ) : the_post();
+			<?php
+			/*
+	        * Get doctor-type custom taxonomy terms
+	        */
+			$terms = get_terms( array(
+			  'taxonomy'   => 'doctor-type',
+			  'hide_empty' => true,
+			) );
 
-					$image            = get_field( 'headshot' );
-					$doc_locations    = get_field( 'location' );
-					$doc_services     = get_field( 'specialties' );
-					$location_classes = '';
-					$service_classes  = '';
+			if ( empty( $terms ) ) {
+				$terms =  array('no-terms');
+            }
+            var_dump( $terms);
+            ?>
+            
+				<?php foreach ( $terms as $term ): ?>
 
-					if ( $doc_locations ) {
-						$location_names   = wp_list_pluck( $doc_locations, 'post_name' );
-						$location_classes = implode( ' ', $location_names );
-					}
+				<?php if ( $term->name ) {
+					echo "<h2>$term->name</h2>";
+				} ?>
 
-					if ( $doc_services ) {
-						$service_names   = wp_list_pluck( $doc_services, 'post_name' );
-						$service_classes = implode( ' ', $service_names );
-					}
+                <div class="flex-wrapper flex-start">
 
-					$doctor_classes = $location_classes . ' ' . $service_classes . ' ' . $mix_it_up_class; ?>
+					<?php while ( have_posts() ) : the_post();
 
-                    <div class="cpt-doctor-image-link <?php echo $doctor_classes; ?>">
+						if ( in_array( 'no-terms', $terms) || has_term( $term->slug, $term->taxonomy ) ):
 
-						<?php
-						/*
-						 * If you copy everything to your theme, change this to get_template_part().
-						 * */
-						include( GLACIAL_CPT_PLUGIN_DIR . 'public/partials/doctor-headshot-link.php' ); ?>
+							$image = get_field( 'headshot' );
+							$doc_locations = get_field( 'location' );
+							$doc_services = get_field( 'specialties' );
+							$location_classes = '';
+							$service_classes = '';
 
-                    </div>
+							if ( $doc_locations ) {
+								$location_names   = wp_list_pluck( $doc_locations, 'post_name' );
+								$location_classes = implode( ' ', $location_names );
+							}
 
-				<?php endwhile; ?>
+							if ( $doc_services ) {
+								$service_names   = wp_list_pluck( $doc_services, 'post_name' );
+								$service_classes = implode( ' ', $service_names );
+							}
 
-            </div>
+							$doctor_classes = $location_classes . ' ' . $service_classes . ' ' . $mix_it_up_class; ?>
+
+                            <div class="cpt-doctor-image-link <?php echo $doctor_classes; ?>">
+
+								<?php
+								/*
+								 * If you copy everything to your theme, change this to get_template_part().
+								 * */
+								include( GLACIAL_CPT_PLUGIN_DIR . 'public/partials/doctor-headshot-link.php' ); ?>
+
+                            </div>
+
+						<?php endif; ?>
+
+					<?php endwhile; ?>
+
+                </div>
+
+			<?php endforeach; ?>
+
         </div>
     </div>
 

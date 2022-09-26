@@ -114,6 +114,7 @@ $(function(){
         controls: {
             enable: true // we won't be needing these
         },
+        layout: {display: "flex", containerClass: "", containerClassFail: "fail"},
         callbacks: {
             onMixFail: function(){
                 $('#errorMessage').html('No related matches');

@@ -46,6 +46,32 @@
             "maxlength": ""
         },
         {
+            "key": "field_632a770d7621a",
+            "label": "Doctor Type",
+            "name": "doctor_type",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "MD": "MD",
+                "OD": "OD",
+                "Nurse": "Nurse"
+            },
+            "default_value": false,
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
             "key": "field_5dc9769fdd7b1",
             "label": "Specialties\/Services",
             "name": "specialties",
@@ -109,10 +135,10 @@
     "position": "acf_after_title",
     "style": "default",
     "label_placement": "top",
-    "instruction_placement": "label",
+    "instruction_placement": "field",
     "hide_on_screen": "",
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1661348042
+    "modified": 1663767191
 }
