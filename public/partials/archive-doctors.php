@@ -81,37 +81,36 @@ if ( have_posts() ):
         <div id="Container" class="container">
 
 			<?php
-			/*
-	        * Get doctor-type custom taxonomy terms
-	        */
-			$terms = get_terms( array(
-			  'taxonomy'   => 'doctor-type',
-			  'hide_empty' => true,
-			) );
 
-			if ( empty( $terms ) ) {
-				$terms =  array('no-terms');
-            }
-            var_dump( $terms);
-            ?>
-            
-				<?php foreach ( $terms as $term ): ?>
+			$doctor_type_field_obj = get_field_object( 'doctor_type' );
 
-				<?php if ( $term->name ) {
-					echo "<h2>$term->name</h2>";
+			if ( ! empty( $doctor_type_field_obj['choices'] ) ) {
+				$doctor_types = $doctor_type_field_obj['choices'];
+			} else {
+				$doctor_types = array( '' );
+			}
+
+            var_dump( $doctor_types);
+
+			foreach ( $doctor_types as $doctor_type ):
+
+				if ( $doctor_type ) {
+					echo "<h2>$doctor_type</h2>";
 				} ?>
 
                 <div class="flex-wrapper flex-start">
 
 					<?php while ( have_posts() ) : the_post();
 
-						if ( in_array( 'no-terms', $terms) || has_term( $term->slug, $term->taxonomy ) ):
+						$doctor_type_field    = get_field( 'doctor_type' );
+
+						if ( $doctor_type == $doctor_type_field || ! $doctor_type ) :
 
 							$image = get_field( 'headshot' );
-							$doc_locations = get_field( 'location' );
-							$doc_services = get_field( 'specialties' );
+							$doc_locations    = get_field( 'location' );
+							$doc_services     = get_field( 'specialties' );
 							$location_classes = '';
-							$service_classes = '';
+							$service_classes  = '';
 
 							if ( $doc_locations ) {
 								$location_names   = wp_list_pluck( $doc_locations, 'post_name' );
@@ -136,7 +135,6 @@ if ( have_posts() ):
                             </div>
 
 						<?php endif; ?>
-
 					<?php endwhile; ?>
 
                 </div>
