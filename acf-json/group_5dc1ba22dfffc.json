@@ -58,7 +58,10 @@
                 "class": "",
                 "id": ""
             },
-            "choices": [],
+            "choices": {
+                "OD": "OD",
+                "MD": "MD"
+            },
             "default_value": false,
             "return_format": "value",
             "multiple": 0,
@@ -136,5 +139,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1665169578
+    "modified": 1667566332
 }
