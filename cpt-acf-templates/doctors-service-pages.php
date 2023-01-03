@@ -33,11 +33,9 @@ if ( $doctors->have_posts() ): ?>
 				<?php while ( $doctors->have_posts() ): $doctors->the_post(); ?>
 
                     <div class="cpt-doctor-image-link">
-						<?php
-						/*
-						 * If you copy everything to your theme, change this to get_template_part().
-						 * */
-						include( GLACIAL_CPT_PLUGIN_DIR . 'public/partials/doctor-headshot-link.php' ); ?>
+
+						<?php glacial_cpt_get_template_part('doctor-headshot-link' ); ?>
+
                     </div>
 
 				<?php endwhile; ?>

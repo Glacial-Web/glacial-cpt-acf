@@ -5,6 +5,8 @@
  * @package Glacial_Cpt_Acf
  */
 
+get_header();
+
 if ( have_posts() ): ?>
 
     <div class="single-cpt-wrapper">
@@ -86,3 +88,5 @@ if ( have_posts() ): ?>
     </div>
 
 <?php endif; ?>
+
+<?php get_footer(); ?>

@@ -5,6 +5,8 @@
  * @package Glacial_Cpt_Acf
  */
 
+get_header();
+
 if ( have_posts() ):
 
 	$use_doctor_services_filter = get_field( 'use_doctor_services_filter', 'options' ) ?? true;
@@ -90,8 +92,6 @@ if ( have_posts() ):
 				$doctor_types = array( '' );
 			}
 
-            var_dump( $doctor_types);
-
 			foreach ( $doctor_types as $doctor_type ):
 
 				if ( $doctor_type ) {
@@ -126,11 +126,7 @@ if ( have_posts() ):
 
                             <div class="cpt-doctor-image-link <?php echo $doctor_classes; ?>">
 
-								<?php
-								/*
-								 * If you copy everything to your theme, change this to get_template_part().
-								 * */
-								include( GLACIAL_CPT_PLUGIN_DIR . 'public/partials/doctor-headshot-link.php' ); ?>
+								<?php glacial_cpt_get_template_part( 'doctor-headshot-link' ); ?>
 
                             </div>
 
@@ -149,3 +145,5 @@ if ( have_posts() ):
     <h2>No Doctors Found</h2>
 
 <?php endif; ?>
+
+<?php get_footer(); ?>

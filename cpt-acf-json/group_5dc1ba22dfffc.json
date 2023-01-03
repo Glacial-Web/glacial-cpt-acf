@@ -59,8 +59,8 @@
                 "id": ""
             },
             "choices": {
-                "OD": "OD",
-                "MD": "MD"
+                "MD": "MD",
+                "OD": "OD"
             },
             "default_value": false,
             "return_format": "value",
