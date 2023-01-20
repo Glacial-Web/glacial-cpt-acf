@@ -31,12 +31,12 @@
 
 .cpt-doctor-image-link a:hover,
 .location-related-post a:hover {
-    background: var(--main-button-background-color);
+    background: var(--gl-button-bg-hover);
 }
 
 .cpt-doctor-image-link a.doctor-headshot-link:hover,
 a.location-related-post-link:hover .related-post-title {
-    color: #fff;
+    color: var(--gl-button-color-hover);
 }
 
 .single-location-doctors .cpt-doctor-image-link,
@@ -60,21 +60,23 @@ a.location-related-post-link:hover .related-post-title {
 .location-related-post .location-related-post-link img {
     width: 100%;
     object-fit: cover;
-    height: 240px;
+    aspect-ratio: 3/4;
+    height: auto;
     object-position: center;
     display: block;
     margin: 0 auto 20px auto;
     border: 1px solid var(--cpt-border-color);
 }
+
 .location-related-post .location-related-post-link img.no-featured {
     object-fit: scale-down;
     background: #fff;
+    padding: 10px;
 }
 
 .location-related-post .location-related-post-link img {
-    height: 180px;
+    aspect-ratio: 16/9
 }
-
 
 .flex-wrapper.flex-start {
     -webkit-justify-content: flex-start;
@@ -252,11 +254,11 @@ form.controls {
 .dr-clear-btn, .dr-clear-btn:active, button.dr-clear-btn:focus {
     display: block;
     width: 200px;
-    background: var(--main-button-background-color);
+    background: var(--gl-button-bg);
     border-radius: 0;
     outline: none;
     border: none;
-    color: var(--main-button-color);
+    color: var(--gl-button-color);
     padding: 6px 12px;
     text-transform: uppercase;
     transition: 0.1s;
@@ -264,8 +266,8 @@ form.controls {
 }
 
 .dr-clear-btn:hover {
-    background: var(--main-button-background-color-hover);
-    color: #fff;
+    background: var(--gl-button-bg-hover);
+    color: var(--gl-button-color-hover);
 }
 
 #errorMessage {
@@ -307,10 +309,6 @@ form.controls {
 }
 
 @media (max-width: 767px) {
-
-    .cpt-doctor-image-link .doctor-headshot-link img {
-        height: 160px;
-    }
 
     .cpt-doctor-image-link,
     .single-location-doctors .cpt-doctor-image-link,

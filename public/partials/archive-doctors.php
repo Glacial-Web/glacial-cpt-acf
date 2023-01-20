@@ -90,8 +90,6 @@ if ( have_posts() ):
 				$doctor_types = array( '' );
 			}
 
-            var_dump( $doctor_types);
-
 			foreach ( $doctor_types as $doctor_type ):
 
 				if ( $doctor_type ) {
