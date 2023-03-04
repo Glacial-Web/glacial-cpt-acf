@@ -6,6 +6,7 @@
             "key": "field_5dc98715aaacb",
             "label": "Headshot",
             "name": "headshot",
+            "aria-label": "",
             "type": "image",
             "instructions": "This image will show up on the Doctors filter page. Featured image will show up on single Doctors pages.",
             "required": 0,
@@ -30,6 +31,7 @@
             "key": "field_5df10e2e756cb",
             "label": "Additional Specialties",
             "name": "additional_specialties",
+            "aria-label": "",
             "type": "text",
             "instructions": "This will appear above the featured image.",
             "required": 0,
@@ -49,6 +51,7 @@
             "key": "field_632a770d7621a",
             "label": "Doctor Type",
             "name": "doctor_type",
+            "aria-label": "",
             "type": "select",
             "instructions": "",
             "required": 0,
@@ -60,11 +63,12 @@
             },
             "choices": {
                 "MD": "MD",
-                "OD": "OD"
+                "OD": "OD",
+                "NP": "NP"
             },
-            "default_value": false,
+            "default_value": [],
             "return_format": "value",
-            "multiple": 0,
+            "multiple": 1,
             "allow_null": 0,
             "ui": 0,
             "ajax": 0,
@@ -74,6 +78,7 @@
             "key": "field_5dc9769fdd7b1",
             "label": "Specialties\/Services",
             "name": "specialties",
+            "aria-label": "",
             "type": "relationship",
             "instructions": "",
             "required": 0,
@@ -99,6 +104,7 @@
             "key": "field_5dc1efb42099a",
             "label": "Location",
             "name": "location",
+            "aria-label": "",
             "type": "relationship",
             "instructions": "",
             "required": 0,
@@ -139,5 +145,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1667566332
+    "modified": 1676684903
 }

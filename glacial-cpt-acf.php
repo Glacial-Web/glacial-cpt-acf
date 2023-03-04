@@ -8,13 +8,15 @@
  * Domain Path:     /languages
  * Version:         2.0.0
  *
+ * GitHub Plugin URI: https://github.com/Glacial-Web/glacial-cpt-acf
+ *
  * @package         Glacial_Cpt_Acf
  **/
 
 /*
  * If this file is called directly, DIE!
  * */
-if ( ! defined( 'ABSPATH' ) ) {
+if ( !defined( 'ABSPATH' ) ) {
 	die;
 }
 
@@ -56,7 +58,7 @@ function glacial_cpt_acf_notice() { ?>
  * */
 function glacial_cpt_plugin_activate() {
 	//
-	if ( ! get_option( 'glacial_flush_rewrite_rules_flag' ) ) {
+	if ( !get_option( 'glacial_flush_rewrite_rules_flag' ) ) {
 		add_option( 'glacial_flush_rewrite_rules_flag', true );
 	}
 }
@@ -70,8 +72,7 @@ register_activation_hook( __FILE__, 'glacial_cpt_plugin_activate' );
  *
  * @since 1.0.0
  * */
-function glacial_cpt_plugin_deactivate() {
-}
+function glacial_cpt_plugin_deactivate() {}
 
 register_deactivation_hook( __FILE__, 'glacial_cpt_plugin_deactivate' );
 
@@ -80,10 +81,8 @@ register_deactivation_hook( __FILE__, 'glacial_cpt_plugin_deactivate' );
  *
  * @since 1.0.0
  * */
-if ( ! function_exists( 'the_field' ) ) {
-	if ( ! function_exists( 'the_field' ) ) {
-		add_action( 'admin_notices', 'glacial_cpt_acf_notice' );
-	}
+if ( !function_exists( 'the_field' ) ) {
+	add_action( 'admin_notices', 'glacial_cpt_acf_notice' );
 
 } else {
 

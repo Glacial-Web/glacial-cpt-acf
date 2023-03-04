@@ -11,15 +11,15 @@ if ( have_rows( 'phone_numbers' ) ): ?>
 
 		<?php while ( have_rows( 'phone_numbers' ) ): the_row(); ?>
 
-			<?php //vars
+			<?php
 			$label  = get_sub_field( 'label' );
 			$number = get_sub_field( 'number' );
 			$link   = get_sub_field( 'link' );
 			$note   = get_sub_field( 'note' );
 
 			if ( $link ):
-				$href_number = preg_replace( '/\D/', '', $number );
-				?>
+				$href_number = preg_replace( '/\D/', '', $number ); ?>
+
                 <li>
 					<?php if ( $label ) {
 						echo $label . ': ';

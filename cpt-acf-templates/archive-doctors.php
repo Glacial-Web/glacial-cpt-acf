@@ -13,23 +13,23 @@ if ( have_posts() ):
 	$use_doctor_locations_filter = get_field( 'use_doctor_locations_filter', 'options' ) ?? true;
 
 	$locations = get_posts(
-	  array(
-		'post_type'      => 'locations',
-		'posts_per_page' => - 1,
-		'orderby'        => 'title',
-		'order'          => 'asc',
-	  )
+		array(
+			'post_type'      => 'locations',
+			'posts_per_page' => - 1,
+			'orderby'        => 'title',
+			'order'          => 'asc',
+		)
 	);
 
 	$services = get_posts(
-	  array(
-		'post_type'      => 'page',
-		'orderby'        => 'title',
-		'order'          => 'ASC',
-		'posts_per_page' => - 1,
-		'meta_key'       => 'glacial_page_type',
-		'meta_value'     => 'service-page'
-	  )
+		array(
+			'post_type'      => 'page',
+			'orderby'        => 'title',
+			'order'          => 'ASC',
+			'posts_per_page' => - 1,
+			'meta_key'       => 'glacial_page_type',
+			'meta_value'     => 'service-page'
+		)
 	);
 
 	$container_class     = 'filters-off';
@@ -83,10 +83,9 @@ if ( have_posts() ):
         <div id="Container" class="container">
 
 			<?php
-
 			$doctor_type_field_obj = get_field_object( 'doctor_type' );
 
-			if ( ! empty( $doctor_type_field_obj['choices'] ) ) {
+			if ( !empty( $doctor_type_field_obj['choices'] ) ) {
 				$doctor_types = $doctor_type_field_obj['choices'];
 			} else {
 				$doctor_types = array( '' );
@@ -100,17 +99,16 @@ if ( have_posts() ):
 
                 <div class="flex-wrapper flex-start">
 
-					<?php while ( have_posts() ) : the_post();
+					<?php while ( have_posts() ): the_post();
 
 						$doctor_type_field    = get_field( 'doctor_type' );
 
-						if ( $doctor_type == $doctor_type_field || ! $doctor_type ) :
-
-							$image = get_field( 'headshot' );
+						if ( in_array( $doctor_type, $doctor_type_field ) || empty( $doctor_type ) ):
+							$doc_services = get_field( 'specialties' );
 							$doc_locations    = get_field( 'location' );
-							$doc_services     = get_field( 'specialties' );
 							$location_classes = '';
 							$service_classes  = '';
+							$image            = get_field( 'headshot' );
 
 							if ( $doc_locations ) {
 								$location_names   = wp_list_pluck( $doc_locations, 'post_name' );
@@ -122,7 +120,9 @@ if ( have_posts() ):
 								$service_classes = implode( ' ', $service_names );
 							}
 
-							$doctor_classes = $location_classes . ' ' . $service_classes . ' ' . $mix_it_up_class; ?>
+							$doctor_classes = $location_classes . ' ' . $service_classes . ' ' . $mix_it_up_class;
+
+							?>
 
                             <div class="cpt-doctor-image-link <?php echo $doctor_classes; ?>">
 
@@ -131,6 +131,7 @@ if ( have_posts() ):
                             </div>
 
 						<?php endif; ?>
+
 					<?php endwhile; ?>
 
                 </div>

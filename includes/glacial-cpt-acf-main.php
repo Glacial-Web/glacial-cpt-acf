@@ -6,6 +6,10 @@
  *
  * */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
+
 /**
  * Flush the rewrite rules. Uses option set above to prevent flush on every activation.
  *
