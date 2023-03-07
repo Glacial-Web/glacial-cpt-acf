@@ -260,3 +260,36 @@ function glacial_cpt_check_slug_change() {
 }
 
 add_action( 'acf/save_post', 'glacial_cpt_check_slug_change', 5 );
+
+
+/**
+ * Add a choice to the page type ACF location rule
+ *
+ * @since 2.0.0
+ * */
+function glacial_acf_location_rule_page_type( $choices ) {
+	$choices['service-page'] = 'Glacial Service Page';
+
+	return $choices;
+}
+
+add_filter( 'acf/location/rule_values/page_type', 'glacial_acf_location_rule_page_type' );
+
+/**
+ * Match the new page type choice to the page type ACF location rule
+ *
+ * @since 2.0.0
+ * */
+function glacial_acf_location_rule_match_page_type( $match ) {
+
+	$post_meta = get_post_meta( get_the_ID(), 'glacial_page_type', true );
+
+	if ( $post_meta == 'service-page' ) {
+		$match = true;
+	}
+
+	return $match;
+
+}
+
+add_filter( 'acf/location/rule_match/page_type', 'glacial_acf_location_rule_match_page_type', 10, 1 );

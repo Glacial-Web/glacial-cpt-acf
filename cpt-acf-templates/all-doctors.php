@@ -17,11 +17,16 @@ $args = array(
 
 $doctors = new WP_Query( $args );
 
-if ( $doctors->have_posts() ): ?>
+
+if ( $doctors->have_posts() ):
+	$cpt_object = get_post_type_object( 'doctors' );
+
+	$cpt_name = $cpt_object->labels->name;
+	$heading  = 'Our ' . $cpt_name; ?>
 
     <div class="doctors-section">
         <div class="doctors-container">
-            <h2>Our Doctors</h2>
+            <h2><?php echo $heading; ?></h2>
             <div class="flex-wrapper flex-start">
 
 				<?php while ( $doctors->have_posts() ): $doctors->the_post(); ?>

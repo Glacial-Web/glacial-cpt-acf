@@ -42,11 +42,16 @@ if ( have_posts() ): ?>
                                 <h3>Specialties</h3>
                                 <ul>
 
-									<?php foreach ( $specialties as $specialty ): ?>
+									<?php foreach ( $specialties as $specialty ):
+
+										$alternate_page_title = get_field( 'alternate_page_title', $specialty->ID );
+										$specialty_title = $alternate_page_title ?: get_the_title( $specialty->ID ); ?>
+
                                         <li>
                                             <a href="<?php echo get_the_permalink( $specialty->ID ); ?>"
-                                               class="page_link"><?php echo get_the_title( $specialty->ID ) ?></a>
+                                               class="page_link"><?php echo $specialty_title; ?></a>
                                         </li>
+
 									<?php endforeach; ?>
 
                                 </ul>

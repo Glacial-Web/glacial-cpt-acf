@@ -100,10 +100,13 @@ if ( have_posts() ):
 
 				$doctors = new WP_Query( $args );
 
-				if ( $doctors->have_posts() ): ?>
+				if ( $doctors->have_posts() ):
+					$cpt_object = get_post_type_object( 'doctors' );
+
+					$heading = $cpt_object->labels->name . ' at ' . get_the_title(); ?>
 
                     <div class="single-location-doctors">
-                        <h2>Doctors at <?php the_title(); ?></h2>
+                        <h2><?php echo $heading; ?></h2>
                         <div class="flex-wrapper flex-start">
 
 							<?php while ( $doctors->have_posts() ): $doctors->the_post(); ?>
