@@ -17,7 +17,6 @@ $args = array(
 
 $doctors = new WP_Query( $args );
 
-
 if ( $doctors->have_posts() ):
 	$cpt_object = get_post_type_object( 'doctors' );
 

@@ -7,7 +7,8 @@
 
 get_header();
 
-if ( have_posts() ): ?>
+if ( have_posts() ):
+    $posts_option = 3; ?>
 
     <div class="single-cpt-wrapper">
 
@@ -15,7 +16,19 @@ if ( have_posts() ): ?>
 
 			$additional_specialties = get_field( 'additional_specialties' );
 			$specialties            = get_field( 'specialties' );
-			$locations              = get_field( 'location' ); ?>
+			$locations              = get_field( 'location' );
+
+			/*
+			* Get the posts that have this doctor as the change_author_link
+			* */
+			$args = array(
+				'post_type'      => 'post',
+				'meta_key'       => 'change_author_link',
+				'meta_value'     => get_the_ID(),
+				'posts_per_page' => 3,
+			);
+
+			$related_blog_posts = get_posts( $args ); ?>
 
             <div class="single-doctor-img-info">
 
@@ -32,7 +45,7 @@ if ( have_posts() ): ?>
 
 				<?php endif; ?>
 
-				<?php if ( $specialties || $locations ): ?>
+				<?php if ( $specialties || $locations || $related_blog_posts ): ?>
 
                     <div class="doctor-specialties-locations">
 
@@ -49,7 +62,7 @@ if ( have_posts() ): ?>
 
                                         <li>
                                             <a href="<?php echo get_the_permalink( $specialty->ID ); ?>"
-                                               class="page_link"><?php echo $specialty_title; ?></a>
+                                               class="ui-button"><?php echo $specialty_title; ?></a>
                                         </li>
 
 									<?php endforeach; ?>
@@ -68,7 +81,23 @@ if ( have_posts() ): ?>
 									<?php foreach ( $locations as $location ): ?>
                                         <li>
                                             <a href="<?php echo get_the_permalink( $location->ID ) ?>"
-                                               class="page_link"><?php echo get_the_title( $location->ID ) ?></a>
+                                               class="ui-button"><?php echo get_the_title( $location->ID ) ?></a>
+                                        </li>
+									<?php endforeach; ?>
+
+                                </ul>
+                            </div>
+
+						<?php endif; ?>
+
+						<?php if ( $related_blog_posts && $posts_option == 1): ?>
+                            <div class="doctor-posts-list">
+                                <h3>Posts by <?php the_title(); ?></h3>
+                                <ul>
+
+									<?php foreach ( $related_blog_posts as $related_blog_post ): ?>
+                                        <li>
+                                            <a href="<?php echo get_the_permalink( $related_blog_post->ID ) ?>"><?php echo get_the_title( $related_blog_post->ID ) ?></a>
                                         </li>
 									<?php endforeach; ?>
 
@@ -81,10 +110,27 @@ if ( have_posts() ): ?>
 
 				<?php endif; ?>
 
+
             </div>
             <div class="single-doctor-bio">
 
 				<?php the_content(); ?>
+
+				<?php if ( $related_blog_posts && $posts_option == 2 ): ?>
+                    <h3>Posts by <?php the_title(); ?></h3>
+                    <div class="flex-wrapper flex-start">
+
+						<?php foreach ( $related_blog_posts as $related_blog_post ) {
+
+							$args = array(
+								'id'           => $related_blog_post->ID,
+								'num_of_posts' => 3,
+							);
+
+							glacial_cpt_get_template_part( 'related-posts-element', array( 'id' => $related_blog_post->ID ) );
+						} ?>
+                    </div>
+				<?php endif; ?>
 
             </div>
 
@@ -92,6 +138,24 @@ if ( have_posts() ): ?>
 
     </div>
 
+	<?php if ( $related_blog_posts && $posts_option == 3 ): ?>
+    <h3>Posts by <?php the_title(); ?></h3>
+    <div class="flex-wrapper flex-start">
+
+		<?php foreach ( $related_blog_posts as $related_blog_post ) {
+
+			$args = array(
+				'id'           => $related_blog_post->ID,
+				'num_of_posts' => 3,
+			);
+
+			glacial_cpt_get_template_part( 'related-posts-element', array( 'id' => $related_blog_post->ID ) );
+		} ?>
+    </div>
 <?php endif; ?>
+
+<?php endif; ?>
+
+
 
 <?php get_footer(); ?>

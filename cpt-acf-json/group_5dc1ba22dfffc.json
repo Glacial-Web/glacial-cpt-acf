@@ -12,12 +12,11 @@
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "33",
+                "width": "34",
                 "class": "",
                 "id": ""
             },
             "return_format": "array",
-            "preview_size": "medium",
             "library": "all",
             "min_width": "",
             "min_height": "",
@@ -25,7 +24,8 @@
             "max_width": "",
             "max_height": "",
             "max_size": "",
-            "mime_types": ""
+            "mime_types": "",
+            "preview_size": "medium"
         },
         {
             "key": "field_5df10e2e756cb",
@@ -125,6 +125,26 @@
             "min": "",
             "max": "",
             "return_format": "object"
+        },
+        {
+            "key": "field_642dc8263db33",
+            "label": "Doctor Excerpt",
+            "name": "doctor_excerpt",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Displayed on the blog posts if doctor is selected in the Change Author Link field.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 4,
+            "placeholder": "",
+            "new_lines": ""
         }
     ],
     "location": [
@@ -140,10 +160,12 @@
     "position": "acf_after_title",
     "style": "default",
     "label_placement": "top",
-    "instruction_placement": "field",
-    "hide_on_screen": "",
+    "instruction_placement": "label",
+    "hide_on_screen": [
+        "send-trackbacks"
+    ],
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1676684903
+    "modified": 1680745545
 }

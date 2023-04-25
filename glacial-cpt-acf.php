@@ -85,20 +85,11 @@ if ( !function_exists( 'the_field' ) ) {
 	add_action( 'admin_notices', 'glacial_cpt_acf_notice' );
 
 } else {
-
-	/**
-	 * Register Custom Post Types: Doctors and Locations
-	 *
-	 * @since 1.0.0
-	 * */
-	require_once ( plugin_dir_path( __FILE__ ) ) . 'includes/post-types.php';
-
 	/**
 	 * Grab the main functions of our plugin
 	 *
 	 * @since 1.0.0
 	 * */
-
 	require_once ( plugin_dir_path( __FILE__ ) ) . 'includes/glacial-cpt-acf-main.php';
 
 }

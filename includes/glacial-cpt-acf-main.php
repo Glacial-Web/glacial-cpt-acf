@@ -6,7 +6,7 @@
  *
  * */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if ( !defined( 'ABSPATH' ) ) {
 	die;
 }
 
@@ -100,8 +100,8 @@ add_action( 'wp_enqueue_scripts', 'glacial_cpt_register_scripts' );
  * */
 function glacial_cpt_template_include( $template ) {
 	$template_path = '';
-	$cpts      = array( 'doctors', 'locations' );
-	$post_type = get_post_type();
+	$cpts          = array( 'doctors', 'locations' );
+	$post_type     = get_post_type();
 
 	if ( is_singular( $cpts ) ) {
 		$template_path = GLACIAL_CPT_TEMPLATES_FOLDER_NAME . "/single-{$post_type}.php";
@@ -111,14 +111,14 @@ function glacial_cpt_template_include( $template ) {
 		$template_path = GLACIAL_CPT_TEMPLATES_FOLDER_NAME . "/archive-{$post_type}.php";
 	}
 
-	if ($template_path) {
+	if ( $template_path ) {
 		if ( locate_template( $template_path ) ) {
 			$template = get_stylesheet_directory() . '/' . $template_path;
 		} else {
 			$template = GLACIAL_CPT_PLUGIN_DIR . $template_path;
 		}
 	}
-	
+
 	return $template;
 }
 
@@ -130,7 +130,7 @@ add_filter( 'template_include', 'glacial_cpt_template_include', 99 );
  * @since 1.1.0
  *
  * */
-function glacial_cpt_get_template_part( $name ) {
+function glacial_cpt_get_template_part( $name, $args = array() ) {
 
 	$template_path = GLACIAL_CPT_TEMPLATES_FOLDER_NAME . "/{$name}.php";
 
@@ -140,32 +140,8 @@ function glacial_cpt_get_template_part( $name ) {
 		$template = GLACIAL_CPT_PLUGIN_DIR . '/' . $template_path;
 	}
 
-	include $template;
+	load_template( $template, false, $args );
 }
-
-
-/**
- * Theme Hook: glacial_theme_before_footer
- *
- * Hook is in Glacial Theme footer.php
- *
- * @since 1.0.0
- * */
-function glacial_cpt_theme_before_footer() {
-
-	$add_doctors_to_service_pages           = get_field( 'add_doctors_to_service_pages', 'option' ) ?? true;
-	$add_all_doctors_to_single_doctor_pages = get_field( 'add_all_doctors_to_single_doctor_pages', 'option' ) ?? true;
-
-	if ( $add_doctors_to_service_pages ) {
-		glacial_cpt_get_template_part( 'doctors-service-pages' );
-	}
-
-	if ( is_singular( 'doctors' ) && $add_all_doctors_to_single_doctor_pages ) {
-		glacial_cpt_get_template_part( 'all-doctors' );
-	}
-}
-
-add_action( 'glacial_theme_before_footer', 'glacial_cpt_theme_before_footer' );
 
 /**
  * The titles on the archive pages using ACF
@@ -194,7 +170,7 @@ add_filter( 'get_the_archive_title', 'glacial_cpt_archive_titles', 10, 2 );
  * @since 1.0.0
  * */
 function glacial_cpt_change_queries( $query ) {
-	if ( ! is_admin() && $query->is_main_query() ) {
+	if ( !is_admin() && $query->is_main_query() ) {
 		if ( is_post_type_archive( array( 'doctors', 'locations' ) ) ) {
 			$query->set( 'posts_per_page', - 1 );
 			$query->set( 'orderby', 'menu_order' );
@@ -227,42 +203,6 @@ if ( function_exists( 'acf_add_options_page' ) ) {
 }
 
 /**
- * Check if Doctors or Locations slug changed and flush rewrite rules if it has.
- *
- * @see glacial_cpt_flush_rewrite_rules()
- *
- * @since 1.1.0
- * */
-function glacial_cpt_check_slug_change() {
-
-	$doctors_slug_acf   = 'field_631d3d7d03660';
-	$locations_slug_acf = 'field_631d417092564';
-
-	// Sanitize the slug and flush rewrite rules if it has changed
-	if ( isset( $_POST['acf'][ $doctors_slug_acf ] ) ) {
-		$_POST['acf'][ $doctors_slug_acf ] = sanitize_title( $_POST['acf'][ $doctors_slug_acf ] );
-
-		/**
-		 * Add our flush rewrite flag
-		 * */
-		add_option( 'glacial_flush_rewrite_rules_flag', true );
-	}
-
-	if ( isset( $_POST['acf'][ $locations_slug_acf ] ) ) {
-		$_POST['acf'][ $locations_slug_acf ] = sanitize_title( $_POST['acf'][ $locations_slug_acf ] );
-
-		/**
-		 * Add our flush rewrite flag
-		 * */
-		add_option( 'glacial_flush_rewrite_rules_flag', true );
-	}
-
-}
-
-add_action( 'acf/save_post', 'glacial_cpt_check_slug_change', 5 );
-
-
-/**
  * Add a choice to the page type ACF location rule
  *
  * @since 2.0.0
@@ -293,3 +233,42 @@ function glacial_acf_location_rule_match_page_type( $match ) {
 }
 
 add_filter( 'acf/location/rule_match/page_type', 'glacial_acf_location_rule_match_page_type', 10, 1 );
+
+/**
+ * Theme Hook: glacial_theme_before_footer
+ *
+ * Hook is in Glacial Theme footer.php
+ *
+ * @since 1.0.0
+ * */
+function glacial_cpt_theme_before_footer() {
+
+	$add_doctors_to_service_pages           = get_field( 'add_doctors_to_service_pages', 'option' ) ?? true;
+	$add_all_doctors_to_single_doctor_pages = get_field( 'add_all_doctors_to_single_doctor_pages', 'option' ) ?? true;
+
+	if ( $add_doctors_to_service_pages ) {
+		glacial_cpt_get_template_part( 'doctors-service-pages' );
+	}
+
+	if ( is_singular( 'doctors' ) && $add_all_doctors_to_single_doctor_pages ) {
+		glacial_cpt_get_template_part( 'all-doctors' );
+	}
+}
+
+add_action( 'glacial_theme_before_footer', 'glacial_cpt_theme_before_footer' );
+
+/**
+ * Add content to glacial_theme_after_content hook
+ *
+ * @since 2.0.0
+ * */
+
+function glacial_cpt_theme_after_content() {
+	if ( is_singular( 'post' ) ) {
+		glacial_cpt_get_template_part( 'doctor-author-card' );
+	}
+
+}
+
+add_action( 'glacial_theme_after_content', 'glacial_cpt_theme_after_content' );
+
