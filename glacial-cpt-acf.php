@@ -6,7 +6,7 @@
  * Author URI:      https://glacial.com
  * Text Domain:     glacial-cpt-acf
  * Domain Path:     /languages
- * Version:         2.0.0
+ * Version:         2.0.1
  *
  * GitHub Plugin URI: https://github.com/Glacial-Web/glacial-cpt-acf
  *
