@@ -29,6 +29,10 @@
     background: var(--gl-button-bg);
 }
 
+.cpt-related-post {
+    width: 100%;
+}
+
 .cpt-doctor-image-link a:hover,
 .cpt-related-post a:hover {
     background: var(--gl-button-bg-hover);
@@ -39,8 +43,7 @@ a.location-related-post-link:hover .related-post-title {
     color: var(--gl-button-color-hover);
 }
 
-.single-location-doctors .cpt-doctor-image-link,
-.cpt-related-post {
+.single-location-doctors .cpt-doctor-image-link {
     width: 32%;
 }
 
@@ -155,7 +158,6 @@ a.location-related-post-link:hover .related-post-title {
     flex: 1;
 }
 
-
 .embed-container.location-page {
     padding-bottom: 50%;
     max-width: 100%;
@@ -213,6 +215,12 @@ h3.doctor-additional-specialties {
     font-size: 1.1em;
     margin-top: 0;
     text-transform: uppercase;
+}
+
+.related-post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 1em;
 }
 
 /* MixItUp Doctors Pages */
@@ -311,7 +319,6 @@ form.controls {
     margin-bottom: 1em;
 }
 
-
 .doctor-author-card__written-wrap {
     display: flex;
     display: -webkit-box;
@@ -337,7 +344,7 @@ form.controls {
     margin-bottom: 0;
 }
 
-.doctor-author-card .doctor-author-card__title {
+.doctor-author-card__title {
     margin-top: 10px;
     margin-bottom: 10px;
 }

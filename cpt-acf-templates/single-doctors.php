@@ -8,7 +8,7 @@
 get_header();
 
 if ( have_posts() ):
-    $posts_option = 3; ?>
+	$posts_option = get_field( 'doctor_blog_post_layout', 'options'); ?>
 
     <div class="single-cpt-wrapper">
 
@@ -90,7 +90,7 @@ if ( have_posts() ):
 
 						<?php endif; ?>
 
-						<?php if ( $related_blog_posts && $posts_option == 1): ?>
+						<?php if ( $related_blog_posts && $posts_option == 1 ): ?>
                             <div class="doctor-posts-list">
                                 <h3>Posts by <?php the_title(); ?></h3>
                                 <ul>
@@ -118,7 +118,7 @@ if ( have_posts() ):
 
 				<?php if ( $related_blog_posts && $posts_option == 2 ): ?>
                     <h3>Posts by <?php the_title(); ?></h3>
-                    <div class="flex-wrapper flex-start">
+                    <div class="related-post-grid">
 
 						<?php foreach ( $related_blog_posts as $related_blog_post ) {
 
@@ -140,7 +140,7 @@ if ( have_posts() ):
 
 	<?php if ( $related_blog_posts && $posts_option == 3 ): ?>
     <h3>Posts by <?php the_title(); ?></h3>
-    <div class="flex-wrapper flex-start">
+    <div class="related-post-grid">
 
 		<?php foreach ( $related_blog_posts as $related_blog_post ) {
 

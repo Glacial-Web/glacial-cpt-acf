@@ -81,6 +81,33 @@
             "ui": 0,
             "ui_on_text": "",
             "ui_off_text": ""
+        },
+        {
+            "key": "field_648d1c65ec5fe",
+            "label": "Doctor Blog Post Layout",
+            "name": "doctor_blog_post_layout",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "Choose the layout of associated blog post on single doctor pages.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "choices": [
+                "Do not display links to associated posts",
+                "Text links in sidebar",
+                "Post card link in right panel directly under content",
+                "Post card link at bottom of page"
+            ],
+            "default_value": "",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "layout": "vertical",
+            "save_other_choice": 0
         }
     ],
     "location": [
@@ -101,5 +128,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1680724960
+    "modified": 1686969805
 }

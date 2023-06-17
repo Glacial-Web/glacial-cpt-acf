@@ -132,7 +132,7 @@
             "name": "doctor_excerpt",
             "aria-label": "",
             "type": "textarea",
-            "instructions": "Displayed on the blog posts if doctor is selected in the Change Author Link field.",
+            "instructions": "Displayed on the blog posts if doctor is selected in the Change Author Link field (found in blog post editor). Leave empty to NOT show the doctors card on the post.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -167,5 +167,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1680745545
+    "modified": 1686968973
 }

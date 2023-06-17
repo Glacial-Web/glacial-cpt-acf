@@ -18,8 +18,7 @@ if ( has_post_thumbnail( $post_id ) ) {
 <div class="cpt-related-post">
     <a href="<?php echo get_the_permalink( $post_id ); ?>" class="location-related-post-link">
         <img src="<?php echo $image_url; ?>" class="<?php echo $image_class; ?>"
-             alt="<?php echo get_the_title( $post_id ); ?>"
-             loading="lazy">
+             alt="<?php echo get_the_title( $post_id ); ?>" loading="lazy">
         <div class="related-post-title"><?php echo get_the_title( $post_id ); ?></div>
     </a>
 </div>

@@ -1,7 +1,7 @@
 # Glacial Custom Post Types with ACF
 
 This plugin will create custom post types for doctors and locations. You MUST have ACF Pro installed to use this plugin
-and the glacial theme v2.2 or later.
+and the glacial theme v3.0.0 or later.
 
 ## Usage
 
