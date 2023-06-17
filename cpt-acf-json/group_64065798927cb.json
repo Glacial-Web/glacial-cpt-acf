@@ -1,0 +1,65 @@
+{
+    "key": "group_64065798927cb",
+    "title": "Service Pages",
+    "fields": [
+        {
+            "key": "field_640657997b486",
+            "label": "Related Doctors Alternate Heading",
+            "name": "related_doctors_alternate_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "This will replace the heading for the related doctors on service pages. Default is {page_title} {post_type_name}. Ex: LASIK Doctors",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_640658e3bbbb2",
+            "label": "Alternate Page Title",
+            "name": "alternate_page_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "This will be displayed instead of the page title on the single doctors page specialties.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_type",
+                "operator": "==",
+                "value": "service-page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1680746077
+}

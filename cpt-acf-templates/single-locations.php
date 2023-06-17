@@ -5,6 +5,8 @@
  * @package Glacial_Cpt_Acf
  */
 
+get_header();
+
 if ( have_posts() ):
 
 	while ( have_posts() ): the_post();
@@ -19,11 +21,7 @@ if ( have_posts() ):
                     <p><?php echo $address; ?></p>
 				<?php endif; ?>
 
-				<?php
-				/*
-				 * If you copy everything to your theme, change this is get_template_part().
-				 * */
-				include( GLACIAL_CPT_PLUGIN_DIR . 'public/partials/phone-numbers.php' ); ?>
+				<?php glacial_cpt_get_template_part( 'phone-numbers' ); ?>
 
 				<?php if ( $iframe ): ?>
                     <div class="embed-container location-page">
@@ -87,36 +85,36 @@ if ( have_posts() ):
 				 * related to this location
 				 * */
 				$args = array(
-				  'posts_per_page' => - 1,
-				  'post_type'      => 'doctors',
-				  'orderby'        => 'menu_order',
-				  'order'          => 'ASC',
-				  'meta_query'     => array(
-					array(
-					  'key'     => 'location',
-					  'value'   => '"' . get_the_ID() . '"',
-					  'compare' => 'LIKE'
+					'posts_per_page' => - 1,
+					'post_type'      => 'doctors',
+					'orderby'        => 'menu_order',
+					'order'          => 'ASC',
+					'meta_query'     => array(
+						array(
+							'key'     => 'location',
+							'value'   => '"' . get_the_ID() . '"',
+							'compare' => 'LIKE'
+						)
 					)
-				  )
 				);
 
 				$doctors = new WP_Query( $args );
 
-				if ( $doctors->have_posts() ): ?>
+				if ( $doctors->have_posts() ):
+					$cpt_object = get_post_type_object( 'doctors' );
+
+					$heading = $cpt_object->labels->name . ' at ' . get_the_title(); ?>
 
                     <div class="single-location-doctors">
-                        <h2>Doctors at <?php the_title(); ?></h2>
+                        <h2><?php echo $heading; ?></h2>
                         <div class="flex-wrapper flex-start">
 
 							<?php while ( $doctors->have_posts() ): $doctors->the_post(); ?>
 
                                 <div class="cpt-doctor-image-link">
 
-									<?php
-									/*
-				                     * If you copy everything to your theme, change this to get_template_part().
-				                     * */
-									include( GLACIAL_CPT_PLUGIN_DIR . 'public/partials/doctor-headshot-link.php' ); ?>
+									<?php glacial_cpt_get_template_part( 'doctor-headshot-link' ); ?>
+
                                 </div>
 
 							<?php endwhile; ?>
@@ -128,11 +126,7 @@ if ( have_posts() ):
 
 				<?php endif; ?>
 
-	            <?php
-	            /*
-				 * If you copy everything to your theme, change this is get_template_part().
-				 * */
-	            include( GLACIAL_CPT_PLUGIN_DIR . 'public/partials/location-related-posts.php' ); ?>
+				<?php glacial_cpt_get_template_part( 'location-related-posts' ); ?>
 
             </div>
         </div>
@@ -140,4 +134,6 @@ if ( have_posts() ):
 	<?php endwhile; ?>
 
 <?php endif; ?>
+
+<?php get_footer(); ?>
 

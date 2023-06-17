@@ -6,5 +6,5 @@ All notable changes to this plugin will be documented in this file.
 * Categorize doctors into MD, OD, etc. or anything you choose. Can be changed or turned off in ACF settings.
 * Ability to add posts to single location pages (SEO request)
 ### Changed
-* Doctor images now use aspect-ratio instead of fixed height. This allows for more flexibility in image sizes. 
+* Doctor images now use aspect-ratio instead of fixed height. This allows for more flexibility in image sizes.
 ### Fixed

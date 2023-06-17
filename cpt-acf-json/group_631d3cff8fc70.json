@@ -3,47 +3,10 @@
     "title": "Doctors CPT Options",
     "fields": [
         {
-            "key": "field_631d3d310365f",
-            "label": "Doctors CPT Name",
-            "name": "doctors_cpt_name",
-            "type": "text",
-            "instructions": "Change the name of the Doctors CPT. This will change all menu titles as well as the archive page title.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "50",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "Doctors",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
-        },
-        {
-            "key": "field_631d3d7d03660",
-            "label": "Doctors CPT Slug",
-            "name": "doctors_cpt_slug",
-            "type": "text",
-            "instructions": "This will change the base url (slug) of Doctors CPT.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "50",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "doctors",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
-        },
-        {
             "key": "field_631e7df1d4d17",
             "label": "Add Related Doctors to Service Pages",
             "name": "add_doctors_to_service_pages",
+            "aria-label": "",
             "type": "true_false",
             "instructions": "Add related doctors on service pages above footer.",
             "required": 0,
@@ -63,6 +26,7 @@
             "key": "field_631e7e71d25b4",
             "label": "Add All Doctors to Single Doctor Pages",
             "name": "add_all_doctors_to_single_doctor_pages",
+            "aria-label": "",
             "type": "true_false",
             "instructions": "Add all doctors, excluding current doctor, to single doctor pages above footer.",
             "required": 0,
@@ -82,6 +46,7 @@
             "key": "field_631f3cc98c568",
             "label": "Use Doctor Services Filter",
             "name": "use_doctor_services_filter",
+            "aria-label": "",
             "type": "true_false",
             "instructions": "Use the doctor Services filter on the doctors archive page.",
             "required": 0,
@@ -101,6 +66,7 @@
             "key": "field_631f3d4a8c569",
             "label": "Use Doctor Locations Filter",
             "name": "use_doctor_locations_filter",
+            "aria-label": "",
             "type": "true_false",
             "instructions": "Use the doctor Locations filter on the doctors archive page.",
             "required": 0,
@@ -135,5 +101,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1663035394
+    "modified": 1680724960
 }

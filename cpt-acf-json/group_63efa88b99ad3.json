@@ -1,0 +1,48 @@
+{
+    "key": "group_63efa88b99ad3",
+    "title": "Blog Post Options",
+    "fields": [
+        {
+            "key": "field_63efa88b4bb7c",
+            "label": "Change Author Link",
+            "name": "change_author_link",
+            "aria-label": "",
+            "type": "post_object",
+            "instructions": "To add the doctors name and page as the author on this post add it here.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "doctors"
+            ],
+            "taxonomy": "",
+            "return_format": "id",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "post"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1676650833
+}

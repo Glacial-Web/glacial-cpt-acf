@@ -6,6 +6,8 @@
  * @package Glacial_Cpt_Acf
  */
 
+get_header();
+
 if ( have_posts() ): ?>
 
 	<?php
@@ -31,7 +33,7 @@ if ( have_posts() ): ?>
                         <p><?php echo $address; ?></p>
 					<?php endif; ?>
 
-					<?php include( GLACIAL_CPT_PLUGIN_DIR . 'public/partials/phone-numbers.php' ); ?>
+					<?php glacial_cpt_get_template_part( 'phone-numbers' ); ?>
 
 					<?php if ( $hours ): ?>
                         <p><?php echo $hours; ?></p>
@@ -67,3 +69,5 @@ if ( have_posts() ): ?>
 	<?php endwhile; ?>
 
 <?php endif; ?>
+
+<?php get_footer(); ?>

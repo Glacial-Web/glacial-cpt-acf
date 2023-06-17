@@ -12,10 +12,11 @@ This will create everything you need to use the Doctors and Locations custom pos
 The ACF fields will available immediately in the Doctor and Location pages. To change the fields just sync them in ACF
 admin.
 
-The main template file, doctor-location-wrapper.php, is in public/templates. To change these you can either edit the
-plugin or copy all templates to your theme. There are a couple of place you'll need to change to get_template_part() if
-you copy the files over to your theme (working on changing this is subsequent releases. Might be easiest to edit the
-plugin files right now.
+## Changing the templates
+
+To change any of the templates you can copy the template file from the plugin directory to your theme directory.
+
+Create a folder in the root of your theme named `cpt-acf-templates` and copy the template file you want to change to that folder.
 
 All locations and doctors on the archive pages are ordered according to menu order.
 
