@@ -9,9 +9,8 @@ if ( have_rows( 'phone_numbers' ) ): ?>
 
     <ul class="location-phone-list">
 
-		<?php while ( have_rows( 'phone_numbers' ) ): the_row(); ?>
+		<?php while ( have_rows( 'phone_numbers' ) ): the_row();
 
-			<?php
 			$label  = get_sub_field( 'label' );
 			$number = get_sub_field( 'number' );
 			$link   = get_sub_field( 'link' );
@@ -46,9 +45,9 @@ if ( have_rows( 'phone_numbers' ) ): ?>
 					} ?>
                 </li>
 
-			<?php endif; ?>
+			<?php endif;
 
-		<?php endwhile; ?>
+		endwhile; ?>
 
     </ul>
 

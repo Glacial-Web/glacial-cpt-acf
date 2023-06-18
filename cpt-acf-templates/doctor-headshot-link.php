@@ -9,7 +9,7 @@ $image                  = get_field( 'headshot' );
 $additional_specialties = get_field( 'additional_specialties' );
 
 if ( $image ) {
-	$image_url = $image['url'];
+	$image_url = $image['sizes']['medium_large'];
 } else {
 	$image_url = GLACIAL_CPT_PLUGIN_URL . 'public/images/doc-placeholder.jpg';
 } ?>

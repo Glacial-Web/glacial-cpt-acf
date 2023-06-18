@@ -1,6 +1,14 @@
 :root {
     --cpt-border-color: #ccc;
     --cpt-box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.1);
+    /* Doctor and related post grids*/
+    --cpt-all-doctor-col: 5;
+    --cpt-related-doctor-col: 4;
+    --cpt-all-doctor-col-mobile: 150px;
+    --cpt-related-posts-col: 4;
+    /* Image as[ect rations */
+    --cpt-doctor-aspect: 4 / 5;
+    --cpt-rel-posts-aspect: 16 / 9
 }
 
 .doctors-section {
@@ -18,19 +26,33 @@
     width: 90%;
 }
 
+.cpt-grid {
+    display: grid;
+    grid-gap: 2em;
+    grid-auto-rows: 1fr;
+}
+
+.single-doctors .cpt-grid,
+.service-page .cpt-grid,
+.post-type-archive-doctors .cpt-grid {
+    grid-template-columns: repeat(var(--cpt-all-doctor-col), 1fr);
+}
+
+.single-locations .cpt-grid {
+    grid-template-columns: repeat(var(--cpt-related-doctor-col), 1fr);
+}
+
+.single-locations .related-posts-wrapper .cpt-grid {
+    grid-template-columns: repeat(var(--cpt-related-posts-col), 1fr);
+}
+
 .cpt-doctor-image-link,
 .cpt-related-post {
-    width: 19%;
-    margin-right: 1%;
+    width: 100%;
     background: none;
     border: 1px solid var(--cpt-border-color);
     box-shadow: var(--cpt-box-shadow);
-    margin-bottom: 2em;
     background: var(--gl-button-bg);
-}
-
-.cpt-related-post {
-    width: 100%;
 }
 
 .cpt-doctor-image-link a:hover,
@@ -41,10 +63,6 @@
 .cpt-doctor-image-link a.doctor-headshot-link:hover,
 a.location-related-post-link:hover .related-post-title {
     color: var(--gl-button-color-hover);
-}
-
-.single-location-doctors .cpt-doctor-image-link {
-    width: 32%;
 }
 
 .cpt-doctor-image-link > a.doctor-headshot-link,
@@ -71,11 +89,11 @@ a.location-related-post-link:hover .related-post-title {
 }
 
 .cpt-doctor-image-link .doctor-headshot-link img {
-    aspect-ratio: 4 / 5;
+    aspect-ratio: var(--cpt-doctor-aspect);
 }
 
 .cpt-related-post .location-related-post-link img {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: var(--cpt-rel-posts-aspect);
 }
 
 .cpt-related-post .location-related-post-link img.no-featured {
@@ -84,16 +102,8 @@ a.location-related-post-link:hover .related-post-title {
     padding: 5px;
 }
 
-.flex-wrapper.flex-start {
-    -webkit-justify-content: flex-start;
-    justify-content: flex-start;
-}
-
-.flex-wrapper.flex-between {
-    justify-content: space-between;
-}
-
-.doctor-name, .related-post-title {
+.doctor-name,
+.related-post-title {
     margin-bottom: 9px;
     font-size: 1.1em;
     font-weight: 700;
@@ -284,7 +294,9 @@ form.controls {
     margin: 0;
 }
 
-.dr-clear-btn, .dr-clear-btn:active, button.dr-clear-btn:focus {
+.dr-clear-btn,
+.dr-clear-btn:active,
+button.dr-clear-btn:focus {
     display: block;
     width: 200px;
     background: var(--gl-button-bg);
@@ -359,6 +371,17 @@ form.controls {
 
 @media (max-width: 991px) {
 
+    .cpt-grid {
+        grid-gap: 1em;
+    }
+
+    .single-doctors .cpt-grid,
+    .service-page .cpt-grid,
+    .single-locations .cpt-grid,
+    .single-locations .related-posts-wrapper .cpt-grid {
+        grid-template-columns: repeat(auto-fit, minmax(var(--cpt-all-doctor-col-mobile), 1fr));
+    }
+
     .doctor-specialties-locations {
         display: flex;
         display: -webkit-box;
@@ -370,10 +393,6 @@ form.controls {
 
     .doctor-specialties-locations > div {
         width: 48%;
-    }
-
-    .cpt-doctor-image-link {
-        width: 32%;
     }
 
     .single-cpt-wrapper > div:first-child {
@@ -390,12 +409,6 @@ form.controls {
 }
 
 @media (max-width: 767px) {
-
-    .cpt-doctor-image-link,
-    .single-location-doctors .cpt-doctor-image-link,
-    .cpt-related-post {
-        width: 49%;
-    }
 
     .cpt-doctor-image-link {
         padding: 0;

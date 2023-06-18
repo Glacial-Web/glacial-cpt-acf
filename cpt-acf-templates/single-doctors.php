@@ -7,8 +7,21 @@
 
 get_header();
 
-if ( have_posts() ):
-	$posts_option = get_field( 'doctor_blog_post_layout', 'options'); ?>
+$doctor_blog_post_layout = get_field( 'doctor_blog_post_layout', 'options' );
+
+/*
+ * Get the posts that have this doctor as the change_author_link
+ * */
+$args = array(
+	'post_type'      => 'post',
+	'meta_key'       => 'change_author_link',
+	'meta_value'     => get_the_ID(),
+	'posts_per_page' => 3,
+);
+
+$related_blog_posts = get_posts( $args );
+
+if ( have_posts() ): ?>
 
     <div class="single-cpt-wrapper">
 
@@ -16,19 +29,7 @@ if ( have_posts() ):
 
 			$additional_specialties = get_field( 'additional_specialties' );
 			$specialties            = get_field( 'specialties' );
-			$locations              = get_field( 'location' );
-
-			/*
-			* Get the posts that have this doctor as the change_author_link
-			* */
-			$args = array(
-				'post_type'      => 'post',
-				'meta_key'       => 'change_author_link',
-				'meta_value'     => get_the_ID(),
-				'posts_per_page' => 3,
-			);
-
-			$related_blog_posts = get_posts( $args ); ?>
+			$locations              = get_field( 'location' ); ?>
 
             <div class="single-doctor-img-info">
 
@@ -43,9 +44,9 @@ if ( have_posts() ):
 
                     <h3 class="doctor-additional-specialties"><?php echo $additional_specialties; ?></h3>
 
-				<?php endif; ?>
+				<?php endif;
 
-				<?php if ( $specialties || $locations || $related_blog_posts ): ?>
+				if ( $specialties || $locations || $related_blog_posts ): ?>
 
                     <div class="doctor-specialties-locations">
 
@@ -70,9 +71,9 @@ if ( have_posts() ):
                                 </ul>
                             </div>
 
-						<?php endif; ?>
+						<?php endif;
 
-						<?php if ( $locations ): ?>
+						if ( $locations ): ?>
 
                             <div>
                                 <h3>Locations</h3>
@@ -88,9 +89,13 @@ if ( have_posts() ):
                                 </ul>
                             </div>
 
-						<?php endif; ?>
+						<?php endif;
 
-						<?php if ( $related_blog_posts && $posts_option == 1 ): ?>
+						/*
+						 * Doctor Blog Post Layout 1 : Text links in sidebar
+						 * */
+						if ( $related_blog_posts && $doctor_blog_post_layout == 1 ): ?>
+
                             <div class="doctor-posts-list">
                                 <h3>Posts by <?php the_title(); ?></h3>
                                 <ul>
@@ -110,13 +115,16 @@ if ( have_posts() ):
 
 				<?php endif; ?>
 
-
             </div>
             <div class="single-doctor-bio">
 
-				<?php the_content(); ?>
+				<?php the_content();
 
-				<?php if ( $related_blog_posts && $posts_option == 2 ): ?>
+				/*
+				 * Doctor Blog Post Layout 2 : Post card link in right panel directly under content
+				 * */
+				if ( $related_blog_posts && $doctor_blog_post_layout == 2 ): ?>
+
                     <h3>Posts by <?php the_title(); ?></h3>
                     <div class="related-post-grid">
 
@@ -130,6 +138,7 @@ if ( have_posts() ):
 							glacial_cpt_get_template_part( 'related-posts-element', array( 'id' => $related_blog_post->ID ) );
 						} ?>
                     </div>
+
 				<?php endif; ?>
 
             </div>
@@ -138,7 +147,13 @@ if ( have_posts() ):
 
     </div>
 
-	<?php if ( $related_blog_posts && $posts_option == 3 ): ?>
+<?php endif;
+
+/*
+ * Doctor blog post layout 3 : Post card link at bottom of page
+ * */
+if ( $related_blog_posts && $doctor_blog_post_layout == 3 ): ?>
+
     <h3>Posts by <?php the_title(); ?></h3>
     <div class="related-post-grid">
 
@@ -151,11 +166,9 @@ if ( have_posts() ):
 
 			glacial_cpt_get_template_part( 'related-posts-element', array( 'id' => $related_blog_post->ID ) );
 		} ?>
+
     </div>
-<?php endif; ?>
 
-<?php endif; ?>
+<?php endif;
 
-
-
-<?php get_footer(); ?>
+get_footer(); ?>

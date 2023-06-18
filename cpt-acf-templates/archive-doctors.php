@@ -56,17 +56,19 @@ if ( have_posts() ):
                         </select>
                     </fieldset>
 
-				<?php endif; ?>
+				<?php endif;
 
-				<?php if ( $use_doctor_locations_filter ): ?>
+				if ( $use_doctor_locations_filter ): ?>
 
                     <fieldset>
                         <h2>Locations</h2>
                         <select aria-label="Doctor Location Filter">
                             <option value="">All</option>
+
 							<?php foreach ( $locations as $location ): ?>
                                 <option value="<?php echo '.' . $location->post_name; ?>"><?php echo $location->post_title; ?></option>
 							<?php endforeach; ?>
+
                         </select>
                     </fieldset>
 
@@ -85,7 +87,7 @@ if ( have_posts() ):
 			<?php
 			$doctor_type_field_obj = get_field_object( 'doctor_type' );
 
-			if ( !empty( $doctor_type_field_obj['choices'] ) ) {
+			if ( ! empty( $doctor_type_field_obj['choices'] ) ) {
 				$doctor_types = $doctor_type_field_obj['choices'];
 			} else {
 				$doctor_types = array( '' );
@@ -93,11 +95,11 @@ if ( have_posts() ):
 
 			foreach ( $doctor_types as $doctor_type ):
 
-				if ( $doctor_type ) {
-					echo "<h2>$doctor_type</h2>";
-				} ?>
+				if ( $doctor_type ): ?>
+                    <h2><?php echo $doctor_type; ?></h2>
+				<?php endif; ?>
 
-                <div class="flex-wrapper flex-start">
+                <div class="cpt-grid">
 
 					<?php while ( have_posts() ): the_post();
 
@@ -130,9 +132,9 @@ if ( have_posts() ):
 
                             </div>
 
-						<?php endif; ?>
+						<?php endif;
 
-					<?php endwhile; ?>
+					endwhile; ?>
 
                 </div>
 
@@ -145,6 +147,6 @@ if ( have_posts() ):
 
     <h2>No Doctors Found</h2>
 
-<?php endif; ?>
+<?php endif;
 
-<?php get_footer(); ?>
+get_footer(); ?>

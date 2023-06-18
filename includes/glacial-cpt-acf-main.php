@@ -6,7 +6,7 @@
  *
  * */
 
-if ( !defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
@@ -170,7 +170,7 @@ add_filter( 'get_the_archive_title', 'glacial_cpt_archive_titles', 10, 2 );
  * @since 1.0.0
  * */
 function glacial_cpt_change_queries( $query ) {
-	if ( !is_admin() && $query->is_main_query() ) {
+	if ( ! is_admin() && $query->is_main_query() ) {
 		if ( is_post_type_archive( array( 'doctors', 'locations' ) ) ) {
 			$query->set( 'posts_per_page', - 1 );
 			$query->set( 'orderby', 'menu_order' );
@@ -271,4 +271,22 @@ function glacial_cpt_theme_after_content() {
 }
 
 add_action( 'glacial_theme_after_content', 'glacial_cpt_theme_after_content' );
+
+/**
+ * Fix for ACF field widths in Doctors Gutenberg editor
+ *
+ * @since 2.0.0
+ * */
+function glacial_cpt_admin_print_styles() {
+	echo '<style>
+				.edit-post-layout__metaboxes #acf-group_5dc1ba22dfffc .acf-fields {
+    			display: flex;
+    			flex-wrap: wrap;
+			}
+			</style>';
+
+}
+
+add_action( 'admin_print_styles', 'glacial_cpt_admin_print_styles' );
+
 

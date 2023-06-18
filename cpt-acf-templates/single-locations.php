@@ -19,21 +19,21 @@ if ( have_posts() ):
 
 				<?php if ( $address ): ?>
                     <p><?php echo $address; ?></p>
-				<?php endif; ?>
+				<?php endif;
 
-				<?php glacial_cpt_get_template_part( 'phone-numbers' ); ?>
+				glacial_cpt_get_template_part( 'phone-numbers' );
 
-				<?php if ( $iframe ): ?>
+				if ( $iframe ): ?>
                     <div class="embed-container location-page">
 						<?php echo $iframe; ?>
                     </div>
-				<?php endif; ?>
+				<?php endif;
 
-				<?php if ( $hours ): ?>
+				if ( $hours ): ?>
                     <p><?php echo $hours; ?></p>
-				<?php endif; ?>
+				<?php endif;
 
-				<?php if ( have_rows( 'additional_buttons' ) ): ?>
+				if ( have_rows( 'additional_buttons' ) ): ?>
 
                     <div class="single-location-buttons">
 
@@ -47,9 +47,8 @@ if ( have_posts() ):
 
                     </div>
 
-				<?php endif; ?>
+				<?php endif;
 
-				<?php
 				/*
 				 * This section is for getting the post object of the related pages using
 				 * ACF Relationship field Vars using ACF Relationship fields
@@ -107,7 +106,7 @@ if ( have_posts() ):
 
                     <div class="single-location-doctors">
                         <h2><?php echo $heading; ?></h2>
-                        <div class="flex-wrapper flex-start">
+                        <div class="cpt-grid">
 
 							<?php while ( $doctors->have_posts() ): $doctors->the_post(); ?>
 
@@ -117,23 +116,23 @@ if ( have_posts() ):
 
                                 </div>
 
-							<?php endwhile; ?>
+							<?php endwhile;
 
-							<?php wp_reset_postdata(); ?>
+							wp_reset_postdata(); ?>
 
                         </div>
                     </div>
 
-				<?php endif; ?>
+				<?php endif;
 
-				<?php glacial_cpt_get_template_part( 'location-related-posts' ); ?>
+				glacial_cpt_get_template_part( 'location-related-posts' ); ?>
 
             </div>
         </div>
 
-	<?php endwhile; ?>
+	<?php endwhile;
 
-<?php endif; ?>
+endif;
 
-<?php get_footer(); ?>
+get_footer(); ?>
 

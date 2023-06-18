@@ -11,11 +11,10 @@ if ( $related_blog_posts ): ?>
 
     <div class="related-posts-wrapper">
         <h3>Related Posts</h3>
-        <div class="flex-wrapper flex-start">
+        <div class="cpt-grid">
 
 			<?php foreach ( $related_blog_posts as $related_blog_post ) {
 				glacial_cpt_get_template_part( 'related-posts-element', array( 'id' => $related_blog_post ) );
-
 			} ?>
 
         </div>

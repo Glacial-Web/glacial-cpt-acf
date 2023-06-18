@@ -34,7 +34,7 @@ if ( $doctors->have_posts() ):
     <div class="doctors-section">
         <div class="doctors-container">
             <h2><?php echo $heading; ?></h2>
-            <div class="flex-wrapper flex-start">
+            <div class="cpt-grid">
 
 				<?php while ( $doctors->have_posts() ): $doctors->the_post(); ?>
 
