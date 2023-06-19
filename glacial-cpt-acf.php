@@ -28,7 +28,7 @@ define( 'GLACIAL_CPT_TEMPLATES_FOLDER_NAME', 'cpt-acf-templates' );
 
 /*
  * If "Discourage search engines from indexing this site" is checked in Settings > Reading
- * then add time() to static resources to prevent caching
+ * then add time() to static resources to prevent browser caching
  * */
 if ( get_option( 'blog_public' ) ) {
 	define( 'CPT_STYLE_VERSION', GLACIAL_CPT_VERSION );
