@@ -56,7 +56,7 @@ add_filter( 'acf/settings/load_json', 'glacial_cpt_json_load_point' );
  * @since 1.0.0
  * */
 function glacial_cpt_register_styles() {
-	wp_register_style( 'glacial-cpt', GLACIAL_CPT_PLUGIN_URL . 'public/css/glacial-cpt.css', false, CPT_STYLE_VERSION, 'all' );
+	wp_register_style( 'glacial-cpt', GLACIAL_CPT_PLUGIN_URL . 'public/css/glacial-cpt.css', array(), CPT_STYLE_VERSION, 'all' );
 	wp_enqueue_style( 'glacial-cpt' );
 }
 
