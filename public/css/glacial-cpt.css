@@ -6,9 +6,12 @@
     --cpt-related-doctor-col: 4;
     --cpt-all-doctor-col-mobile: 150px;
     --cpt-related-posts-col: 4;
+    /*Doctor filter columns */
+    --cpt-filter-col: 5;
     /* Image as[ect rations */
     --cpt-doctor-aspect: 4 / 5;
     --cpt-rel-posts-aspect: 16 / 9
+
 }
 
 .doctors-section {
@@ -233,8 +236,7 @@ h3.doctor-additional-specialties {
     grid-gap: 1em;
 }
 
-/* MixItUp Doctors Pages */
-.mix-holder .container {
+.doctor-filter-container {
     background: none;
     text-align: justify;
     min-height: 425px;
@@ -244,7 +246,12 @@ h3.doctor-additional-specialties {
     display: none;
 }
 
-form.controls {
+.flex-wrapper.flex-start {
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
+}
+
+.doctor-filter-controls {
     margin-top: 2em;
     padding-bottom: 2em;
     border-bottom: 1px solid var(--cpt-border-color);
@@ -252,7 +259,6 @@ form.controls {
 
 .search-field-div {
     display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     flex-wrap: wrap;
     -webkit-box-pack: center;
@@ -263,7 +269,7 @@ form.controls {
     align-items: flex-end;
 }
 
-.search-field-div fieldset {
+.search-field-div > div {
     width: 33%;
     max-width: 250px;
     text-align: center;
@@ -275,13 +281,14 @@ form.controls {
 
 }
 
-.search-field-div select {
+.search-field-div select,
+.search-field-div input {
     width: 90%;
     padding: 6px;
     border: 1px solid var(--cpt-border-color);
 }
 
-.search-field-div fieldset h2 {
+.search-field-div div h2 {
     font-family: inherit;
     color: #333;
     display: inline-block;
@@ -290,8 +297,39 @@ form.controls {
     margin-top: 1em;
 }
 
-.dr-clear-btn {
-    margin: 0;
+.doc-search-field {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.doctor-filter-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: -1%;
+    margin-right: -1%;
+}
+
+.doctor-filter-grid .cpt-doctor-image-link {
+    width: calc((100% / var(--cpt-filter-col)) - 2%);
+    margin-bottom: 2%;
+    margin-right: 1%;
+    margin-left: 1%;
+}
+
+.doc-search-field button {
+    font-size: 12px;
+    border-radius: 50px;
+    position: absolute;
+    right: 18px;
+    display: none;
+}
+
+.doctor-additional-specialties {
+    min-height: 20px;
 }
 
 .dr-clear-btn,
@@ -315,10 +353,15 @@ button.dr-clear-btn:focus {
     color: var(--gl-button-color-hover);
 }
 
+.dr-clear-btn {
+    margin: 20px auto 0 auto;
+}
+
 #errorMessage {
-    margin-top: 2em;
+    margin-top: 1em;
     text-align: center;
     height: 1em;
+    width:100%;
 }
 
 .doctor-author-card {
@@ -369,7 +412,18 @@ button.dr-clear-btn:focus {
     margin-bottom: 10px;
 }
 
+@media (max-width: 1280px) {
+
+    .doctor-filter-grid .cpt-doctor-image-link {
+        width: calc((100% / 4) - 2%);
+    }
+}
+
 @media (max-width: 991px) {
+
+    .doctor-filter-grid .cpt-doctor-image-link {
+        width: calc((100% / 3) - 2%);
+    }
 
     .cpt-grid {
         grid-gap: 1em;
@@ -410,8 +464,20 @@ button.dr-clear-btn:focus {
 
 @media (max-width: 767px) {
 
+    .search-field-div > div {
+        width: 50%;
+    }
+
+    .doctor-filter-grid .cpt-doctor-image-link {
+        width: calc((100% / 2) - 2%);
+    }
+
     .cpt-doctor-image-link {
         padding: 0;
+    }
+
+    .doctor-filter-grid .cpt-doctor-image-link {
+        padding-bottom: 10px
     }
 
     .cpt-doctor-image-link > a.doctor-headshot-link,

@@ -81,10 +81,19 @@ function glacial_cpt_register_scripts() {
 		if ( $use_doctor_services_filter || $use_doctor_locations_filter ) {
 
 			wp_register_script( 'mixup', GLACIAL_CPT_PLUGIN_URL . 'public/js/doc-mix-it-up.js', array( 'jquery' ), null, true );
-			wp_enqueue_script( 'mixup' );
+//			wp_enqueue_script( 'mixup' );
 
 			wp_register_script( 'mixitup', 'https://cdn.jsdelivr.net/jquery.mixitup/latest/jquery.mixitup.min.js', array( 'jquery' ), null, true );
-			wp_enqueue_script( 'mixitup' );
+//			wp_enqueue_script( 'mixitup' );
+
+			wp_register_script( 'isotope', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array( 'jquery' ), null, true );
+			wp_enqueue_script( 'isotope' );
+
+			wp_register_script( 'doctor-filter', GLACIAL_CPT_PLUGIN_URL . 'public/js/doctor-filter.js', array(
+				'jquery',
+				'isotope'
+			), null, true );
+			wp_enqueue_script( 'doctor-filter' );
 		}
 
 	}

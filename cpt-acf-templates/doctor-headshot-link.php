@@ -6,7 +6,7 @@
  */
 
 $image                  = get_field( 'headshot' );
-$additional_specialties = get_field( 'additional_specialties' );
+$additional_specialties = get_field( 'additional_specialties' ) ?? '';
 
 if ( $image ) {
 	$image_url = $image['sizes']['medium_large'];
@@ -18,7 +18,7 @@ if ( $image ) {
     <img src="<?php echo $image_url ?>" alt="<?php the_title() ?>" loading="lazy">
     <div class="doctor-name"><?php the_title(); ?></div>
 
-	<?php if ( $additional_specialties && is_post_type_archive( 'doctors' ) ): ?>
+	<?php if ( is_post_type_archive( 'doctors' ) ): ?>
 
         <div class="doctor-additional-specialties"><?php echo $additional_specialties; ?></div>
 

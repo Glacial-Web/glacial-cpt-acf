@@ -9,8 +9,10 @@ get_header();
 
 if ( have_posts() ):
 
-	$use_doctor_services_filter = get_field( 'use_doctor_services_filter', 'options' ) ?? true;
-	$use_doctor_locations_filter = get_field( 'use_doctor_locations_filter', 'options' ) ?? true;
+	$use_doctor_services_filter = get_field( 'use_doctor_services_filter', 'options' );
+	$use_doctor_locations_filter = get_field( 'use_doctor_locations_filter', 'options' );
+	$use_doctor_text_search_filter = get_field( 'use_doctor_text_search_filter', 'options' );
+
 
 	$locations = get_posts(
 		array(
@@ -35,54 +37,64 @@ if ( have_posts() ):
 	$container_class     = 'filters-off';
 	$mix_it_up_class     = 'mix-it-up-off';
 
-	if ( $use_doctor_services_filter || $use_doctor_locations_filter ):
+	if ( $use_doctor_services_filter || $use_doctor_locations_filter || $use_doctor_text_search_filter ):
 		$container_class = 'filters-on';
-		$mix_it_up_class = 'mix'; ?>
+		$mix_it_up_class = ''; ?>
 
-        <form class="controls" id="Filters">
+        <div class="doctor-filter-controls">
             <div class="search-field-div">
 
-				<?php if ( $use_doctor_services_filter ): ?>
+				<?php if ( $use_doctor_text_search_filter ): ?>
+                    <div>
+                        <h2>Name</h2>
+                        <div class="doc-search-field">
+                            <input id="textSearch" type="search" placeholder="Name Search"
+                                   aria-label="Search Doctor Name">
+                            <button id="docSearchReset">&#x2715;</button>
+                        </div>
+                    </div>
+				<?php endif; ?>
 
-                    <fieldset>
+				<?php if ( $use_doctor_services_filter ): ?>
+                    <div>
                         <h2>Services</h2><br>
-                        <select aria-label="Doctor Services Filter">
-                            <option value="">All</option>
+                        <select class="select-filter" aria-label="Doctor Services Filter" data-group="services">
+                            <option value="*">All</option>
 
 							<?php foreach ( $services as $service ): ?>
                                 <option value="<?php echo '.' . $service->post_name; ?>"><?php echo $service->post_title; ?></option>
 							<?php endforeach; ?>
 
                         </select>
-                    </fieldset>
+                    </div>
 
 				<?php endif;
 
 				if ( $use_doctor_locations_filter ): ?>
 
-                    <fieldset>
+                    <div>
                         <h2>Locations</h2>
-                        <select aria-label="Doctor Location Filter">
-                            <option value="">All</option>
+                        <select class="select-filter" aria-label="Doctor Location Filter" data-group="locations">
+                            <option value="*">All</option>
 
 							<?php foreach ( $locations as $location ): ?>
                                 <option value="<?php echo '.' . $location->post_name; ?>"><?php echo $location->post_title; ?></option>
 							<?php endforeach; ?>
 
                         </select>
-                    </fieldset>
+                    </div>
 
 				<?php endif; ?>
 
-                <button id="Reset" class="dr-clear-btn">Clear Filters</button>
             </div>
-        </form>
-        <div id="errorMessage"></div>
+            <button id="reset" class="dr-clear-btn">Clear Filters</button>
+            <div id="errorMessage"></div>
+        </div>
 
 	<?php endif; ?>
 
-    <div class="mix-holder <?php echo $container_class; ?>">
-        <div id="Container" class="container">
+    <div class="<?php echo $container_class; ?>">
+        <div class="doctor-filter-container">
 
 			<?php
 			$doctor_type_field_obj = get_field_object( 'doctor_type' );
@@ -95,19 +107,20 @@ if ( have_posts() ):
 
 			foreach ( $doctor_types as $doctor_type ):
 
-				if ( $doctor_type ): ?>
-                    <h2><?php echo $doctor_type; ?></h2>
-				<?php endif; ?>
+				if ( $doctor_type ) {
+					echo '<h2 id="' . sanitize_title_with_dashes( $doctor_type ) . '">' . $doctor_type . '</h2>';
+				} ?>
 
-                <div class="cpt-grid">
+                <div class="doctor-filter-grid">
 
 					<?php while ( have_posts() ): the_post();
 
 						$doctor_type_field    = get_field( 'doctor_type' );
 
 						if ( in_array( $doctor_type, $doctor_type_field ) || empty( $doctor_type ) ):
-							$doc_services = get_field( 'specialties' );
-							$doc_locations    = get_field( 'location' );
+
+							$doc_locations = get_field( 'location' );
+							$doc_services     = get_field( 'specialties' );
 							$location_classes = '';
 							$service_classes  = '';
 							$image            = get_field( 'headshot' );
@@ -122,11 +135,9 @@ if ( have_posts() ):
 								$service_classes = implode( ' ', $service_names );
 							}
 
-							$doctor_classes = $location_classes . ' ' . $service_classes . ' ' . $mix_it_up_class;
+							$doctor_classes = $location_classes . ' ' . $service_classes . ' ' . $mix_it_up_class; ?>
 
-							?>
-
-                            <div class="cpt-doctor-image-link <?php echo $doctor_classes; ?>">
+                            <div class="cpt-doctor-image-link doc-item <?php echo $doctor_classes; ?>">
 
 								<?php glacial_cpt_get_template_part( 'doctor-headshot-link' ); ?>
 
