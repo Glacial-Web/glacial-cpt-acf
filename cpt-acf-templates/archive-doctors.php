@@ -96,60 +96,63 @@ if ( have_posts() ):
     <div class="<?php echo $container_class; ?>">
         <div class="doctor-filter-container">
 
-			<?php
-			$doctor_type_field_obj = get_field_object( 'doctor_type' );
 
-			if ( ! empty( $doctor_type_field_obj['choices'] ) ) {
-				$doctor_types = $doctor_type_field_obj['choices'];
-			} else {
-				$doctor_types = array( '' );
-			}
+				<?php
+				$doctor_type_field_obj = get_field_object( 'doctor_type' );
 
-			foreach ( $doctor_types as $doctor_type ):
+				if ( ! empty( $doctor_type_field_obj['choices'] ) ) {
+					$doctor_types = $doctor_type_field_obj['choices'];
+				} else {
+					$doctor_types = array( '' );
+				}
 
-				if ( $doctor_type ) {
-					echo '<h2 id="' . sanitize_title_with_dashes( $doctor_type ) . '">' . $doctor_type . '</h2>';
-				} ?>
+				foreach ( $doctor_types as $doctor_type ):
+                    echo '<div>';
 
-                <div class="doctor-filter-grid">
+					if ( $doctor_type ) {
+						echo '<h2 class="doctor-type-heading" id="' . sanitize_title_with_dashes( $doctor_type ) . '">' . $doctor_type . '</h2>';
+					} ?>
+                    <div class="doctor-filter-grid">
 
-					<?php while ( have_posts() ): the_post();
+						<?php while ( have_posts() ): the_post();
 
-						$doctor_type_field    = get_field( 'doctor_type' );
+							$doctor_type_field    = get_field( 'doctor_type' );
 
-						if ( in_array( $doctor_type, $doctor_type_field ) || empty( $doctor_type ) ):
+							if ( in_array( $doctor_type, $doctor_type_field ) || empty( $doctor_type ) ):
 
-							$doc_locations = get_field( 'location' );
-							$doc_services     = get_field( 'specialties' );
-							$location_classes = '';
-							$service_classes  = '';
-							$image            = get_field( 'headshot' );
+								$doc_locations = get_field( 'location' );
+								$doc_services     = get_field( 'specialties' );
+								$location_classes = '';
+								$service_classes  = '';
+								$image            = get_field( 'headshot' );
 
-							if ( $doc_locations ) {
-								$location_names   = wp_list_pluck( $doc_locations, 'post_name' );
-								$location_classes = implode( ' ', $location_names );
-							}
+								if ( $doc_locations ) {
+									$location_names   = wp_list_pluck( $doc_locations, 'post_name' );
+									$location_classes = implode( ' ', $location_names );
+								}
 
-							if ( $doc_services ) {
-								$service_names   = wp_list_pluck( $doc_services, 'post_name' );
-								$service_classes = implode( ' ', $service_names );
-							}
+								if ( $doc_services ) {
+									$service_names   = wp_list_pluck( $doc_services, 'post_name' );
+									$service_classes = implode( ' ', $service_names );
+								}
 
-							$doctor_classes = $location_classes . ' ' . $service_classes . ' ' . $mix_it_up_class; ?>
+								$doctor_classes =
+									$location_classes . ' ' . $service_classes . ' ' . $mix_it_up_class; ?>
 
-                            <div class="cpt-doctor-image-link doc-item <?php echo $doctor_classes; ?>">
+                                <div class="cpt-doctor-image-link doc-item <?php echo $doctor_classes; ?>">
 
-								<?php glacial_cpt_get_template_part( 'doctor-headshot-link' ); ?>
+									<?php glacial_cpt_get_template_part( 'doctor-headshot-link' ); ?>
 
-                            </div>
+                                </div>
 
-						<?php endif;
+							<?php endif;
 
-					endwhile; ?>
+						endwhile; ?>
 
-                </div>
+                    </div>
 
-			<?php endforeach; ?>
+            </div>
+				<?php endforeach; ?>
 
         </div>
     </div>

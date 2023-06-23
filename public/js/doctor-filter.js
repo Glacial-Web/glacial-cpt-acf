@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     $(document).keyup(function (e) {
         if (e.keyCode === 27) {
             let textSearch = $('#textSearch');
@@ -9,7 +10,8 @@ $(document).ready(function () {
         }
     });
 
-    let $grid = $('.doctor-filter-grid')
+    let $grid = $('.doctor-filter-grid');
+
 
     if ($grid.length) {
         let clearButton = $('#reset');
@@ -18,6 +20,7 @@ $(document).ready(function () {
         let errorMessage = $('#errorMessage');
         let docSearchReset = $('#docSearchReset');
         let itemSelector = '.doc-item';
+        let doctorTypeHeading = $('.doctor-type-heading');
         let filterValue;
         let filters = {};
         let qsRegex;
@@ -53,7 +56,6 @@ $(document).ready(function () {
                 $grid.isotope();
                 docSearchReset.hide();
                 hideShowError();
-
             }
         }, 200));
 
@@ -62,33 +64,16 @@ $(document).ready(function () {
             for (let prop in obj) {
                 value += obj[prop];
             }
-            // console.log(value)
             return value;
         }
 
         function hideShowError() {
-
             setTimeout(function () {
                 let elems = 0;
-                $('.doc-grid').each(function () {
+                $('.doctor-filter-grid').each(function () {
                     let el = $(this).data('isotope');
                     elems = elems + el.filteredItems.length;
                 });
-
-              /*  let headings = $('.filters-on h2');
-
-                headings.each(function () {
-                    let div = $(this).next('div');
-                    let docs = $(div).data('isotope');
-                    if (docs.filteredItems.length === 0) {
-                        $(this).hide()
-                        $(div).hide()
-                    } else {
-                        $(this).show();
-                        $(div).show();
-                    }
-
-                });*/
 
                 if (elems === 0) {
                     errorMessage.text('No Doctors found');
@@ -99,13 +84,16 @@ $(document).ready(function () {
         }
 
         clearButton.on('click', function (e) {
+            doctorTypeHeading.show();
+            filters = {};
+            filterValue = '';
+            $grid.isotope();
             selectFields.val('*');
             textSearch.val('');
             errorMessage.text('');
             qsRegex = new RegExp('.*');
-            filters = {};
-            filterValue = '';
-            $grid.isotope();
+            docSearchReset.hide();
+            hideShowError();
         });
 
         docSearchReset.on('click', function (e) {
@@ -131,6 +119,19 @@ $(document).ready(function () {
                 timeout = setTimeout(delayed, threshold);
             };
         }
+
+        $grid.on('arrangeComplete',
+            function (event, filteredItems) {
+                let heading = $(event.target).prev('h2');
+                if (filteredItems.length === 0) {
+                    heading.slideUp(100);
+                } else {
+                    heading.slideDown(100);
+                }
+
+            }
+        );
+
 
     }
 });
