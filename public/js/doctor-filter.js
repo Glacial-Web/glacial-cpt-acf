@@ -12,7 +12,6 @@ $(document).ready(function () {
 
     let $grid = $('.doctor-filter-grid');
 
-
     if ($grid.length) {
         let clearButton = $('#reset');
         let textSearch = $('#textSearch');
@@ -28,6 +27,7 @@ $(document).ready(function () {
             layoutMode: 'fitRows',
             itemSelector: itemSelector,
             percentPosition: true,
+            transitionDuration: '0.3s',
             filter: function () {
                 let $this = $(this);
                 let searchResult = qsRegex ? $this.text().match(qsRegex) : true;
@@ -42,7 +42,6 @@ $(document).ready(function () {
             filters[filterGroup] = e.target.value;
             filterValue = concatValues(filters);
             $grid.isotope();
-            hideShowError();
         });
 
         textSearch.keyup(debounce(function () {
@@ -50,12 +49,10 @@ $(document).ready(function () {
                 qsRegex = new RegExp(textSearch.val(), 'gi');
                 $grid.isotope();
                 docSearchReset.show();
-                hideShowError();
             } else {
                 qsRegex = new RegExp('.*');
                 $grid.isotope();
                 docSearchReset.hide();
-                hideShowError();
             }
         }, 200));
 
@@ -65,22 +62,6 @@ $(document).ready(function () {
                 value += obj[prop];
             }
             return value;
-        }
-
-        function hideShowError() {
-            setTimeout(function () {
-                let elems = 0;
-                $('.doctor-filter-grid').each(function () {
-                    let el = $(this).data('isotope');
-                    elems = elems + el.filteredItems.length;
-                });
-
-                if (elems === 0) {
-                    errorMessage.text('No Doctors found');
-                } else {
-                    errorMessage.text('Doctors found: ' + elems);
-                }
-            }, 200);
         }
 
         clearButton.on('click', function (e) {
@@ -93,7 +74,6 @@ $(document).ready(function () {
             errorMessage.text('');
             qsRegex = new RegExp('.*');
             docSearchReset.hide();
-            hideShowError();
         });
 
         docSearchReset.on('click', function (e) {
@@ -101,7 +81,6 @@ $(document).ready(function () {
             qsRegex = new RegExp('.*');
             $grid.isotope();
             docSearchReset.hide();
-            hideShowError();
         });
 
         function debounce(fn, threshold) {
@@ -122,16 +101,29 @@ $(document).ready(function () {
 
         $grid.on('arrangeComplete',
             function (event, filteredItems) {
-                let heading = $(event.target).prev('h2');
-                if (filteredItems.length === 0) {
-                    heading.slideUp(100);
+                let elems = 0;
+                $('.doctor-filter-grid').each(function () {
+                    let el = $(this).data('isotope');
+                    elems = elems + el.filteredItems.length;
+                });
+
+                if (elems === 0) {
+                    errorMessage.text('No matches');
                 } else {
-                    heading.slideDown(100);
+                    errorMessage.text('Found: ' + elems);
+                }
+
+                if ($('.doctor-cols').length == 0) {
+                    let heading = $(event.target).prev('h2');
+                    if (filteredItems.length === 0) {
+                        heading.slideUp(100);
+                    } else {
+                        heading.slideDown(100);
+                    }
                 }
 
             }
         );
-
 
     }
 });

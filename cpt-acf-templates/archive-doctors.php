@@ -12,39 +12,45 @@ if ( have_posts() ):
 	$use_doctor_services_filter = get_field( 'use_doctor_services_filter', 'options' );
 	$use_doctor_locations_filter = get_field( 'use_doctor_locations_filter', 'options' );
 	$use_doctor_text_search_filter = get_field( 'use_doctor_text_search_filter', 'options' );
+	$doctor_archive_page_layout = get_field( 'doctor_archive_page_layout', 'options' );
 
+	if ( $use_doctor_services_filter || $use_doctor_locations_filter || $use_doctor_text_search_filter ) {
+		$filters_on        = true;
+		$container_class   = 'filters-on';
+		$filter_item_class = 'doc-item';
+	} else {
+		$filters_on        = false;
+		$container_class   = 'filters-off';
+		$filter_item_class = 'doc-item-filters-off';
+	}
 
-	$locations = get_posts(
-		array(
-			'post_type'      => 'locations',
-			'posts_per_page' => - 1,
-			'orderby'        => 'title',
-			'order'          => 'asc',
-		)
-	);
+	if($doctor_archive_page_layout) {
+        $container_class .= ' ' . $doctor_archive_page_layout;
+    }
 
-	$services = get_posts(
-		array(
-			'post_type'      => 'page',
-			'orderby'        => 'title',
-			'order'          => 'ASC',
-			'posts_per_page' => - 1,
-			'meta_key'       => 'glacial_page_type',
-			'meta_value'     => 'service-page'
-		)
-	);
+	$locations = get_posts( array(
+		'post_type'      => 'locations',
+		'posts_per_page' => - 1,
+		'orderby'        => 'title',
+		'order'          => 'ASC',
+	) );
 
-	$container_class     = 'filters-off';
-	$mix_it_up_class     = 'mix-it-up-off';
+	$services = get_posts( array(
+		'post_type'      => 'page',
+		'posts_per_page' => - 1,
+		'orderby'        => 'title',
+		'order'          => 'ASC',
+		'meta_key'       => 'glacial_page_type',
+		'meta_value'     => 'service-page'
+	) );
 
-	if ( $use_doctor_services_filter || $use_doctor_locations_filter || $use_doctor_text_search_filter ):
-		$container_class = 'filters-on';
-		$mix_it_up_class = ''; ?>
+	if ( $filters_on ): ?>
 
         <div class="doctor-filter-controls">
             <div class="search-field-div">
 
 				<?php if ( $use_doctor_text_search_filter ): ?>
+
                     <div>
                         <h2>Name</h2>
                         <div class="doc-search-field">
@@ -53,9 +59,11 @@ if ( have_posts() ):
                             <button id="docSearchReset">&#x2715;</button>
                         </div>
                     </div>
-				<?php endif; ?>
 
-				<?php if ( $use_doctor_services_filter ): ?>
+				<?php endif;
+
+				if ( $use_doctor_services_filter ): ?>
+
                     <div>
                         <h2>Services</h2><br>
                         <select class="select-filter" aria-label="Doctor Services Filter" data-group="services">
@@ -94,24 +102,28 @@ if ( have_posts() ):
 	<?php endif; ?>
 
     <div class="<?php echo $container_class; ?>">
-        <div class="doctor-filter-container">
+        <div class="doctor-archive-container">
 
+			<?php $doctor_type_field_obj = get_field_object( 'doctor_type' );
 
-				<?php
-				$doctor_type_field_obj = get_field_object( 'doctor_type' );
+			if ( !empty( $doctor_type_field_obj['choices'] ) ) {
+				$doctor_types = $doctor_type_field_obj['choices'];
+			} else {
+				$doctor_types = array( '' );
+			}
 
-				if ( ! empty( $doctor_type_field_obj['choices'] ) ) {
-					$doctor_types = $doctor_type_field_obj['choices'];
-				} else {
-					$doctor_types = array( '' );
-				}
+			foreach ( $doctor_types as $doctor_type ): ?>
 
-				foreach ( $doctor_types as $doctor_type ):
-                    echo '<div>';
+                <div>
 
-					if ( $doctor_type ) {
-						echo '<h2 class="doctor-type-heading" id="' . sanitize_title_with_dashes( $doctor_type ) . '">' . $doctor_type . '</h2>';
-					} ?>
+					<?php if ( $doctor_type ):
+
+						$heading_id = sanitize_title_with_dashes( $doctor_type ); ?>
+
+                        <h2 class="doctor-type-heading" id="<?php echo $heading_id; ?>"><?php echo $doctor_type; ?></h2>
+
+					<?php endif; ?>
+
                     <div class="doctor-filter-grid">
 
 						<?php while ( have_posts() ): the_post();
@@ -119,7 +131,6 @@ if ( have_posts() ):
 							$doctor_type_field    = get_field( 'doctor_type' );
 
 							if ( in_array( $doctor_type, $doctor_type_field ) || empty( $doctor_type ) ):
-
 								$doc_locations = get_field( 'location' );
 								$doc_services     = get_field( 'specialties' );
 								$location_classes = '';
@@ -136,10 +147,10 @@ if ( have_posts() ):
 									$service_classes = implode( ' ', $service_names );
 								}
 
-								$doctor_classes =
-									$location_classes . ' ' . $service_classes . ' ' . $mix_it_up_class; ?>
+								$doctor_classes = $location_classes . ' ' . $service_classes . ' ' . $filter_item_class;
+								?>
 
-                                <div class="cpt-doctor-image-link doc-item <?php echo $doctor_classes; ?>">
+                                <div class="cpt-doctor-image-link <?php echo $doctor_classes; ?>">
 
 									<?php glacial_cpt_get_template_part( 'doctor-headshot-link' ); ?>
 
@@ -150,9 +161,9 @@ if ( have_posts() ):
 						endwhile; ?>
 
                     </div>
+                </div>
 
-            </div>
-				<?php endforeach; ?>
+			<?php endforeach; ?>
 
         </div>
     </div>

@@ -3,12 +3,14 @@
     --cpt-border-color: #ccc;
     --cpt-box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.1);
     /* Doctor and related post grids*/
-    --cpt-all-doctor-col: 5;
-    --cpt-related-doctor-col: 4;
-    --cpt-all-doctor-col-mobile: 150px;
-    --cpt-related-posts-col: 4;
-    /*Doctor filter columns */
+    --cpt-all-doctor-per-row: 5;
+    --cpt-related-doctor-per-row: 4;
+    --cpt-all-doctor-per-row-mobile: 150px;
+    --cpt-related-posts-per-row: 3;
+    /*Doctors per row ROW layout */
     --cpt-filter-col: 5;
+    /* Doctor filter COL layout */
+    --cpt-doc-archive-cols: 3;
     /* Image as[ect rations */
     --cpt-doctor-aspect: 4 / 5;
     --cpt-rel-posts-aspect: 16 / 9
@@ -33,22 +35,22 @@
 .cpt-grid {
     display: grid;
     grid-gap: 2em;
-    grid-template-columns: repeat(var(--cpt-all-doctor-col), 1fr);
+    grid-template-columns: repeat(var(--cpt-all-doctor-per-row), 1fr);
     grid-auto-rows: 1fr;
 }
 
 .single-doctors .cpt-grid,
 .service-page .cpt-grid,
 .post-type-archive-doctors .cpt-grid {
-    grid-template-columns: repeat(var(--cpt-all-doctor-col), 1fr);
+    grid-template-columns: repeat(var(--cpt-all-doctor-per-row), 1fr);
 }
 
 .single-locations .cpt-grid {
-    grid-template-columns: repeat(var(--cpt-related-doctor-col), 1fr);
+    grid-template-columns: repeat(var(--cpt-related-doctor-per-row), 1fr);
 }
 
 .single-locations .related-posts-wrapper .cpt-grid {
-    grid-template-columns: repeat(var(--cpt-related-posts-col), 1fr);
+    grid-template-columns: repeat(var(--cpt-related-posts-per-row), 1fr);
 }
 
 .cpt-doctor-image-link,
@@ -238,14 +240,16 @@ h3.doctor-additional-specialties {
     grid-gap: 1em;
 }
 
-.doctor-filter-container {
+.doc-item {
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+}
+
+.doctor-archive-container {
     background: none;
     text-align: justify;
     min-height: 425px;
-}
-
-.mix-holder .container .mix {
-    display: none;
 }
 
 .flex-wrapper.flex-start {
@@ -292,11 +296,10 @@ h3.doctor-additional-specialties {
 
 .search-field-div div h2 {
     font-family: inherit;
-    color: #333;
     display: inline-block;
     font-size: 1.5em;
-    margin-bottom: 5px;
-    margin-top: 1em;
+    margin-bottom: 0;
+    margin-top: 0;
 }
 
 .doc-search-field {
@@ -310,7 +313,7 @@ h3.doctor-additional-specialties {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    align-items: center;
+    align-items: stretch;
     margin-left: -1%;
     margin-right: -1%;
 }
@@ -321,6 +324,31 @@ h3.doctor-additional-specialties {
     margin-right: 1%;
     margin-left: 1%;
 }
+
+/* Doctor archive COL layout */
+.doctor-cols .doctor-archive-container {
+    display: grid;
+    grid-template-columns: repeat(var(--cpt-doc-archive-cols), 1fr);
+    grid-gap: 0;
+}
+
+.doctor-cols .doctor-type-heading {
+    text-align: center;
+}
+
+.doctor-cols .doctor-archive-container > div:not(:last-child) {
+    border-right: 1px solid var(--cpt-border-color);
+}
+
+.doctor-cols .doctor-archive-container > div {
+    padding: 0 1.5em;
+}
+
+.doctor-cols .cpt-doctor-image-link {
+    width: calc((100% / 2) - 2%);
+}
+
+/* End Doctor archive COL layout */
 
 .doc-search-field button {
     font-size: 12px;
@@ -419,12 +447,20 @@ button.dr-clear-btn:focus {
     .doctor-filter-grid .cpt-doctor-image-link {
         width: calc((100% / 4) - 2%);
     }
+
+    .doctor-cols .cpt-doctor-image-link {
+        width: calc((100% / 2) - 2%);
+    }
 }
 
 @media (max-width: 991px) {
 
     .doctor-filter-grid .cpt-doctor-image-link {
         width: calc((100% / 3) - 2%);
+    }
+
+    .doctor-cols .cpt-doctor-image-link {
+        width: calc((100% / 2) - 2%);
     }
 
     .cpt-grid {
@@ -435,7 +471,7 @@ button.dr-clear-btn:focus {
     .service-page .cpt-grid,
     .single-locations .cpt-grid,
     .single-locations .related-posts-wrapper .cpt-grid {
-        grid-template-columns: repeat(auto-fit, minmax(var(--cpt-all-doctor-col-mobile), 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(var(--cpt-all-doctor-per-row-mobile), 1fr));
     }
 
     .doctor-specialties-locations {
@@ -508,6 +544,20 @@ button.dr-clear-btn:focus {
     .dr-clear-btn {
         margin-top: 1em;
     }
+
+    .doctor-cols .doctor-archive-container > div:not(:last-child) {
+        border-right: none;
+    }
+
+    .doctor-cols .doctor-archive-container > div {
+        padding: 0;
+    }
+
+    .doctor-cols .doctor-archive-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 0;
+    }
 }
 
 @media (max-width: 479px) {
@@ -516,23 +566,8 @@ button.dr-clear-btn:focus {
         width: 100%;
     }
 
-}
-/*
+    .search-field-div div h2 {
+        margin-top: 10px;
+    }
 
-.doctor-filter-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 0;
 }
-
-.doctor-type-heading {
-    text-align: center;
-}
-
-.doctor-filter-container > div:not(:last-child) {
-    border-right: 1px solid #cecece;
-}
-
-.doctor-filter-container > div {
-    padding: 0 2em
-}*/

@@ -29,7 +29,7 @@
         },
         {
             "key": "field_5df10e2e756cb",
-            "label": "Doctor Title",
+            "label": "Doctor Title\/Role",
             "name": "additional_specialties",
             "aria-label": "",
             "type": "text",
@@ -48,7 +48,7 @@
             "append": ""
         },
         {
-            "key": "field_632a770d7621a",
+            "key": "field_64963e4b6a0e1",
             "label": "Doctor Type",
             "name": "doctor_type",
             "aria-label": "",
@@ -169,5 +169,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1687054736
+    "modified": 1687568225
 }
