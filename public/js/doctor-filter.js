@@ -1,16 +1,7 @@
 $(document).ready(function () {
 
-    $(document).keyup(function (e) {
-        if (e.keyCode === 27) {
-            let textSearch = $('#textSearch');
-            if (textSearch.is(':focus')) {
-                textSearch.val('');
-                textSearch.focus();
-            }
-        }
-    });
-
     let $grid = $('.doctor-filter-grid');
+    console.log($grid);
 
     if ($grid.length) {
         let clearButton = $('#reset');
@@ -27,14 +18,14 @@ $(document).ready(function () {
             layoutMode: 'fitRows',
             itemSelector: itemSelector,
             percentPosition: true,
-            transitionDuration: '0.3s',
+            transitionDuration: '0.4s',
             filter: function () {
                 let $this = $(this);
                 let searchResult = qsRegex ? $this.text().match(qsRegex) : true;
                 let buttonResult = filterValue ? $this.is(filterValue) : true;
                 return searchResult && buttonResult;
             }
-        });
+        }, updateFilteredNum);
 
         selectFields.on('change', function (e) {
             let $select = $(e.target);
@@ -42,33 +33,33 @@ $(document).ready(function () {
             filters[filterGroup] = e.target.value;
             filterValue = concatValues(filters);
             $grid.isotope();
+            updateFilteredNum();
         });
 
-        textSearch.keyup(debounce(function () {
+        textSearch.keyup(debounce(function (e) {
+            if (e.keyCode === 27) {
+                $(this).val('').focus();
+            }
             if (textSearch.val().length > 1) {
                 qsRegex = new RegExp(textSearch.val(), 'gi');
                 $grid.isotope();
+                updateFilteredNum();
                 docSearchReset.show();
             } else {
                 qsRegex = new RegExp('.*');
                 $grid.isotope();
+                updateFilteredNum();
                 docSearchReset.hide();
             }
         }, 200));
 
-        function concatValues(obj) {
-            let value = '';
-            for (let prop in obj) {
-                value += obj[prop];
-            }
-            return value;
-        }
 
         clearButton.on('click', function (e) {
             doctorTypeHeading.show();
             filters = {};
             filterValue = '';
             $grid.isotope();
+            updateFilteredNum();
             selectFields.val('*');
             textSearch.val('');
             errorMessage.text('');
@@ -80,8 +71,17 @@ $(document).ready(function () {
             textSearch.val('');
             qsRegex = new RegExp('.*');
             $grid.isotope();
+            updateFilteredNum();
             docSearchReset.hide();
         });
+
+        function concatValues(obj) {
+            let value = '';
+            for (let prop in obj) {
+                value += obj[prop];
+            }
+            return value;
+        }
 
         function debounce(fn, threshold) {
             let timeout;
@@ -99,31 +99,32 @@ $(document).ready(function () {
             };
         }
 
-        $grid.on('arrangeComplete',
-            function (event, filteredItems) {
-                let elems = 0;
-                $('.doctor-filter-grid').each(function () {
-                    let el = $(this).data('isotope');
-                    elems = elems + el.filteredItems.length;
-                });
-
-                if (elems === 0) {
-                    errorMessage.text('No matches');
-                } else {
-                    errorMessage.text('Found: ' + elems);
-                }
-
-                if ($('.doctor-cols').length == 0) {
-                    let heading = $(event.target).prev('h2');
-                    if (filteredItems.length === 0) {
-                        heading.slideUp(100);
+        /*
+        * Originally used as a callback to arrangeComplete event but it was very slow to fire.
+        * It is now called directly after the isotope filter function so that it fires immediately and not after the animation
+        * PITA but is what it is
+        * */
+        function updateFilteredNum() {
+            let elemNum = 0;
+            $grid.each(function () {
+                let el = $(this).data('isotope');
+                let elems = el.filteredItems.length;
+                if (!$('.doctor-cols').length && $(this).prev('h2').length) { // only run on row layout and if headings exist
+                    if (elems === 0) {
+                        $(this).prev('h2').hide();
                     } else {
-                        heading.slideDown(100);
+                        $(this).prev('h2').show()
                     }
                 }
 
-            }
-        );
+                elemNum = elemNum + elems;
+            });
 
+            if (elemNum === 0) {
+                errorMessage.text('No matches');
+            } else {
+                errorMessage.text('Found: ' + elemNum);
+            }
+        }
     }
 });

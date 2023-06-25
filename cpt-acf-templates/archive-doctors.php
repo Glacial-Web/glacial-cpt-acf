@@ -24,9 +24,7 @@ if ( have_posts() ):
 		$filter_item_class = 'doc-item-filters-off';
 	}
 
-	if($doctor_archive_page_layout) {
-        $container_class .= ' ' . $doctor_archive_page_layout;
-    }
+	$container_class .= ' ' . $doctor_archive_page_layout;
 
 	$locations = get_posts( array(
 		'post_type'      => 'locations',
@@ -104,9 +102,11 @@ if ( have_posts() ):
     <div class="<?php echo $container_class; ?>">
         <div class="doctor-archive-container">
 
-			<?php $doctor_type_field_obj = get_field_object( 'doctor_type' );
+			<?php
 
-			if ( !empty( $doctor_type_field_obj['choices'] ) ) {
+			$doctor_type_field_obj = get_field_object( 'doctor_type' );
+
+			if ( ! empty( $doctor_type_field_obj['choices'] ) ) {
 				$doctor_types = $doctor_type_field_obj['choices'];
 			} else {
 				$doctor_types = array( '' );
@@ -128,11 +128,16 @@ if ( have_posts() ):
 
 						<?php while ( have_posts() ): the_post();
 
-							$doctor_type_field    = get_field( 'doctor_type' );
+							$doctor_type_field    = get_field( 'doctor_type' ) ?? array();
+
+							if ( ! is_array( $doctor_type_field ) ) {
+								$doctor_type_field = array( $doctor_type_field );
+							}
 
 							if ( in_array( $doctor_type, $doctor_type_field ) || empty( $doctor_type ) ):
-								$doc_locations = get_field( 'location' );
-								$doc_services     = get_field( 'specialties' );
+
+								$doc_services = get_field( 'specialties' );
+								$doc_locations    = get_field( 'location' );
 								$location_classes = '';
 								$service_classes  = '';
 								$image            = get_field( 'headshot' );
@@ -148,7 +153,7 @@ if ( have_posts() ):
 								}
 
 								$doctor_classes = $location_classes . ' ' . $service_classes . ' ' . $filter_item_class;
-								?>
+								$doctor_classes = trim( $doctor_classes ); ?>
 
                                 <div class="cpt-doctor-image-link <?php echo $doctor_classes; ?>">
 
@@ -157,7 +162,6 @@ if ( have_posts() ):
                                 </div>
 
 							<?php endif;
-
 						endwhile; ?>
 
                     </div>
@@ -167,10 +171,6 @@ if ( have_posts() ):
 
         </div>
     </div>
-
-<?php else: ?>
-
-    <h2>No Doctors Found</h2>
 
 <?php endif;
 

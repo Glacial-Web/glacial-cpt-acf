@@ -6,7 +6,7 @@
  *
  * */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if ( !defined( 'ABSPATH' ) ) {
 	die;
 }
 
@@ -69,22 +69,16 @@ add_action( 'wp_enqueue_scripts', 'glacial_cpt_register_styles' );
  * */
 function glacial_cpt_register_scripts() {
 
-	$use_doctor_services_filter  = get_field( 'use_doctor_services_filter', 'options' ) ?? true;
-	$use_doctor_locations_filter = get_field( 'use_doctor_locations_filter', 'options' ) ?? true;
-
+	$use_doctor_services_filter    = get_field( 'use_doctor_services_filter', 'options' ) ?? true;
+	$use_doctor_locations_filter   = get_field( 'use_doctor_locations_filter', 'options' ) ?? true;
+	$use_doctor_text_search_filter = get_field( 'use_doctor_text_search_filter', 'options' ) ?? true;
 
 	if ( is_post_type_archive( 'doctors' ) ) {
 
 		/*
 		 * Only enqueue the scripts if the archive page is using the filter
 		 * */
-		if ( $use_doctor_services_filter || $use_doctor_locations_filter ) {
-
-			wp_register_script( 'mixup', GLACIAL_CPT_PLUGIN_URL . 'public/js/doc-mix-it-up.js', array( 'jquery' ), null, true );
-//			wp_enqueue_script( 'mixup' );
-
-			wp_register_script( 'mixitup', 'https://cdn.jsdelivr.net/jquery.mixitup/latest/jquery.mixitup.min.js', array( 'jquery' ), null, true );
-//			wp_enqueue_script( 'mixitup' );
+		if ( $use_doctor_services_filter || $use_doctor_locations_filter || $use_doctor_text_search_filter ) {
 
 			wp_register_script( 'isotope', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array( 'jquery' ), null, true );
 			wp_enqueue_script( 'isotope' );
@@ -179,7 +173,7 @@ add_filter( 'get_the_archive_title', 'glacial_cpt_archive_titles', 10, 2 );
  * @since 1.0.0
  * */
 function glacial_cpt_change_queries( $query ) {
-	if ( ! is_admin() && $query->is_main_query() ) {
+	if ( !is_admin() && $query->is_main_query() ) {
 		if ( is_post_type_archive( array( 'doctors', 'locations' ) ) ) {
 			$query->set( 'posts_per_page', - 1 );
 			$query->set( 'orderby', 'menu_order' );
