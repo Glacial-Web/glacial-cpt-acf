@@ -24,6 +24,9 @@ define( 'GLACIAL_CPT_VERSION', '2.0.0' );
 define( 'GLACIAL_CPT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GLACIAL_CPT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'GLACIAL_CPT_TEMPLATES_FOLDER_NAME', 'cpt-acf-templates' );
+// get theme version
+$theme = wp_get_theme()->get( 'Version' );
+$theme_ver_ok = version_compare( $theme, '3.0.0', '>=' );
 
 
 /*
@@ -45,7 +48,7 @@ function glacial_cpt_acf_notice() { ?>
     <div class="notice notice-error">
         <h2>Glacial CPT Plugin</h2>
         <p>Please install and activate Advanced Custom Fields Pro, it is required by <b>Glacial Custom Post Types with
-                ACF</b> plugin to work.</p>
+                ACF</b> plugin to work. And Make sure Glacial Theme is v3.0.0+</p>
     </div>
 <?php }
 
@@ -77,11 +80,11 @@ function glacial_cpt_plugin_deactivate() {}
 register_deactivation_hook( __FILE__, 'glacial_cpt_plugin_deactivate' );
 
 /**
- * if ACF is not installed, show notice and don't load anything else
+ * if ACF is not installed or Glacial Theme not >= v3.0.0, show notice and don't load anything else
  *
  * @since 1.0.0
  * */
-if ( !function_exists( 'the_field' ) ) {
+if ( !function_exists( 'the_field' ) || !$theme_ver_ok ) {
 	add_action( 'admin_notices', 'glacial_cpt_acf_notice' );
 
 } else {
