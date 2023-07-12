@@ -9,9 +9,9 @@ get_header();
 
 if ( have_posts() ):
 
-	$use_doctor_services_filter = get_field( 'use_doctor_services_filter', 'options' );
-	$use_doctor_locations_filter = get_field( 'use_doctor_locations_filter', 'options' );
-	$use_doctor_text_search_filter = get_field( 'use_doctor_text_search_filter', 'options' );
+	$use_doctor_services_filter = get_field( 'use_doctor_services_filter', 'options' ) ?? true;
+	$use_doctor_locations_filter = get_field( 'use_doctor_locations_filter', 'options' ) ?? true;
+	$use_doctor_text_search_filter = get_field( 'use_doctor_text_search_filter', 'options' )?? true;
 	$doctor_archive_page_layout = get_field( 'doctor_archive_page_layout', 'options' );
 
 	if ( $use_doctor_services_filter || $use_doctor_locations_filter || $use_doctor_text_search_filter ) {
