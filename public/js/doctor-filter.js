@@ -58,12 +58,12 @@ $(document).ready(function () {
             doctorTypeHeading.show();
             filters = {};
             filterValue = '';
-            $grid.isotope();
-            updateFilteredNum();
             selectFields.val('*');
             textSearch.val('');
             errorMessage.text('');
             qsRegex = new RegExp('.*');
+            $grid.isotope();
+            updateFilteredNum();
             docSearchReset.hide();
         });
 
