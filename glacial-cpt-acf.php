@@ -6,7 +6,7 @@
  * Author URI:      https://glacial.com
  * Text Domain:     glacial-cpt-acf
  * Domain Path:     /languages
- * Version:         2.0.1
+ * Version:         2.0.2
  *
  * GitHub Plugin URI: https://github.com/Glacial-Web/glacial-cpt-acf
  *
@@ -16,18 +16,23 @@
 /*
  * If this file is called directly, DIE!
  * */
-if ( !defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-define( 'GLACIAL_CPT_VERSION', '2.0.0' );
+define( 'GLACIAL_CPT_VERSION', '2.0.2' );
 define( 'GLACIAL_CPT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GLACIAL_CPT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'GLACIAL_CPT_TEMPLATES_FOLDER_NAME', 'cpt-acf-templates' );
 // get theme version
-$theme = wp_get_theme()->get( 'Version' );
-$theme_ver_ok = version_compare( $theme, '3.0.0', '>=' );
+$theme         = wp_get_theme();
+$theme_type_ok = $theme->get( 'Author' ) == 'Glacial Multimedia';
+$theme_ver_ok  = version_compare( $theme->get( 'Version' ), '3.0.0', '>=' );
 
+if ( get_template_directory() !== get_stylesheet_directory() ) {
+	$theme_ver_ok = version_compare( $theme->parent()->get( 'Version' ), '3.0.0', '>=' );
+}
+$has_acf = function_exists( 'the_field' );
 
 /*
  * If "Discourage search engines from indexing this site" is checked in Settings > Reading
@@ -40,19 +45,6 @@ if ( get_option( 'blog_public' ) ) {
 }
 
 /**
- * Admin notice if ACF is not installed
- *
- * @since 1.0.0
- * */
-function glacial_cpt_acf_notice() { ?>
-    <div class="notice notice-error">
-        <h2>Glacial CPT Plugin</h2>
-        <p>Please install and activate Advanced Custom Fields Pro, it is required by <b>Glacial Custom Post Types with
-                ACF</b> plugin to work. And Make sure Glacial Theme is v3.0.0+</p>
-    </div>
-<?php }
-
-/**
  * Plugin activation hook
  *
  * Add a flag that will allow to flush the rewrite rules when needed.
@@ -61,7 +53,7 @@ function glacial_cpt_acf_notice() { ?>
  * */
 function glacial_cpt_plugin_activate() {
 	//
-	if ( !get_option( 'glacial_flush_rewrite_rules_flag' ) ) {
+	if ( ! get_option( 'glacial_flush_rewrite_rules_flag' ) ) {
 		add_option( 'glacial_flush_rewrite_rules_flag', true );
 	}
 }
@@ -84,15 +76,30 @@ register_deactivation_hook( __FILE__, 'glacial_cpt_plugin_deactivate' );
  *
  * @since 1.0.0
  * */
-if ( !function_exists( 'the_field' ) || !$theme_ver_ok ) {
-	add_action( 'admin_notices', 'glacial_cpt_acf_notice' );
-
-} else {
+if ( $has_acf && $theme_ver_ok && $theme_type_ok ) {
 	/**
 	 * Grab the main functions of our plugin
 	 *
 	 * @since 1.0.0
 	 * */
 	require_once ( plugin_dir_path( __FILE__ ) ) . 'includes/glacial-cpt-acf-main.php';
-
+} else {
+	add_action( 'admin_notices', function () use ( $has_acf, $theme_ver_ok, $theme_type_ok ) { ?>
+        <div class="notice notice-error">
+            <h2>Glacial CPT Plugin</h2>
+			<?php if ( ! $has_acf ) {
+				echo '<h3>ACF Not Activated</h3>';
+				echo '<p>Please install and activate Advanced Custom Fields Pro, it is required by <b>Glacial Custom Post Types with ACF</b> plugin to work.</p>';
+			}
+			if ( ! $theme_type_ok ) {
+				echo '<h3>Glacial Theme Not Activated</h3>';
+				echo '<p>Please install Glacial Theme, it is required by <b>Glacial Custom Post Types with ACF</b> plugin to work.</p>';
+			}
+			if ( ! $theme_ver_ok ) {
+				echo '<h3>Incorrect Version of Glacial Theme</h3>';
+				echo '<p>Please update to Glacial Theme v3.0.0+, it is required by <b>Glacial Custom Post Types with ACF</b> plugin to work.</p>';
+			} ?>
+        </div>
+		<?php
+	} );
 }

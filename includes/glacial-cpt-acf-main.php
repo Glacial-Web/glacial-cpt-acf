@@ -24,6 +24,7 @@ function glacial_cpt_flush_rewrite_rules() {
 
 add_action( 'init', 'glacial_cpt_flush_rewrite_rules', 20 );
 
+
 /**
  * ACF JSON save point
  *
