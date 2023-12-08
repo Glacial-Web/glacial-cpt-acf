@@ -6,7 +6,7 @@
  * Author URI:      https://glacial.com
  * Text Domain:     glacial-cpt-acf
  * Domain Path:     /languages
- * Version:         2.0.2
+ * Version:         2.0.3
  *
  * GitHub Plugin URI: https://github.com/Glacial-Web/glacial-cpt-acf
  *
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-define( 'GLACIAL_CPT_VERSION', '2.0.2' );
+define( 'GLACIAL_CPT_VERSION', '2.0.3' );
 define( 'GLACIAL_CPT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GLACIAL_CPT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'GLACIAL_CPT_TEMPLATES_FOLDER_NAME', 'cpt-acf-templates' );
