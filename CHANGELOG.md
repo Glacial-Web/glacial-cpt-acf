@@ -39,7 +39,7 @@ All notable changes to this plugin will be documented in this file.
 * Links to doctor services and location now displayed as buttons.
 * CSS: All doctors and related posts containers converted from flex-box to grid.
 
-## [2.0.2] - 2023-12-7
+## [2.0.3] - 2023-12-7
 
 ### Fixed
 
