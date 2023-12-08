@@ -250,7 +250,7 @@ function glacial_cpt_theme_before_footer() {
 	$add_doctors_to_service_pages           = get_field( 'add_doctors_to_service_pages', 'option' ) ?? true;
 	$add_all_doctors_to_single_doctor_pages = get_field( 'add_all_doctors_to_single_doctor_pages', 'option' ) ?? true;
 
-	if ( $add_doctors_to_service_pages ) {
+	if ( $add_doctors_to_service_pages && is_page() ) {
 		glacial_cpt_get_template_part( 'doctors-service-pages' );
 	}
 
