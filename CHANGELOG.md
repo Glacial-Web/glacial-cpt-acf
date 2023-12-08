@@ -38,3 +38,9 @@ All notable changes to this plugin will be documented in this file.
   slugs and labels.
 * Links to doctor services and location now displayed as buttons.
 * CSS: All doctors and related posts containers converted from flex-box to grid.
+
+## [2.0.2] - 2023-12-7
+
+### Fixed
+
+* Doctors related to service pages were being displayed on search results page when last search had related doctors. A check of `is_page()` was added to prevent this. [Read more](https://github.com/Glacial-Web/glacial-cpt-acf/issues/6)
