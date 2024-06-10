@@ -6,6 +6,7 @@
             "key": "field_5dc33c2a288f3",
             "label": "Address",
             "name": "address",
+            "aria-label": "",
             "type": "textarea",
             "instructions": "No need to add a line break, line breaks area created on new lines",
             "required": 0,
@@ -16,15 +17,16 @@
                 "id": ""
             },
             "default_value": "",
-            "placeholder": "",
             "maxlength": "",
-            "rows": 4,
+            "rows": 6,
+            "placeholder": "",
             "new_lines": "br"
         },
         {
             "key": "field_5ebf2cfe83f21",
             "label": "Phone Numbers",
             "name": "phone_numbers",
+            "aria-label": "",
             "type": "repeater",
             "instructions": "",
             "required": 0,
@@ -34,16 +36,19 @@
                 "class": "",
                 "id": ""
             },
-            "collapsed": "",
+            "layout": "table",
+            "pagination": 0,
             "min": 0,
             "max": 0,
-            "layout": "table",
+            "collapsed": "",
             "button_label": "Add Phone Number",
+            "rows_per_page": 20,
             "sub_fields": [
                 {
                     "key": "field_5ebf2d2183f22",
                     "label": "Label",
                     "name": "label",
+                    "aria-label": "",
                     "type": "text",
                     "instructions": "",
                     "required": 0,
@@ -54,15 +59,17 @@
                         "id": ""
                     },
                     "default_value": "",
+                    "maxlength": "",
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
-                    "maxlength": ""
+                    "parent_repeater": "field_5ebf2cfe83f21"
                 },
                 {
                     "key": "field_5ebf2d2e83f23",
                     "label": "Number",
                     "name": "number",
+                    "aria-label": "",
                     "type": "text",
                     "instructions": "",
                     "required": 0,
@@ -76,12 +83,14 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
-                    "maxlength": ""
+                    "maxlength": "",
+                    "parent_repeater": "field_5ebf2cfe83f21"
                 },
                 {
                     "key": "field_60141964fd2a3",
                     "label": "Note",
                     "name": "note",
+                    "aria-label": "",
                     "type": "text",
                     "instructions": "",
                     "required": 0,
@@ -95,14 +104,16 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
-                    "maxlength": ""
+                    "maxlength": "",
+                    "parent_repeater": "field_5ebf2cfe83f21"
                 },
                 {
                     "key": "field_5ebf2d3883f24",
                     "label": "Link",
                     "name": "link",
-                    "type": "true_false",
-                    "instructions": "If Yes href link is added",
+                    "aria-label": "",
+                    "type": "button_group",
+                    "instructions": "If Yes href is added",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -110,11 +121,15 @@
                         "class": "",
                         "id": ""
                     },
-                    "message": "",
-                    "default_value": 1,
-                    "ui": 1,
-                    "ui_on_text": "",
-                    "ui_off_text": ""
+                    "choices": {
+                        "yes": "Yes",
+                        "no": "No"
+                    },
+                    "default_value": "yes",
+                    "return_format": "value",
+                    "allow_null": 0,
+                    "layout": "horizontal",
+                    "parent_repeater": "field_5ebf2cfe83f21"
                 }
             ]
         },
@@ -122,6 +137,7 @@
             "key": "field_5dc9c1f9e12a3",
             "label": "Hours",
             "name": "hours",
+            "aria-label": "",
             "type": "textarea",
             "instructions": "No need to add a line break, line breaks area created on new lines",
             "required": 0,
@@ -132,15 +148,16 @@
                 "id": ""
             },
             "default_value": "",
-            "placeholder": "",
             "maxlength": "",
             "rows": 6,
+            "placeholder": "",
             "new_lines": "br"
         },
         {
             "key": "field_5dc9c2275bcf3",
             "label": "Map iFrame",
             "name": "map_iframe",
+            "aria-label": "",
             "type": "textarea",
             "instructions": "Enter iFrame HTML from Google maps",
             "required": 0,
@@ -151,15 +168,16 @@
                 "id": ""
             },
             "default_value": "",
-            "placeholder": "",
             "maxlength": "",
             "rows": 6,
+            "placeholder": "",
             "new_lines": ""
         },
         {
             "key": "field_5dcc224795ea3",
             "label": "Location Specialties\/Services",
             "name": "location_specialties",
+            "aria-label": "",
             "type": "relationship",
             "instructions": "",
             "required": 0,
@@ -179,12 +197,14 @@
             "elements": "",
             "min": "",
             "max": "",
-            "return_format": "object"
+            "return_format": "object",
+            "bidirectional_target": []
         },
         {
             "key": "field_63212130e60d2",
             "label": "Related Blog Posts",
             "name": "related_blog_posts",
+            "aria-label": "",
             "type": "relationship",
             "instructions": "Choose related blog posts to appear on the location page.",
             "required": 0,
@@ -207,12 +227,14 @@
             ],
             "min": "",
             "max": "",
-            "return_format": "id"
+            "return_format": "id",
+            "bidirectional_target": []
         },
         {
             "key": "field_62c3992d94c96",
             "label": "Additional Buttons",
             "name": "additional_buttons",
+            "aria-label": "",
             "type": "repeater",
             "instructions": "Use this to add additional links as buttons",
             "required": 0,
@@ -227,11 +249,13 @@
             "max": 0,
             "layout": "table",
             "button_label": "Add Button",
+            "rows_per_page": 20,
             "sub_fields": [
                 {
                     "key": "field_62c399aef6351",
                     "label": "Link",
                     "name": "link",
+                    "aria-label": "",
                     "type": "link",
                     "instructions": "",
                     "required": 0,
@@ -241,9 +265,29 @@
                         "class": "",
                         "id": ""
                     },
-                    "return_format": "array"
+                    "return_format": "array",
+                    "parent_repeater": "field_62c3992d94c96"
                 }
             ]
+        },
+        {
+            "key": "field_6661c05891bbd",
+            "label": "Google Map",
+            "name": "google_map",
+            "aria-label": "",
+            "type": "google_map",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "center_lat": "",
+            "center_lng": "",
+            "zoom": "",
+            "height": ""
         }
     ],
     "location": [
@@ -264,5 +308,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1663115829
+    "modified": 1717720629
 }

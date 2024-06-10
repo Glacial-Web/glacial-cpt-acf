@@ -13,8 +13,16 @@
     --cpt-doc-archive-cols: 3;
     /* Image as[ect rations */
     --cpt-doctor-aspect: 4 / 5;
-    --cpt-rel-posts-aspect: 16 / 9
+    --cpt-rel-posts-aspect: 16 / 9;
 
+    --cpt-icon-color: var(--gl-button-bg);
+
+    --cpt-location-data-spacing: 20px;
+
+}
+
+.glacial-svg-icon {
+    color: var(--cpt-icon-color);
 }
 
 .doctors-section {
@@ -137,21 +145,72 @@ a.location-related-post-link:hover .related-post-title {
     margin-bottom: 0.7em;
 }
 
-.location-phone-list {
+.locations-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+}
+
+.cpt-location-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e5e5e5;
+    padding: 20px;
+    justify-content: space-between;
+}
+
+.cpt-location-card .card-iframe iframe {
+    height: 300px;
+    width: 100%;
+}
+
+.cpt-location-card .location-address p {
+    margin: 0;
+    line-height: 1.4;
+}
+
+.cpt-location-card h2 {
+    margin-top: 0;
+}
+
+.entry .location-phone-list {
     list-style: none;
     padding-left: 0;
-    margin: 1em 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--cpt-location-data-spacing);
+    margin: 0 0 var(--cpt-location-data-spacing) 0;
+}
+
+.location-phone-list li {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
 }
 
 .phone-note {
+    width: 100%;
     font-size: 0.9em;
-    margin-top: -0.5em;
+    margin-top: 0;
+    line-height: 1.1;
     display: block;
     font-style: italic;
 }
 
 .doctor-featured-image {
     margin-bottom: 1em;
+}
+
+.location-icon-wrap {
+    display: flex;
+    gap: 5px;
+    margin-bottom: var(--cpt-location-data-spacing);
+}
+
+.entry .location-icon-wrap p {
+    margin-bottom: 0;
+    line-height: 1.4;
 }
 
 /* Single Doctors and Locations */
@@ -349,7 +408,6 @@ h3.doctor-additional-specialties {
 }
 
 /* End Doctor archive COL layout */
-
 .doc-search-field button {
     font-size: 12px;
     border-radius: 50px;
@@ -455,6 +513,10 @@ button.dr-clear-btn:focus {
 
 @media (max-width: 991px) {
 
+    .locations-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .doctor-filter-grid .cpt-doctor-image-link {
         width: calc((100% / 3) - 2%);
     }
@@ -501,6 +563,10 @@ button.dr-clear-btn:focus {
 }
 
 @media (max-width: 767px) {
+
+    .locations-grid {
+        grid-template-columns: 1fr
+    }
 
     .search-field-div > div {
         width: 50%;
@@ -561,6 +627,10 @@ button.dr-clear-btn:focus {
 }
 
 @media (max-width: 479px) {
+
+    .cpt-location-card .card-iframe iframe {
+        height: 200px;
+    }
 
     .doctor-specialties-locations > div {
         width: 100%;

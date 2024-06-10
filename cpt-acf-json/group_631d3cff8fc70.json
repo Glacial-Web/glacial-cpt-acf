@@ -153,6 +153,72 @@
             "other_choice": 0,
             "layout": "vertical",
             "save_other_choice": 0
+        },
+        {
+            "key": "field_66610946690b6",
+            "label": "Add Icons",
+            "name": "add_icons",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Use icons on address, phone, fax and hours.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 1,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_649a358a540a0",
+            "label": "Location Archive Layout",
+            "name": "location_archive_layout",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "Choose layout of locations archive page.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "list": "List of locations",
+                "grid": "Grid of location cards",
+                "map": "Searchable map. Only works with Google Maps API key"
+            },
+            "default_value": "list",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "layout": "vertical",
+            "save_other_choice": 0
+        },
+        {
+            "key": "field_665f7927c0439",
+            "label": "Google Maps API",
+            "name": "google_maps_api",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "To use a searchable map you must have a valid key.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
@@ -173,5 +239,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1687566208
+    "modified": 1717639122
 }

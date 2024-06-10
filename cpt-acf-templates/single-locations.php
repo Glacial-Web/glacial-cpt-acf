@@ -10,27 +10,38 @@ get_header();
 if ( have_posts() ):
 
 	while ( have_posts() ): the_post();
-		$address = get_field( 'address' );
-		$hours   = get_field( 'hours' );
-		$iframe  = get_field( 'map_iframe' ); ?>
+		$address   = get_field( 'address' );
+		$hours     = get_field( 'hours' );
+		$iframe    = get_field( 'map_iframe' );
+		$add_icons = get_field( 'add_icons', 'options' ) ?? true; ?>
 
         <div class="single-cpt-wrapper">
             <div class="single-location-info">
 
 				<?php if ( $address ): ?>
-                    <p><?php echo $address; ?></p>
+                    <div class="location-icon-wrap address">
+	                    <?php if ( $add_icons ) {
+		                    echo glacial_cpt_svg_icon( 'address' );
+	                    } ?>
+                        <p><?php echo $address; ?></p>
+                    </div>
 				<?php endif;
 
-				glacial_cpt_get_template_part( 'phone-numbers' );
+				glacial_cpt_get_template_part( '/locations/phone-numbers' );
+
+				if ( $hours ): ?>
+                    <div class="location-icon-wrap hours">
+						<?php if ( $add_icons ) {
+							echo glacial_cpt_svg_icon( 'hours' );
+						} ?>
+                        <p><?php echo $hours; ?></p>
+                    </div>
+				<?php endif;
 
 				if ( $iframe ): ?>
                     <div class="embed-container location-page">
 						<?php echo $iframe; ?>
                     </div>
-				<?php endif;
-
-				if ( $hours ): ?>
-                    <p><?php echo $hours; ?></p>
 				<?php endif;
 
 				if ( have_rows( 'additional_buttons' ) ): ?>

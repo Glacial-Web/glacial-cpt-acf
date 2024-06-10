@@ -8,66 +8,19 @@
 
 get_header();
 
-if ( have_posts() ): ?>
+if ( have_posts() ) {
+	$location_archive_layout = get_field( 'location_archive_layout', 'options' ) ?? 'list';
 
-	<?php
-	/*
-	 * Compare these at the end of each iteration
-	 * add an <hr> tag to all but the last one
-	 * */
-	global $wp_query;
-	$counter     = 1;
-	$found_posts = $wp_query->found_posts; ?>
+//	glacial_cpt_get_template_part( '/locations/archive-locations-' . $location_archive_layout );
+	echo '<h2>Map</h2>';
+	glacial_cpt_get_template_part( '/locations/archive-locations-map');
+	echo '<hr>';
+	echo '<h2>Grid</h2>';
+	glacial_cpt_get_template_part( '/locations/archive-locations-grid' );
+	echo '<hr>';
+	echo '<h2>List</h2>';
+	glacial_cpt_get_template_part( '/locations/archive-locations-list' );
 
-	<?php while ( have_posts() ): the_post();
-		$address = get_field( 'address' );
-		$hours   = get_field( 'hours' );
-		$iframe  = get_field( 'map_iframe' ); ?>
+}
 
-        <div class="cpt-location-info">
-            <h2><?php the_title(); ?></h2>
-            <div class="flex-wrapper">
-                <div>
-
-					<?php if ( $address ) : ?>
-                        <p><?php echo $address; ?></p>
-					<?php endif; ?>
-
-					<?php glacial_cpt_get_template_part( 'phone-numbers' ); ?>
-
-					<?php if ( $hours ): ?>
-                        <p><?php echo $hours; ?></p>
-					<?php endif; ?>
-
-                    <a href="<?php the_permalink(); ?>" class="ui-button"
-                       title="Learn more about <?php the_title(); ?>">
-                        More About <?php the_title(); ?>
-                    </a>
-                </div>
-                <div>
-
-					<?php if ( $iframe ) : ?>
-                        <div class="embed-container location-page">
-							<?php echo $iframe; ?>
-                        </div>
-					<?php endif; ?>
-
-                </div>
-            </div>
-        </div>
-
-		<?php
-		/*
-		 * no <hr> on last location
-		 * */
-		if ( $counter != $found_posts ) {
-			echo '<hr>';
-		}
-
-		$counter ++; ?>
-
-	<?php endwhile; ?>
-
-<?php endif; ?>
-
-<?php get_footer(); ?>
+get_footer();
