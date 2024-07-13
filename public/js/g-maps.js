@@ -1,6 +1,4 @@
 /*
-* Apologies to the next developer who works on this.
-*
 * Map Styles
 * */
 const mapStyles = [
@@ -187,24 +185,23 @@ const maxDistance = 200;
 const rootStyles = getComputedStyle(document.documentElement);
 const iconColor = rootStyles.getPropertyValue('--cpt-icon-color').trim();
 
-const mapID = 'glacialMap';
 const endpoint = window.gmaps.site_url + '/wp-json/glacial/v1/locations';
-
+const openInfoLink = document.getElementsByClassName('open-info-window');
+const activeClass = 'is-open';
 
 /*
 * Kick this off. Function called by the Maps api script using the callback parameter.
 * */
 function initMap() {
-    const ecpMap = document.getElementById('glacialMap');
-    if (ecpMap !== null) {
-        const map = new google.maps.Map(document.getElementById(mapID), {
+    const locationSearch = document.getElementById('locationSearch');
+    const mapId = document.getElementById('glacialMap');
+
+    if (mapId !== null) {
+        const map = new google.maps.Map(mapId, {
             zoom: 12,
             styles: mapStyles
         });
 
-        /*
-        * fetch locations using wp rest api
-        * */
         fetch(endpoint)
             .then(response => response.json())
             .then(data => {
@@ -219,7 +216,7 @@ function initMap() {
                     bounds.extend(loc);
                 });
 
-                map.fitBounds(bounds, 100);
+                map.fitBounds(bounds, 110);
 
                 map.data.setStyle(() => {
                     return {
@@ -227,7 +224,7 @@ function initMap() {
                             path: "M25,1c-8.82031,0 -16,7.17969 -16,16c0,14.11328 14.62891,30.94531 15.25,31.65625c0.19141,0.21875 0.46094,0.34375 0.75,0.34375c0.30859,-0.01953 0.55859,-0.125 0.75,-0.34375c0.62109,-0.72266 15.25,-17.84375 15.25,-31.65625c0,-8.82031 -7.17969,-16 -16,-16zM25,12c3.3125,0 6,2.6875 6,6c0,3.3125 -2.6875,6 -6,6c-3.3125,0 -6,-2.6875 -6,-6c0,-3.3125 2.6875,-6 6,-6z",
                             fillColor: iconColor,
                             fillOpacity: 1,
-                            strokeWeight: 1,
+                            strokeWeight: 0,
                             scale: 1.2,
                             anchor: new google.maps.Point(24, 48)
                         },
@@ -235,9 +232,6 @@ function initMap() {
                 });
 
                 const infoWindow = new google.maps.InfoWindow();
-                const openInfoLink = document.getElementsByClassName('open-info-window');
-                const activeClass = 'is-open';
-                const panel = document.getElementById('panel');
 
                 /*
                 * Build the info window content when the user clicks on a location.
@@ -272,19 +266,8 @@ function initMap() {
                     for (let i = 0; i < openInfoLink.length; i++) {
                         if (openInfoLink[i].getAttribute('data-locationid') == event.feature.getProperty('locationid')) {
                             openInfoLink[i].classList.add(activeClass);
-                            const activeLink = openInfoLink[i];
-
-                            // did the user click on a location from the list?
-
-                            console.log(event)
-
-
-                            /*if (activeLink) {
-                                panel.scrollTop = activeLink.offsetTop - panel.offsetTop;
-                            }*/
                         }
                     }
-
                 });
 
                 document.addEventListener('click', function (e) {
@@ -319,12 +302,11 @@ function initMap() {
                 });
 
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => console.error('Error:', error.message));
 
         /*
         * Create the search box and link it to the UI element.
         * */
-        const locationSearch = document.getElementById('locationSearch');
         if (locationSearch !== null) {
             const input = document.createElement('input');
             const options = {
@@ -335,8 +317,7 @@ function initMap() {
             input.setAttribute('id', 'pac-input');
             input.setAttribute('type', 'text');
             input.setAttribute('placeholder', 'Enter an address');
-
-            document.getElementById('locationSearch').appendChild(input);
+            locationSearch.appendChild(input);
 
             /*
             * Make the search box into a Places Autocomplete search box and
@@ -352,7 +333,6 @@ function initMap() {
             let originLocation = map.getCenter();
 
             autocomplete.addListener('place_changed', async () => {
-                originMarker.setVisible(true);
                 const place = autocomplete.getPlace();
 
                 if (!place.geometry) {
@@ -377,7 +357,7 @@ function initMap() {
 
                 });
 
-                map.fitBounds(bounds);
+                map.fitBounds(bounds, 120);
 
                 /*
                 * Use the selected address as the origin to
@@ -385,16 +365,16 @@ function initMap() {
                 * */
                 const rankedStores = await calculateDistances(map.data, originLocation);
                 showStoresList(map.data, rankedStores);
-
-                return;
             });
 
             document.getElementById('getLocation').addEventListener('click', function () {
-
+                const button = this;
                 input.value = 'Getting your location...';
-                this.disabled = true;
+                button.classList.add('is-loading');
+
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(function (position) {
+                        button.classList.remove('is-loading');
                         const lat = position.coords.latitude;
                         const lng = position.coords.longitude;
 
@@ -406,18 +386,14 @@ function initMap() {
                                 input.value = results[0].formatted_address;
                                 if (status === 'OK') {
                                     if (results[0]) {
+                                        originMarker.setVisible(true);
                                         const place = results[0];
                                         originMarker.setPosition(userLocation);
-                                        originMarker.setVisible(true);
 
                                         /*
                                          * Recenter the map to the selected address
                                          * */
                                         originLocation = place.geometry.location;
-                                        map.setCenter(originLocation);
-                                        map.setZoom(9);
-                                        originMarker.setPosition(originLocation);
-                                        originMarker.setVisible(true);
 
                                         const bounds = new google.maps.LatLngBounds();
                                         bounds.extend(originLocation);
@@ -426,24 +402,23 @@ function initMap() {
                                             bounds.extend(loc);
                                         });
 
-                                        map.fitBounds(bounds, '100');
+                                        map.fitBounds(bounds, 150);
 
                                         // Use the selected address as the origin to calculate distances
                                         // to each of the store locations
                                         const rankedStores = await calculateDistances(map.data, originLocation);
                                         showStoresList(map.data, rankedStores);
-                                        return;
+                                        button.classList.remove('is-loading');
                                     } else {
                                         console.log('No results found');
                                     }
                                 }
-
                             }
                         );
 
                     }, function (error) {
                         alert('Please allow location access to use this feature.');
-                        console.error("Error occurred while getting location: ", error);
+                        console.error("Error occurred while getting location: ", error.message);
                         input.value = '';
                     });
                 } else {
@@ -451,7 +426,6 @@ function initMap() {
                     input.value = '';
                 }
 
-                this.disabled = false;
 
             })
         }
@@ -462,6 +436,7 @@ function initMap() {
  * Use Distance Matrix API to calculate distance from origin to each practice.
  */
 async function calculateDistances(data, origin) {
+
     const stores = [];
     const destinations = [];
 
@@ -469,7 +444,6 @@ async function calculateDistances(data, origin) {
     data.forEach((store) => {
         const storeNum = store.getProperty('locationid');
         const storeLoc = store.getGeometry().get();
-
         stores.push(storeNum);
         destinations.push(storeLoc);
     });
@@ -477,39 +451,38 @@ async function calculateDistances(data, origin) {
     // Retrieve the distances of each store from the origin
     // The returned list will be in the same order as the destinations list
     const service = new google.maps.DistanceMatrixService();
-    const getDistanceMatrix =
-        (service, parameters) => new Promise((resolve, reject) => {
-            service.getDistanceMatrix(parameters, (response, status) => {
-                if (status != google.maps.DistanceMatrixStatus.OK) {
-                    reject(response);
-                } else {
-                    const distances = [];
-                    const results = response.rows[0].elements;
-                    for (let j = 0; j < results.length; j++) {
-                        const element = results[j];
-                        const distanceText = element.distance.text;
-                        const distanceValMiles = element.distance.value * 0.000621371;
+    const getDistanceMatrix = (service, parameters) => new Promise((resolve, reject) => {
+        service.getDistanceMatrix(parameters, (response, status) => {
+            if (status != google.maps.DistanceMatrixStatus.OK) {
+                reject(response);
+            } else {
+                const distances = [];
+                const results = response.rows[0].elements;
+                for (let j = 0; j < results.length; j++) {
+                    const element = results[j];
+                    const distanceText = element.distance.text;
+                    const distanceValMiles = element.distance.value * 0.000621371;
 
-                        if (distanceValMiles <= maxDistance) {
+                    if (distanceValMiles <= maxDistance) {
 
-                            const distanceVal = element.distance.value;
-                            const distanceObject = {
-                                locationid: stores[j],
-                                distanceText: distanceText,
-                                distanceVal: distanceVal,
-                            };
-                            distances.push(distanceObject);
-                        }
-                    }
-
-                    if (distances.length === 0) {
-                        alert(`No practices found within ${maxDistance} miles of your location.`)
-                    } else {
-                        resolve(distances);
+                        const distanceVal = element.distance.value;
+                        const distanceObject = {
+                            locationid: stores[j],
+                            distanceText: distanceText,
+                            distanceVal: distanceVal,
+                        };
+                        distances.push(distanceObject);
                     }
                 }
-            });
+
+                if (distances.length === 0) {
+                    alert(`No practices found within ${maxDistance} miles of your location.`)
+                } else {
+                    resolve(distances);
+                }
+            }
         });
+    });
 
     const distancesList = await getDistanceMatrix(service, {
         origins: [origin],
@@ -521,6 +494,7 @@ async function calculateDistances(data, origin) {
     distancesList.sort((first, second) => {
         return first.distanceVal - second.distanceVal;
     });
+
 
     return distancesList;
 }

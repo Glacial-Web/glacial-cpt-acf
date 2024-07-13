@@ -70,6 +70,12 @@ body .gm-style-iw-chr button {
     line-height: 1;
 }
 
+#getLocation.is-loading {
+    pointer-events: none;
+    cursor: wait;
+    opacity: 0.2;
+}
+
 .location-search input {
     border: none;
     width: 100%;
