@@ -467,3 +467,21 @@ function ecp_acf_google_map_api( $api ) {
 }
 
 add_filter( 'acf/fields/google_map/api', 'ecp_acf_google_map_api' );
+
+
+/**
+ * Hide the Google Map field if the API key is not set
+ *
+ * @since 2.1.0
+ * */
+function glacial_acf_load_field( $field ) {
+	$acf_field = get_field( 'google_maps_api', 'options' );
+
+	if ( ! $acf_field ) {
+		$field['wrapper']['class'] .= ' hidden';
+	}
+
+	return $field;
+}
+
+add_filter( 'acf/load_field/name=google_map', 'glacial_acf_load_field' );
