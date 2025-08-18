@@ -3,21 +3,26 @@
  *
  * Displays all the locations in a list layout
  *
+ * Because we use this template part in a shortcode, we need to query the post type again
+ *
  * Author: Glacial Multimedia, Inc.
  * Author URL: https://www.glacial.com/
  */
 
-/*
- * Compare these at the end of each iteration
- * add an <hr> tag to all but the last one
- * */
+$args = array(
+	'post_type'      => 'locations',
+	'posts_per_page' => - 1,
+	'orderby'        => 'title',
+	'order'          => 'ASC',
+);
 
-//global $wp_query;
+$locations   = new WP_Query( $args );
+
 $counter     = 1;
-$found_posts = $wp_query->found_posts;
+$found_posts = $locations->found_posts;
 $add_icons   = get_field( 'add_icons', 'options' ) ?? true; ?>
 
-<?php while ( have_posts() ): the_post();
+<?php while ( $locations->have_posts() ): $locations->the_post();
 	$address = get_field( 'address' );
 	$hours   = get_field( 'hours' );
 	$iframe  = get_field( 'map_iframe' ); ?>
@@ -36,7 +41,7 @@ $add_icons   = get_field( 'add_icons', 'options' ) ?? true; ?>
                     </div>
 				<?php endif; ?>
 
-	            <?php glacial_cpt_get_template_part( '/locations/phone-numbers' ); ?>
+				<?php glacial_cpt_get_template_part( '/locations/phone-numbers' ); ?>
 
 				<?php if ( $hours ): ?>
                     <div class="location-icon-wrap hours">
@@ -73,4 +78,5 @@ $add_icons   = get_field( 'add_icons', 'options' ) ?? true; ?>
 
 	$counter ++;
 
-endwhile; ?>
+endwhile;
+wp_reset_postdata(); ?>

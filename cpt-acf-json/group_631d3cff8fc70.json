@@ -226,7 +226,7 @@
             {
                 "param": "options_page",
                 "operator": "==",
-                "value": "doctors-locations-options"
+                "value": "doctor-and-location-settings"
             }
         ]
     ],
@@ -239,5 +239,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1717639122
+    "modified": 1746498093
 }

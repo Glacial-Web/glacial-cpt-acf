@@ -5,7 +5,6 @@
  * Author:          Glacial Multimedia
  * Author URI:      https://glacial.com
  * Text Domain:     glacial-cpt-acf
- * Domain Path:     /languages
  * Version:         2.0.3
  *
  * GitHub Plugin URI: https://github.com/Glacial-Web/glacial-cpt-acf
@@ -83,7 +82,9 @@ if ( $has_acf && $theme_ver_ok && $theme_type_ok ) {
 	 *
 	 * @since 1.0.0
 	 * */
-	require_once GLACIAL_CPT_PLUGIN_DIR . 'includes/glacial-cpt-acf-main.php';
+	require GLACIAL_CPT_PLUGIN_DIR . 'includes/glacial-cpt-acf-main.php';
+	require GLACIAL_CPT_PLUGIN_DIR . 'shortcodes/locations.php';
+	require GLACIAL_CPT_PLUGIN_DIR . 'includes/glacial-cpt-acf-phone-modal.php';
 
 } else {
 	add_action( 'admin_notices', function () use ( $has_acf, $theme_ver_ok, $theme_type_ok ) { ?>

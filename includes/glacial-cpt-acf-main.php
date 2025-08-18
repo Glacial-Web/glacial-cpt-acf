@@ -10,12 +10,40 @@ if ( !defined( 'ABSPATH' ) ) {
 	die;
 }
 
-include GLACIAL_CPT_PLUGIN_DIR . 'shortcodes/locations.php';
+/**
+ * Check to see if phone modal is enabled
+ *
+ * @since 2.1.0
+ * */
+function glacial_cpt_is_phone_modal_enabled() {
+	$add_phone_number_modal = get_field( 'add_phone_number_modal', 'options' );
 
+	return $add_phone_number_modal;
+}
 
+/**
+ * Check if we have a Google Maps API key set in the ACF options page
+ *
+ * @since 2.1.0
+ * */
+function glacial_cpt_get_maps_api_key() {
+	$maps_api_key = get_field( 'google_maps_api', 'options' ) ?? false;
+
+	return $maps_api_key;
+}
+
+/**
+ * Set the Google Maps API key
+ *
+ * @since 2.1.0
+ * */
 function glacial_cpt_set_maps_api_key() {
-	$maps_api_key = get_field( 'google_maps_api', 'options' );
-	define( 'GOOGLE_MAPS_EMBED_API_KEY', $maps_api_key );
+	$maps_api_key = glacial_cpt_get_maps_api_key();
+	if ( $maps_api_key ) {
+		define( 'GOOGLE_MAPS_EMBED_API_KEY', $maps_api_key );
+	} else {
+		define( 'GOOGLE_MAPS_EMBED_API_KEY', '' );
+	}
 }
 
 add_action( 'init', 'glacial_cpt_set_maps_api_key' );
@@ -45,7 +73,10 @@ function glacial_cpt_json_save_point( $acf_json_path ) {
 	return $acf_json_path;
 }
 
-add_filter( 'acf/settings/save_json', 'glacial_cpt_json_save_point' );
+if ( WP_ENVIRONMENT_TYPE === 'local' || WP_ENVIRONMENT_TYPE === 'development' ) {
+	// Only save ACF JSON in local and development environments
+	add_filter( 'acf/settings/save_json', 'glacial_cpt_json_save_point' );
+}
 
 /**
  * ACF JSON load point
@@ -69,8 +100,28 @@ function glacial_cpt_register_styles() {
 	wp_register_style( 'glacial-cpt', GLACIAL_CPT_PLUGIN_URL . 'public/css/glacial-cpt.css', array(), CPT_STYLE_VERSION, 'all' );
 	wp_enqueue_style( 'glacial-cpt' );
 
+	/*
+	 * If the search modal in the header is not enabled in the theme options we don't need to load
+	 * the micromodal script because it will already be loaded by the theme.
+	 * */
+	if ( !glacial_theme_options( 'enable_search_modal' ) && glacial_cpt_is_phone_modal_enabled() ) {
+		wp_register_script( 'micromodal', 'https://cdn.jsdelivr.net/npm/micromodal/dist/micromodal.min.js', array(), null, [
+			'strategy'  => 'defer',
+			'in_footer' => true
+		] );
+		wp_enqueue_script( 'micromodal' );
+
+		wp_register_style( 'glacial-cpt-phone-modal', GLACIAL_CPT_PLUGIN_URL . 'public/css/glacial-cpt-phone-modal.css', array(), CPT_STYLE_VERSION, 'all' );
+		wp_enqueue_style( 'glacial-cpt-phone-modal' );
+	}
+
+
 	wp_register_style( 'glacial-maps', GLACIAL_CPT_PLUGIN_URL . 'public/css/map-module.css', array(), CPT_STYLE_VERSION, 'all' );
-	wp_enqueue_style( 'glacial-maps' );
+	if ( glacial_cpt_get_maps_api_key() ) {
+		wp_enqueue_style( 'glacial-maps' );
+	}
+
+
 }
 
 add_action( 'wp_enqueue_scripts', 'glacial_cpt_register_styles' );
@@ -104,30 +155,34 @@ function glacial_cpt_register_scripts() {
 		}
 	}
 
-	wp_register_script( 'g-maps', GLACIAL_CPT_PLUGIN_URL . 'public/js/g-maps.js', array(), CPT_STYLE_VERSION, true );
-
 	/*
-	 * Add some urls to the g-maps.js file to read with localize
+	 * Load the Google Maps API and the g-maps.js file if the API key is set
 	 * */
-	wp_localize_script( 'g-maps', 'gmaps', array(
-		'api_key'    => GOOGLE_MAPS_EMBED_API_KEY,
-		'site_url'   => get_site_url(),
-		'plugin_url' => GLACIAL_CPT_PLUGIN_URL
-	) );
+	if ( glacial_cpt_get_maps_api_key() ) {
+		wp_register_script( 'g-maps', GLACIAL_CPT_PLUGIN_URL . 'public/js/g-maps.js', array(), CPT_STYLE_VERSION, true );
+		/*
+		 * Add some urls to the g-maps.js file to read with localize
+		 * */
+		wp_localize_script( 'g-maps', 'gmaps', array(
+			'api_key'    => GOOGLE_MAPS_EMBED_API_KEY,
+			'site_url'   => get_site_url(),
+			'plugin_url' => GLACIAL_CPT_PLUGIN_URL
+		) );
 
-	$g_maps_args = array(
-		'strategy'  => 'async',
-		'in_footer' => false
-	);
+		$g_maps_args = array(
+			'strategy'  => 'async',
+			'in_footer' => false
+		);
 
-	/*
-	 * Calls the Google Maps API with the key and the places library.
-	 * The callback is the initMap function in the g-maps.js file
-	 * */
-	wp_register_script( 'google-maps', 'https://maps.googleapis.com/maps/api/js?key=' . GOOGLE_MAPS_EMBED_API_KEY . '&libraries=places&loading=async&callback=initMap', array( 'g-maps' ), null, $g_maps_args );
+		/*
+		 * Calls the Google Maps API with the key and the places library.
+		 * The callback is the initMap function in the g-maps.js file
+		 * */
+		wp_register_script( 'google-maps', 'https://maps.googleapis.com/maps/api/js?key=' . GOOGLE_MAPS_EMBED_API_KEY . '&libraries=places&loading=async&callback=initMap', array( 'g-maps' ), null, $g_maps_args );
 
-	wp_enqueue_script( 'g-maps' );
-	wp_enqueue_script( 'google-maps' );
+		wp_enqueue_script( 'g-maps' );
+		wp_enqueue_script( 'google-maps' );
+	}
 }
 
 add_action( 'wp_enqueue_scripts', 'glacial_cpt_register_scripts' );
@@ -185,7 +240,6 @@ function glacial_cpt_get_template_part( $name, $args = array() ) {
 		trigger_error( "Template file not found: $template", E_USER_WARNING );
 
 		return;
-
 	}
 
 	load_template( $template, false, $args );
@@ -235,20 +289,10 @@ add_action( 'pre_get_posts', 'glacial_cpt_change_queries' );
  * Add ACF options page
  *
  * @since 1.1.0
+ *
+ * @removed 2.0.3
+ * Options page now added via acf json
  * */
-if ( function_exists( 'acf_add_options_page' ) ) {
-
-	acf_add_options_page( array(
-		'page_title'  => 'Doctors and Locations Options',
-		'menu_title'  => 'Doctors and Locations Options',
-		'menu_slug'   => 'doctors-locations-options',
-		'parent_slug' => 'options-general.php',
-		'capability'  => 'edit_posts',
-		'position'    => 10.2,
-		'autoload'    => true,
-	) );
-
-}
 
 /**
  * Add a choice to the page type ACF location rule
@@ -365,7 +409,6 @@ function glacial_cpt_svg_icon( $icon_name = '', $width = '25', $height = '25' ) 
 	return $icon;
 }
 
-
 /**
  * REST API endpoint to get locations
  *
@@ -407,7 +450,6 @@ function glacial_cpt_locations_json_rest() {
 				$feature    = array(
 					'geometry'   => array(
 						'type'        => 'Point',
-						// Replace with actual coordinates
 						'coordinates' => array( $lng, $lat ),
 					),
 					'type'       => 'Feature',
@@ -429,12 +471,12 @@ function glacial_cpt_locations_json_rest() {
 
 	if ( $features ) {
 
-		$locations_json2 = array(
+		$locations_json = array(
 			'type'     => 'FeatureCollection',
 			'features' => $features,
 		);
 
-		return $locations_json2;
+		return $locations_json;
 	}
 
 	return array();
@@ -460,13 +502,13 @@ add_action( 'rest_api_init', function () {
  *
  * @since 2.1.0
  * */
-function ecp_acf_google_map_api( $api ) {
+function glacial_cpt_acf_google_map_api( $api ) {
 	$api['key'] = GOOGLE_MAPS_EMBED_API_KEY;
 
 	return $api;
 }
 
-add_filter( 'acf/fields/google_map/api', 'ecp_acf_google_map_api' );
+add_filter( 'acf/fields/google_map/api', 'glacial_cpt_acf_google_map_api' );
 
 
 /**
@@ -475,9 +517,8 @@ add_filter( 'acf/fields/google_map/api', 'ecp_acf_google_map_api' );
  * @since 2.1.0
  * */
 function glacial_acf_load_field( $field ) {
-	$acf_field = get_field( 'google_maps_api', 'options' );
 
-	if ( ! $acf_field ) {
+	if ( !glacial_cpt_get_maps_api_key() ) {
 		$field['wrapper']['class'] .= ' hidden';
 	}
 

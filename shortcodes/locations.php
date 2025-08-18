@@ -15,7 +15,7 @@ function glacial_cpt_location_shortcode( $atts ) {
 
 	ob_start();
 
-		glacial_cpt_get_template_part( '/locations/archive-locations-map' );
+		glacial_cpt_get_template_part( '/locations/archive-locations-' . $location_archive_layout );
 
 	return ob_get_clean();
 }

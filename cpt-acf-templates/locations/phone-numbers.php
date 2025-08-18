@@ -8,7 +8,6 @@
 if ( have_rows( 'phone_numbers' ) ):
 	$add_icons = get_field( 'add_icons', 'options' ) ?? true; ?>
 
-
     <ul class="location-phone-list">
 
 		<?php while ( have_rows( 'phone_numbers' ) ): the_row();

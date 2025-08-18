@@ -57,13 +57,17 @@
     "rest_namespace": "wp\/v2",
     "rest_controller_class": "WP_REST_Posts_Controller",
     "menu_position": 6,
-    "menu_icon": "dashicons-location",
+    "menu_icon": {
+        "type": "dashicons",
+        "value": "dashicons-location"
+    },
     "rename_capabilities": false,
     "singular_capability_name": "post",
     "plural_capability_name": "posts",
     "supports": [
         "title",
         "editor",
+        "revisions",
         "thumbnail"
     ],
     "taxonomies": "",
@@ -80,5 +84,6 @@
     "can_export": true,
     "delete_with_user": false,
     "register_meta_box_cb": "",
-    "modified": 1680723830
+    "enter_title_here": "",
+    "modified": 1746497602
 }

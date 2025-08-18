@@ -3,16 +3,29 @@
  *
  * Displays all the locations in a grid layout
  *
+ * Because we use this template part in a shortcode, we need to query the post type again
+ *
  * Author: Glacial Multimedia, Inc.
  * Author URL: https://www.glacial.com/
- */ ?>
+ */
+
+$args = array(
+	'post_type'      => 'locations',
+	'posts_per_page' => - 1,
+	'orderby'        => 'title',
+	'order'          => 'ASC',
+);
+
+$locations = new WP_Query( $args );
+
+?>
 
 <div class="locations-grid">
 
 	<?php
 	$add_icons = get_field( 'add_icons', 'options' ) ?? true;
 
-	while ( have_posts() ): the_post();
+	while ( $locations->have_posts() ): $locations->the_post();
 		$address = get_field( 'address' );
 		$hours   = get_field( 'hours' );
 		$iframe  = get_field( 'map_iframe' ); ?>
@@ -55,6 +68,7 @@
             </div>
         </div>
 
-	<?php endwhile; ?>
+	<?php endwhile;
+	wp_reset_postdata(); ?>
 
 </div>

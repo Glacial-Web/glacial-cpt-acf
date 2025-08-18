@@ -1,0 +1,23 @@
+{
+    "key": "ui_options_page_681971eeb4fd1",
+    "title": "Doctor and Location Settings",
+    "active": true,
+    "menu_order": 0,
+    "page_title": "Doctor and Location Settings",
+    "menu_slug": "doctor-and-location-settings",
+    "parent_slug": "options-general.php",
+    "advanced_configuration": 1,
+    "icon_url": "",
+    "menu_title": "",
+    "position": "10.2",
+    "redirect": false,
+    "description": "",
+    "menu_icon": [],
+    "update_button": "Update",
+    "updated_message": "Options Updated",
+    "capability": "edit_posts",
+    "data_storage": "options",
+    "post_id": "",
+    "autoload": 0,
+    "modified": 1746498072
+}
