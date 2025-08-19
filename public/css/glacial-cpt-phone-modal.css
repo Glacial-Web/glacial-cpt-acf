@@ -1,289 +1,68 @@
-/*! CSS Used from: https://huffman-tbd.glacialsites.com/wp-content/themes/glacial-theme/css/normalize.css ; media=all */
-@media all {
-    main {
-        display: block;
-    }
-
-    a {
-        background-color: transparent;
-    }
-
-    a:active, a:hover {
-        outline: 0;
-    }
-
-    strong {
-        font-weight: bold;
-    }
-
-    img {
-        border: 0;
-    }
-
-    button {
-        color: inherit;
-        font: inherit;
-        margin: 0;
-    }
-
-    button {
-        overflow: visible;
-    }
-
-    button {
-        text-transform: none;
-    }
-
-    button {
-        -webkit-appearance: button;
-        cursor: pointer;
-    }
+.phone-modal-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    padding: 10px;
+    background: var(--gl-button-bg);
+    color: var(--gl-button-color);
+    transition: 0.2s;
 }
 
-/*! CSS Used from: https://huffman-tbd.glacialsites.com/wp-content/themes/glacial-theme/css/components.css ; media=all */
-@media all {
-    * {
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-
-    img {
-        max-width: 100%;
-        vertical-align: middle;
-        display: inline-block;
-    }
-
-    .w-inline-block {
-        max-width: 100%;
-        display: inline-block;
-    }
-
-    h2 {
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-
-    h2 {
-        font-size: 32px;
-        line-height: 36px;
-        margin-top: 20px;
-    }
-
-    p {
-        margin-top: 0;
-        margin-bottom: 10px;
-    }
-
-    button {
-        border: 0;
-        cursor: pointer;
-        -webkit-appearance: button;
-    }
+.phone-modal-button svg,
+.phone-numbers-modal svg {
+    color: currentColor;
 }
 
-/*! CSS Used from: https://huffman-tbd.glacialsites.com/wp-content/themes/glacial-theme/css/webflow.css?ver=1755552579 ; media=all */
-@media all {
-    h2 {
-        color: var(--maroon);
-        margin-top: 0;
-        margin-bottom: 30px;
-        font-family: DM Serif Display, sans-serif;
-        font-size: 2.6rem;
-        font-weight: 300;
-        line-height: 1.3;
-    }
+.phone-modal-button:hover {
+    background: var(--gl-button-bg-hover);
+    color: var(--gl-button-color-hover);
+}
 
-    p {
-        margin-bottom: 30px;
-        line-height: 1.6rem;
-    }
+.phone-numbers-modal .modal__container {
+    position: relative;
+    padding: 30px;
+    width: 95%;
+    max-height: 100vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+    background-color: #fff;
+    max-width: 1400px;
+}
 
-    a {
-        color: var(--maroon);
-        text-decoration: none;
-    }
+.phone-list-div {
+    padding: 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-gap: 2rem;
+}
 
-    a:hover {
-        color: #ff7ca8;
-    }
+.phone-link {
+    color: #000;
+    background-color: #fff0;
+    align-items: center;
+    gap: 10px;
+    line-height: 1em;
+    text-decoration: none;
+    display: flex;
+}
 
-    .phone-link {
-        color: var(--white);
-        background-color: #fff0;
-        justify-content: center;
-        align-items: center;
-        width: auto;
-        margin-left: 10px;
-        margin-right: 20px;
-        padding: 10px 25px 10px 0;
-        font-size: 1.2rem;
-        font-weight: 300;
-        line-height: 1em;
-        text-decoration: none;
-        display: flex;
-    }
+@media (max-width: 991px) {
 
-    .phone-link:hover {
-        color: #ff85ae;
-        background-color: #bbb9b900;
+    .phone-numbers-modal svg {
+        width: 20px;
+        height: 20px;
     }
 
     .phone-list-div {
-        justify-content: center;
-        align-items: center;
-        padding: 0 5%;
-        display: flex;
-    }
-
-    .phone-icon {
-        width: 25px;
-        margin-right: 10px;
-    }
-
-    .phone-list-top-div {
-        color: #fff;
-        text-align: center;
-        padding: 55px 15% 39px;
-    }
-
-    @media screen and (max-width: 991px) {
-        .phone-link {
-            padding: 10px;
-        }
-
-        .phone-list-div {
-            padding-top: 0;
-        }
-
-        .phone-icon {
-            width: 20px;
-        }
-    }
-    @media screen and (max-width: 767px) {
-        .phone-link {
-            width: 49%;
-            margin-bottom: 10px;
-        }
-
-        .phone-list-div {
-            flex-flow: wrap;
-        }
-    }
-    @media screen and (max-width: 479px) {
-        .phone-link {
-            width: 100%;
-        }
-
-        .phone-list-div {
-            padding-bottom: 10px;
-        }
-    }
-}
-
-/*! CSS Used from: https://huffman-tbd.glacialsites.com/wp-content/themes/glacial-theme/style.css?ver=1755552579 ; media=all */
-@media all {
-    img {
-        height: auto;
-    }
-
-    a {
-        -webkit-transition: all 100ms ease;
-        -o-transition: all 100ms ease;
-        transition: all 100ms ease;
-    }
-
-    .modal__container {
-        position: relative;
-        background-color: #fff;
-        padding: 30px;
-        width: 95%;
-        max-width: 500px;
-        max-height: 100vh;
-        border-radius: 4px;
-        overflow-y: auto;
-        box-sizing: border-box;
-    }
-
-    .modal__content button {
-        padding: 5px 1em;
-        display: block;
-    }
-
-    .modal__close {
-        color: #fff;
-        position: absolute;
-        right: 10px;
-        top: 10px;
-        padding: 10px;
-        background: transparent;
-        border: 0;
-    }
-
-    .modal__close:before {
-        content: "\2715";
-    }
-
-    .micromodal-slide[aria-hidden="false"] .modal__container {
-        animation: mmslideIn .3s cubic-bezier(0, 0, .2, 1);
-    }
-
-    .micromodal-slide .modal__container {
-        will-change: transform;
+        padding: 40px 0px;
+        grid-template-columns: 1fr;
+        font-size: 1rem;
+        gap: 15px 0;
     }
 
     .phone-numbers-modal .modal__container {
-        background-color: var(--gl-button-bg);
-        background-image: linear-gradient(135deg, #2a2d3f00 51%, var(--gl-button-bg-hover));
-        max-width: 1400px;
-    }
-
-    .phone-list-top-div h2 {
-        color: #fff;
-    }
-
-    @media (max-width: 991px) {
-        .phone-list-top-div {
-            padding: 0;
-        }
-
-        .modal__container {
-            margin-top: 100px;
-        }
-    }
-    @media (max-width: 767px) {
-        .modal__close {
-            right: 5px;
-            top: 5px;
-        }
-
-        .phone-list-div {
-            padding: 0;
-        }
-
-        .phone-link {
-            margin-left: 0;
-            margin-right: 0;
-        }
-
-        .modal__container {
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-    }
-    @media (max-width: 479px) {
-        h2 {
-            font-size: 1.6rem;
-        }
-    }
-}
-
-/*! CSS Used keyframes */
-@keyframes mmslideIn {
-    from {
-        transform: translateY(15%);
-    }
-    to {
-        transform: translateY(0);
+        position: relative;
+        padding: 10px;
     }
 }

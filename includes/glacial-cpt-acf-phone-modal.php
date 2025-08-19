@@ -10,11 +10,19 @@
  * @since 2.1.0
  */
 
-function glacial_cpt_add_button_to_header() {
+/**
+ * Adds a button to the header that triggers the phone modal.
+ *
+ * This button is displayed in the header after the navigation menu.
+ * It uses the `glacial_after_nav` action hook to insert the button.
+ *
+ * @since 2.1.0
+ * @return void
+ */
+function glacial_cpt_add_button_to_header(): void {
 
-	$html = '<button id="searchButton" class="top_phone" data-micromodal-trigger="phoneModal"aria-label="Open search popup" aria-haspopup="true">';
+	$html = '<button id="phoneModalButton" class="phone-modal-button" data-micromodal-trigger="phoneModal" aria-label="Open phone popup" aria-haspopup="true">';
 	$html .= glacial_cpt_svg_icon( 'phone' );
-	$html .= '<span class="top_phone_text">Phone Numbers</span>';
 	$html .= '</button>';
 
 	echo $html;
@@ -23,7 +31,10 @@ function glacial_cpt_add_button_to_header() {
 
 add_action( 'glacial_after_nav', 'glacial_cpt_add_button_to_header', 1 );
 
-function glacial_cpt_add_modal_to_footer() {
+/**
+ * @return void
+ */
+function glacial_cpt_add_modal_to_footer(): void {
 
 	glacial_cpt_get_template_part( 'phone-modal' );
 }
