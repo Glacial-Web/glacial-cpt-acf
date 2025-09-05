@@ -16,7 +16,7 @@ if ( !defined( 'ABSPATH' ) ) {
  * @since 2.1.0
  * */
 function glacial_cpt_is_phone_modal_enabled(): bool {
-	return get_field( 'add_phone_number_modal', 'options' );
+	return get_field( 'add_phone_number_modal', 'options' ) ?? false;
 }
 
 /**
@@ -67,8 +67,8 @@ function glacial_cpt_json_save_point( $acf_json_path ): string {
 	return GLACIAL_CPT_PLUGIN_DIR . '/cpt-acf-json';
 }
 
+// Only save ACF JSON in local and development environments
 if ( WP_ENVIRONMENT_TYPE === 'local' || WP_ENVIRONMENT_TYPE === 'development' ) {
-	// Only save ACF JSON in local and development environments
 	add_filter( 'acf/settings/save_json', 'glacial_cpt_json_save_point' );
 }
 

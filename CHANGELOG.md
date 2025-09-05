@@ -43,4 +43,14 @@ All notable changes to this plugin will be documented in this file.
 
 ### Fixed
 
-* Doctors related to service pages were being displayed on search results page when last search had related doctors. A check of `is_page()` was added to prevent this. [Read more](https://github.com/Glacial-Web/glacial-cpt-acf/issues/6)
+* Doctors related to service pages were being displayed on search results page when last search had related doctors. A
+  check of `is_page()` was added to prevent this. [Read more](https://github.com/Glacial-Web/glacial-cpt-acf/issues/6)
+
+## [2.1.0] - 2025-09-04
+
+### Added
+
+* Ability to add icons to location info
+* New grid layout for location
+* Ability to add searchable map to location page
+* Ability to add a phone number modal to header
