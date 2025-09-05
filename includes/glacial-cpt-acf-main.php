@@ -16,7 +16,7 @@ if ( !defined( 'ABSPATH' ) ) {
  * @since 2.1.0
  * */
 function glacial_cpt_is_phone_modal_enabled(): bool {
-	return get_field( 'add_phone_number_modal', 'options' ) ?? false;
+	return get_field( 'add_phone_number_modal', 'options' ) ?: false;
 }
 
 /**
@@ -109,12 +109,10 @@ function glacial_cpt_register_styles(): void {
 		wp_enqueue_style( 'glacial-cpt-phone-modal' );
 	}
 
-
 	wp_register_style( 'glacial-maps', GLACIAL_CPT_PLUGIN_URL . 'public/css/map-module.css', array(), CPT_STYLE_VERSION, 'all' );
 	if ( glacial_cpt_get_maps_api_key() ) {
 		wp_enqueue_style( 'glacial-maps' );
 	}
-
 
 }
 
