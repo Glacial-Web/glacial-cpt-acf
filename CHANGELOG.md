@@ -14,8 +14,6 @@ All notable changes to this plugin will be documented in this file.
 
 * Doctor images now use aspect-ratio instead of fixed height. This allows for more flexibility in image sizes.
 
-### Fixed
-
 ## [2.0.0] - 2023-06-16
 
 #### Glacial theme v3.0.0 or later required
