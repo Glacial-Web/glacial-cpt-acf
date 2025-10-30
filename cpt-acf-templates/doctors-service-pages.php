@@ -21,15 +21,12 @@ $args = array(
 	)
 );
 
-$doctors = new WP_Query( $args );
+$doctors             = new WP_Query( $args );
 
 if ( $doctors->have_posts() ):
-	$cpt_object = get_post_type_object( 'doctors' );
-
-	$cpt_labels                        = $cpt_object->labels->name;
-	$related_doctors_alternate_heading = get_field( 'related_doctors_alternate_heading' );
-	$default_heading                   = get_the_title() . ' ' . $cpt_labels;
-	$heading                           = $related_doctors_alternate_heading ?: $default_heading; ?>
+	$number_of_doctors = $doctors->found_posts;
+	$optional_prefix = 'Our';
+	$heading         = glacial_get_doctors_service_page_heading( $number_of_doctors, $optional_prefix ); ?>
 
     <div class="doctors-section">
         <div class="doctors-container">

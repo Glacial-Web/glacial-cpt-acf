@@ -5,7 +5,8 @@
  * Author:          Glacial Multimedia
  * Author URI:      https://glacial.com
  * Text Domain:     glacial-cpt-acf
- * Version:         2.1.0
+ * Version:         2.1.1
+ * Requires PHP:    8.0
  *
  * GitHub Plugin URI: https://github.com/Glacial-Web/glacial-cpt-acf
  *
@@ -17,7 +18,7 @@ if ( !defined( 'ABSPATH' ) ) {
 }
 
 // --- Constants ---
-define( 'GLACIAL_CPT_VERSION', '2.1.0' );
+define( 'GLACIAL_CPT_VERSION', '2.1.1' );
 define( 'GLACIAL_CPT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GLACIAL_CPT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'GLACIAL_CPT_TEMPLATES_FOLDER_NAME', 'cpt-acf-templates' );

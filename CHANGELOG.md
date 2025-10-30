@@ -52,3 +52,18 @@ All notable changes to this plugin will be documented in this file.
 * New grid layout for location
 * Ability to add searchable map to location page
 * Ability to add a phone number modal to header
+
+## [2.1.1] - 2025-10-29
+
+### Added
+
+* Filters to modify doctors heading on service pages
+* `glacial_cpt_doctors_service_pages_cpt_labels` - Allows modification of the "doctors" CPT label used in headings.
+* `glacial_cpt_doctors_service_pages_heading` - Allows modification of the final heading string for the doctors service
+  page.
+* `glacial_cpt_doctors_service_pages_title` - Allows modification of the service page title (single default changes "
+  Cataracts" to "Cataract").
+* `glacial_cpt_doctors_service_pages_title_changes` - Allows modification of the array of title replacements (e.g., to
+  add or change which titles are replaced and with what, default is `['Cataracts' => 'Cataract']`).
+
+These filters provide hooks for theme to customize labels, headings, and title replacements for doctors service pages.

@@ -21,7 +21,8 @@ if ( $doctors->have_posts() ):
 	$cpt_object = get_post_type_object( 'doctors' );
 
 	$cpt_name = $cpt_object->labels->name;
-	$heading  = 'Our ' . $cpt_name; ?>
+	$heading  = 'Our ' . $cpt_name;
+	$heading  = apply_filters( 'glacial_cpt_all_doctors_heading', $heading ); ?>
 
     <div class="doctors-section">
         <div class="doctors-container">
