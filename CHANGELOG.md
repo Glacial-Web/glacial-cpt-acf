@@ -66,4 +66,6 @@ All notable changes to this plugin will be documented in this file.
 * `glacial_cpt_doctors_service_pages_title_changes` - Allows modification of the array of title replacements (e.g., to
   add or change which titles are replaced and with what, default is `['Cataracts' => 'Cataract']`).
 
-These filters provide hooks for theme to customize labels, headings, and title replacements for doctors service pages.
+### Fixed
+
+* Issue with ACF groups not saving properly in some cases.

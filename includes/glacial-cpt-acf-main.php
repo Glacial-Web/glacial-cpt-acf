@@ -65,23 +65,6 @@ function glacial_cpt_flush_rewrite_rules(): void {
 
 add_action( 'init', 'glacial_cpt_flush_rewrite_rules', 20 );
 
-function glacial_cpt_is_dev_environment(): bool {
-	if ( !defined( 'WP_ENVIRONMENT_TYPE' ) ) {
-		return false;
-	}
-
-	if ( in_array( WP_ENVIRONMENT_TYPE, array( 'local' ), true ) ) {
-		return true;
-	}
-
-	// if .local is in the site url, we are in a dev environment
-	if ( str_contains( get_site_url(), '.local' ) ) {
-		return true;
-	}
-
-	return false;
-}
-
 /**
  * ACF JSON save point
  *
@@ -91,12 +74,7 @@ function glacial_cpt_json_save_point( $acf_json_path ): string {
 	return GLACIAL_CPT_PLUGIN_DIR . '/cpt-acf-json';
 }
 
-/*
- * Only save ACF JSON in dev environments
- * */
-if ( glacial_cpt_is_dev_environment() ) {
-	add_filter( 'acf/settings/save_json', 'glacial_cpt_json_save_point' );
-}
+add_filter( 'acf/settings/save_json', 'glacial_cpt_json_save_point' );
 
 /**
  * ACF JSON load point
