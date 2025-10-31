@@ -27,11 +27,16 @@ function glacial_get_doctors_service_page_heading( $number_of_docs, string $pref
 	}
 
 	$cpt_object = get_post_type_object( 'doctors' );
-	$cpt_labels = apply_filters( 'glacial_cpt_doctors_service_pages_cpt_labels', $cpt_object->labels->name );
+	$cpt_labels = $cpt_object->labels;
+
+	$cpt_labels = apply_filters( 'glacial_cpt_doctors_service_pages_cpt_labels', $cpt_labels );
+
+	$cpt_label = $cpt_labels->name;
 
 	if ( $number_of_docs === 1 ) {
-		$cpt_labels = rtrim( $cpt_labels, 's' );
+		$cpt_label = $cpt_labels->singular_name;
 	}
+
 
 	// Get alternate heading if set
 	$alternate_heading = get_field( 'related_doctors_alternate_heading', $post_id );
@@ -51,8 +56,7 @@ function glacial_get_doctors_service_page_heading( $number_of_docs, string $pref
 		$service_page_title = $prefix . ' ' . $service_page_title;
 	}
 
-
-	$default_heading = $service_page_title . ' ' . $cpt_labels;
+	$default_heading = $service_page_title . ' ' . $cpt_label;
 
 	// Use alternate heading if available, otherwise default
 	$heading = $alternate_heading ?: $default_heading;
@@ -64,14 +68,26 @@ function glacial_get_doctors_service_page_heading( $number_of_docs, string $pref
 /**
  * Filter the doctors service pages CPT labels.
  *
- * @param string $labels The CPT labels.
+ * Input is an object containing all labels for the CPT.
  *
- * @return string
+ * @param object $cpt_labels
+ *
+ * @return object
  *
  * @since 2.1.1
  */
-function glacial_cpt_doctors_service_pages_cpt_labels( $labels ) {
-	return $labels;
+function glacial_cpt_doctors_service_pages_cpt_labels( object $cpt_labels ): object {
+
+	/*
+	 * set our custom labels here ex:
+	 *
+	  if (is_page('some-page-slug')) {
+	    $cpt_labels->name          = 'Physicians';
+	    $cpt_labels->singular_name = 'Physician';
+	   }
+	*/
+
+	return $cpt_labels;
 }
 
 add_filter( 'glacial_cpt_doctors_service_pages_cpt_labels', 'glacial_cpt_doctors_service_pages_cpt_labels' );
@@ -83,7 +99,7 @@ add_filter( 'glacial_cpt_doctors_service_pages_cpt_labels', 'glacial_cpt_doctors
  *
  * @return string
  */
-function glacial_cpt_doctors_service_pages_heading( $heading ) {
+function glacial_cpt_doctors_service_pages_heading( string $heading ): string {
 	return $heading;
 }
 
@@ -98,19 +114,12 @@ add_filter( 'glacial_cpt_doctors_service_pages_heading', 'glacial_cpt_doctors_se
  *
  * @since 2.1.1
  */
-function glacial_cpt_doctors_service_pages_title( $title ) {
+function glacial_cpt_doctors_service_pages_title( string $title ): string {
 	// our default title changes
 	$pages_to_change = array(
 		'Cataracts' => 'Cataract',
 	);
 
-	// allow theme and others to modify the title changes
-	// ex:
-	// add_filter( 'glacial_cpt_doctors_service_pages_title_changes', function( $pages ) {
-	//     $pages['Glaucoma'] = 'Glaucomas';
-	//     return $pages;
-	// } );
-	//
 	$pages_to_change = apply_filters( 'glacial_cpt_doctors_service_pages_title_changes', $pages_to_change );
 
 	if ( array_key_exists( $title, $pages_to_change ) ) {

@@ -21,12 +21,18 @@ $args = array(
 	)
 );
 
-$doctors             = new WP_Query( $args );
+$doctors = new WP_Query( $args );
 
 if ( $doctors->have_posts() ):
+	// Get the number of doctors found. Used for singular/plural in heading.
 	$number_of_doctors = $doctors->found_posts;
+	// You can change or remove this prefix as needed, just leave as empty string '' if not needed.
 	$optional_prefix = 'Our';
-	$heading         = glacial_get_doctors_service_page_heading( $number_of_doctors, $optional_prefix ); ?>
+
+	/**
+	 * @see glacial_get_doctors_service_page_heading() in includes/glacial-cpt-acf-helpers-filters.php
+	 * */
+	$heading = glacial_get_doctors_service_page_heading( $number_of_doctors, $optional_prefix ); ?>
 
     <div class="doctors-section">
         <div class="doctors-container">
