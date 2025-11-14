@@ -103,6 +103,26 @@
             "ui_off_text": ""
         },
         {
+            "key": "field_675c4a8e9b2d1",
+            "label": "Use Doctor Type Categories",
+            "name": "use_doctor_type_categories",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Display doctor type categories (MD, OD, etc.) as section headings on the doctors archive page.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 1,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
             "key": "field_64960b97cc2f2",
             "label": "Doctor Archive Page Layout",
             "name": "doctor_archive_page_layout",
@@ -298,5 +318,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1757032046
+    "modified": 1763136383
 }
