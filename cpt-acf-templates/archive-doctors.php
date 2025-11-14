@@ -12,6 +12,7 @@ if ( have_posts() ):
 	$use_doctor_services_filter = get_field( 'use_doctor_services_filter', 'options' ) ?? true;
 	$use_doctor_locations_filter = get_field( 'use_doctor_locations_filter', 'options' ) ?? true;
 	$use_doctor_text_search_filter = get_field( 'use_doctor_text_search_filter', 'options' )?? true;
+	$use_doctor_type_categories = get_field( 'use_doctor_type_categories', 'options' ) ?? false;
 	$doctor_archive_page_layout = get_field( 'doctor_archive_page_layout', 'options' );
 
 	if ( $use_doctor_services_filter || $use_doctor_locations_filter || $use_doctor_text_search_filter ) {
@@ -106,7 +107,7 @@ if ( have_posts() ):
 
 			$doctor_type_field_obj = get_field_object( 'doctor_type' );
 
-			if ( ! empty( $doctor_type_field_obj['choices'] ) ) {
+			if ( $use_doctor_type_categories && ! empty( $doctor_type_field_obj['choices'] ) ) {
 				$doctor_types = $doctor_type_field_obj['choices'];
 			} else {
 				$doctor_types = array( '' );
