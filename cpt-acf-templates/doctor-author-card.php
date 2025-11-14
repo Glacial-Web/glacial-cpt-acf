@@ -15,11 +15,22 @@ if ( $doc_id ):
 	$doc_headshot = get_field( 'headshot', $doc_id );
 	$doc_excerpt = get_field( 'doctor_excerpt', $doc_id );
 
+	// Determine image URL: headshot → featured image → placeholder
+	if ( $doc_headshot ) {
+		$doc_image_url = $doc_headshot['url'];
+	} elseif ( has_post_thumbnail( $doc_id ) ) {
+		$featured_image_id = get_post_thumbnail_id( $doc_id );
+		$featured_image    = wp_get_attachment_image_src( $featured_image_id, 'medium_large' );
+		$doc_image_url     = $featured_image ? $featured_image[0] : GLACIAL_CPT_PLUGIN_URL . 'public/images/doc-placeholder.jpg';
+	} else {
+		$doc_image_url = GLACIAL_CPT_PLUGIN_URL . 'public/images/doc-placeholder.jpg';
+	}
+
 	if ( $doc_excerpt ): ?>
 
         <div class="doctor-author-card">
             <div class="doctor-author-card__image">
-                <img src="<?php echo $doc_headshot['url']; ?>" alt="<?php echo get_the_title( $doc_id ) ?>">
+                <img src="<?php echo $doc_image_url; ?>" alt="<?php echo get_the_title( $doc_id ) ?>">
             </div>
             <div>
                 <div class="doctor-author-card__written-wrap">
