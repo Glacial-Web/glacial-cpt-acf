@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name:     Glacial Custom Post Types with ACF
- * Description:     Contains Custom Post Types for Doctors and Locations with ACF.
- * Author:          Glacial Multimedia
- * Author URI:      https://glacial.com
- * Text Domain:     glacial-cpt-acf
- * Version:         2.1.1
- * Requires PHP:    8.0
+ * Plugin Name: Glacial Custom Post Types with ACF
+ * Description: Contains Custom Post Types for Doctors and Locations with ACF.
+ * Author: Glacial Multimedia
+ * Author URI: https://glacial.com
+ * Text Domain: glacial-cpt-acf
+ * Version: 2.1.1
+ * Requires PHP: 8.0
  *
  * GitHub Plugin URI: https://github.com/Glacial-Web/glacial-cpt-acf
  *
@@ -14,7 +14,7 @@
  **/
 
 if ( !defined( 'ABSPATH' ) ) {
-	die;
+    die;
 }
 
 // --- Constants ---
@@ -33,15 +33,15 @@ define( 'CPT_STYLE_VERSION', get_option( 'blog_public' ) ? GLACIAL_CPT_VERSION :
  * @return bool
  */
 function glacial_theme_is_valid(): bool {
-	$theme      = wp_get_theme();
-	$is_glacial = $theme->get( 'Author' ) === 'Glacial Multimedia';
-	$version_ok = version_compare( $theme->get( 'Version' ), '3.0.0', '>=' );
+    $theme      = wp_get_theme();
+    $is_glacial = $theme->get( 'Author' ) === 'Glacial Multimedia';
+    $version_ok = version_compare( $theme->get( 'Version' ), '3.0.0', '>=' );
 
-	if ( get_template_directory() !== get_stylesheet_directory() ) {
-		$version_ok = version_compare( $theme->parent()->get( 'Version' ), '3.0.0', '>=' );
-	}
+    if ( get_template_directory() !== get_stylesheet_directory() ) {
+        $version_ok = version_compare( $theme->parent()->get( 'Version' ), '3.0.0', '>=' );
+    }
 
-	return $is_glacial && $version_ok;
+    return $is_glacial && $version_ok;
 }
 
 /**
@@ -50,7 +50,7 @@ function glacial_theme_is_valid(): bool {
  * @return bool
  */
 function glacial_acf_is_active(): bool {
-	return function_exists( 'the_field' );
+    return function_exists( 'the_field' );
 }
 
 // --- Activation/Deactivation ---
@@ -58,9 +58,9 @@ function glacial_acf_is_active(): bool {
  * Plugin activation hook.
  */
 function glacial_cpt_plugin_activate(): void {
-	if ( !get_option( 'glacial_flush_rewrite_rules_flag' ) ) {
-		add_option( 'glacial_flush_rewrite_rules_flag', true );
-	}
+    if ( !get_option( 'glacial_flush_rewrite_rules_flag' ) ) {
+        add_option( 'glacial_flush_rewrite_rules_flag', true );
+    }
 }
 
 register_activation_hook( __FILE__, 'glacial_cpt_plugin_activate' );
@@ -75,36 +75,36 @@ register_deactivation_hook( __FILE__, 'glacial_cpt_plugin_deactivate' );
  * Displays admin notices for missing requirements.
  */
 function glacial_cpt_admin_notices(): void {
-	$acf         = glacial_acf_is_active();
-	$theme_valid = glacial_theme_is_valid();
-	$theme       = wp_get_theme();
-	$is_glacial  = $theme->get( 'Author' ) === 'Glacial Multimedia';
+    $acf         = glacial_acf_is_active();
+    $theme_valid = glacial_theme_is_valid();
+    $theme       = wp_get_theme();
+    $is_glacial  = $theme->get( 'Author' ) === 'Glacial Multimedia';
 
-	?>
+    ?>
     <div class="notice notice-error">
         <h2>Glacial CPT Plugin</h2>
-		<?php if ( !$acf ) : ?>
+        <?php if ( !$acf ) : ?>
             <h3>ACF Not Activated</h3>
             <p>Please install and activate Advanced Custom Fields Pro, required by <b>Glacial Custom Post Types with
                     ACF</b>.</p>
-		<?php endif; ?>
-		<?php if ( !$is_glacial ) : ?>
+        <?php endif; ?>
+        <?php if ( !$is_glacial ) : ?>
             <h3>Glacial Theme Not Activated</h3>
             <p>Please install Glacial Theme, required by <b>Glacial Custom Post Types with ACF</b>.</p>
-		<?php endif; ?>
-		<?php if ( !$theme_valid ) : ?>
+        <?php endif; ?>
+        <?php if ( !$theme_valid ) : ?>
             <h3>Incorrect Version of Glacial Theme</h3>
             <p>Please update to Glacial Theme v3.0.0+, required by <b>Glacial Custom Post Types with ACF</b>.</p>
-		<?php endif; ?>
+        <?php endif; ?>
     </div>
-	<?php
+    <?php
 }
 
 // --- Main Loader ---
 if ( glacial_acf_is_active() && glacial_theme_is_valid() ) {
-	require GLACIAL_CPT_PLUGIN_DIR . 'includes/glacial-cpt-acf-main.php';
-	require GLACIAL_CPT_PLUGIN_DIR . 'shortcodes/locations.php';
-	require GLACIAL_CPT_PLUGIN_DIR . 'includes/glacial-cpt-acf-phone-modal.php';
+    require GLACIAL_CPT_PLUGIN_DIR . 'includes/glacial-cpt-acf-main.php';
+    require GLACIAL_CPT_PLUGIN_DIR . 'shortcodes/locations.php';
+    require GLACIAL_CPT_PLUGIN_DIR . 'includes/glacial-cpt-acf-phone-modal.php';
 } else {
-	add_action( 'admin_notices', 'glacial_cpt_admin_notices' );
+    add_action( 'admin_notices', 'glacial_cpt_admin_notices' );
 }
