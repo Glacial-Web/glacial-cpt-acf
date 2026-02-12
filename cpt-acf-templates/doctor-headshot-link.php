@@ -10,6 +10,10 @@ $additional_specialties = get_field( 'additional_specialties' ) ?? '';
 
 if ( $image ) {
 	$image_url = $image['sizes']['medium_large'];
+} elseif ( has_post_thumbnail() ) {
+	$featured_image_id = get_post_thumbnail_id();
+	$featured_image    = wp_get_attachment_image_src( $featured_image_id, 'medium_large' );
+	$image_url         = $featured_image ? $featured_image[0] : GLACIAL_CPT_PLUGIN_URL . 'public/images/doc-placeholder.jpg';
 } else {
 	$image_url = GLACIAL_CPT_PLUGIN_URL . 'public/images/doc-placeholder.jpg';
 } ?>
